@@ -14,8 +14,8 @@ var is_deeply = function (a, e, m) {
 };
 
 describe('Combinatrics.combination', function () {
-    var a = 'abcdef'.split('');
-    it([a,1], is_deeply(Combinatrics.combination(a, 1).toArray(), [
+    var a = 'abcdef'.split(''), c = Combinatrics.combination(a, 1);
+    it([a,1], is_deeply(c.toArray(), [
         ["a"],
         ["b"],
         ["c"],
@@ -23,7 +23,9 @@ describe('Combinatrics.combination', function () {
         ["e"],
         ["f"]
     ]));
-    it([a,2], is_deeply(Combinatrics.combination(a, 2).toArray(), [
+    it(0+c, is_deeply(0+c, c.toArray().length));
+    c = Combinatrics.combination(a, 2);
+    it([a,2], is_deeply(c.toArray(), [
         ["a", "b"],
         ["a", "c"],
         ["a", "d"],
@@ -40,7 +42,9 @@ describe('Combinatrics.combination', function () {
         ["d", "f"],
         ["e", "f"]
     ]));
-    it([a,3], is_deeply(Combinatrics.combination(a, 3).toArray(), [
+    it(0+c, is_deeply(0+c, c.toArray().length));
+    c = Combinatrics.combination(a, 3);
+    it([a,3], is_deeply(c.toArray(), [
         ["a", "b", "c"],
         ["a", "b", "d"],
         ["a", "b", "e"],
@@ -62,7 +66,9 @@ describe('Combinatrics.combination', function () {
         ["c", "e", "f"],
         ["d", "e", "f"]
     ]));
-    it([a,4], is_deeply(Combinatrics.combination(a, 4).toArray(), [
+    it(0+c, is_deeply(0+c, c.toArray().length));
+    c = Combinatrics.combination(a, 4);
+    it([a,4], is_deeply(c.toArray(), [
         ["a", "b", "c", "d"],
         ["a", "b", "c", "e"],
         ["a", "b", "c", "f"],
@@ -79,7 +85,9 @@ describe('Combinatrics.combination', function () {
         ["b", "d", "e", "f"],
         ["c", "d", "e", "f"]
     ]));
-    it([a,5], is_deeply(Combinatrics.combination(a, 5).toArray(), [
+    it(0+c, is_deeply(0+c, c.toArray().length));
+    c = Combinatrics.combination(a, 5);
+    it([a,5], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e"],
         ["a", "b", "c", "d", "f"],
         ["a", "b", "c", "e", "f"],
@@ -87,7 +95,9 @@ describe('Combinatrics.combination', function () {
         ["a", "c", "d", "e", "f"],
         ["b", "c", "d", "e", "f"]
     ]));
-    it([a,6], is_deeply(Combinatrics.combination(a, 6).toArray(), [
+    c = Combinatrics.combination(a, 6);
+    it([a,6], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e", "f"]
     ]));
+    it(0+c, is_deeply(0+c, c.toArray().length));
 });

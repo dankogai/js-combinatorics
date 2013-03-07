@@ -14,12 +14,12 @@ var is_deeply = function (a, e, m) {
     }
 };
 describe('Combinatrics.power', function () {
-    var a = [];
-    it(a, is_deeply(Combinatrics.power(a).toArray(), [
+    var a = [], c = Combinatrics.power(a);
+    it(c, is_deeply(c.toArray(), [
         []
     ]));
-    a = 'abc'.split('');
-    it(a, is_deeply(Combinatrics.power(a).toArray(), [
+    a = 'abc'.split(''), c = Combinatrics.power(a);
+    it(a, is_deeply(c.toArray(), [
         [],
         ["a"],
         ["b"],
@@ -28,5 +28,6 @@ describe('Combinatrics.power', function () {
         ["a", "c"],
         ["b", "c"],
         ["a", "b", "c"]
-    ]))
+    ]));
+    it(0+c, is_deeply(0+c, c.toArray().length));
 });

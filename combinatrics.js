@@ -1,5 +1,5 @@
 /*
- * $Id: combinatrics.js,v 0.2 2013/03/06 03:08:53 dankogai Exp dankogai $
+ * $Id: combinatrics.js,v 0.2 2013/03/07 18:17:00 dankogai Exp dankogai $
  *
  *  Licensed under the MIT license.
  *  http://www.opensource.org/licenses/mit-license.php
@@ -10,10 +10,11 @@
  */
 
 (function (global) {
-    /* power set */
     var power = function(ary, fun) {
         if (ary.length > 32) throw 'too many elements';
-        var that = ary.slice();
+        var that = ary.slice(),
+            size = Math.pow(2, that.length);
+        that.valueOf = function(){ return size; };
         that.index = 0;
         that.nth = function(n) {
             if (n >= 1 << this.length) return;
@@ -52,6 +53,15 @@
         }
         return true;
     };
+    var P = function(m, n) {
+        var t, p = 1;
+        if (m < n) { t = m; m = n; n = t };
+        while (n--) p *= m--;
+        return p;
+    };
+    var C = function(m, n) {
+        return P(m, n) / P(n, n);
+    };
     var noDupe = function(a) {
         for (var i = 0, l = a.length, seen = {}; i < l; i++) {
             if (seen[a[i]]) return false;
@@ -59,14 +69,16 @@
         }
         return true;
     };
-    var make_cp = function(cond) {
+    var make_cp = function(cond, calc) {
         return function(ary, nelem, fun) {
             if (!nelem) nelem = ary.length;
             if (nelem < 1)          throw new RangeError;
             if (nelem > ary.length) throw new RangeError;
             var max  = Math.pow(ary.length, nelem);
             if (max >= Math.pow(2,52)) throw new RangeError;
-            var that = ary.slice();
+            var that = ary.slice(),
+                size = calc(that.length, nelem);
+            that.valueOf = function(){ return size };
             that.index = 0;
             that.next = function() {
                 var idx = this.index, 
@@ -97,8 +109,8 @@
     };
     /* export */
     if (! global.Combinatrics) global.Combinatrics = {
-        combination:make_cp(inOrder),
-        permutation:make_cp(noDupe),
+        combination:make_cp(inOrder, C),
+        permutation:make_cp(noDupe, P),
         power:power
     };
 })(this);

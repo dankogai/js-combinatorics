@@ -14,14 +14,16 @@ var is_deeply = function (a, e, m) {
 };
 
 describe('Combinatrics.permutation', function () {
-    var a = 'abcd'.split('');
-    it([a, 1], is_deeply(Combinatrics.permutation(a, 1).toArray(), [
+   var a = 'abcd'.split(''), c = Combinatrics.permutation(a, 1);
+    it([a, 1], is_deeply(c.toArray(), [
         ["a"],
         ["b"],
         ["c"],
         ["d"]
     ]));
-    it([a, 2], is_deeply(Combinatrics.permutation(a, 2).toArray(), [
+    it(c+0, is_deeply(c+0, c.toArray().length));
+    c = Combinatrics.permutation(a, 2);
+    it([a, 2], is_deeply(c.toArray(), [
         ["a", "b"],
         ["a", "c"],
         ["a", "d"],
@@ -35,7 +37,9 @@ describe('Combinatrics.permutation', function () {
         ["d", "b"],
         ["d", "c"]
     ]));
-    it([a, 3], is_deeply(Combinatrics.permutation(a, 3).toArray(), [
+    it(c+0, is_deeply(c+0, c.toArray().length));
+    c = Combinatrics.permutation(a, 3);
+    it([a, 3], is_deeply(c.toArray(), [
         ["a", "b", "c"],
         ["a", "b", "d"],
         ["a", "c", "b"],
@@ -61,7 +65,9 @@ describe('Combinatrics.permutation', function () {
         ["d", "c", "a"],
         ["d", "c", "b"]
     ]));
-    it([a, 4], is_deeply(Combinatrics.permutation(a, 4).toArray(), [
+    it(c+0, is_deeply(c+0, c.toArray().length));
+    c = Combinatrics.permutation(a, 4);
+    it([a, 4], is_deeply(c.toArray(), [
         ["a", "b", "c", "d"],
         ["a", "b", "d", "c"],
         ["a", "c", "b", "d"],
@@ -87,4 +93,5 @@ describe('Combinatrics.permutation', function () {
         ["d", "c", "a", "b"],
         ["d", "c", "b", "a"]
     ]));
+    it(c+0, is_deeply(c+0, c.toArray().length));
 });
