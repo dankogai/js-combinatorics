@@ -14,8 +14,9 @@ var is_deeply = function (a, e, m) {
 };
 
 describe('Combinatrics.combination', function () {
-    var a = 'abcdef'.split(''), c = Combinatrics.combination(a, 1);
-    it([a,1], is_deeply(c.toArray(), [
+    var a = 'abcdef'.split(''),
+        c = Combinatrics.combination(a, 1);
+    it([a, 1], is_deeply(c.toArray(), [
         ["a"],
         ["b"],
         ["c"],
@@ -23,71 +24,71 @@ describe('Combinatrics.combination', function () {
         ["e"],
         ["f"]
     ]));
-    it(0+c, is_deeply(0+c, c.toArray().length));
+    it(0 + c, is_deeply(0 + c, c.toArray().length));
     c = Combinatrics.combination(a, 2);
-    it([a,2], is_deeply(c.toArray(), [
+    it([a, 2], is_deeply(c.toArray(), [
         ["a", "b"],
         ["a", "c"],
-        ["a", "d"],
-        ["a", "e"],
-        ["a", "f"],
         ["b", "c"],
+        ["a", "d"],
         ["b", "d"],
-        ["b", "e"],
-        ["b", "f"],
         ["c", "d"],
+        ["a", "e"],
+        ["b", "e"],
         ["c", "e"],
-        ["c", "f"],
         ["d", "e"],
+        ["a", "f"],
+        ["b", "f"],
+        ["c", "f"],
         ["d", "f"],
         ["e", "f"]
     ]));
-    it(0+c, is_deeply(0+c, c.toArray().length));
+    it(0 + c, is_deeply(0 + c, c.toArray().length));
     c = Combinatrics.combination(a, 3);
-    it([a,3], is_deeply(c.toArray(), [
+    it([a, 3], is_deeply(c.toArray(), [
         ["a", "b", "c"],
         ["a", "b", "d"],
-        ["a", "b", "e"],
-        ["a", "b", "f"],
         ["a", "c", "d"],
-        ["a", "c", "e"],
-        ["a", "c", "f"],
-        ["a", "d", "e"],
-        ["a", "d", "f"],
-        ["a", "e", "f"],
         ["b", "c", "d"],
+        ["a", "b", "e"],
+        ["a", "c", "e"],
         ["b", "c", "e"],
-        ["b", "c", "f"],
+        ["a", "d", "e"],
         ["b", "d", "e"],
-        ["b", "d", "f"],
-        ["b", "e", "f"],
         ["c", "d", "e"],
+        ["a", "b", "f"],
+        ["a", "c", "f"],
+        ["b", "c", "f"],
+        ["a", "d", "f"],
+        ["b", "d", "f"],
         ["c", "d", "f"],
+        ["a", "e", "f"],
+        ["b", "e", "f"],
         ["c", "e", "f"],
         ["d", "e", "f"]
     ]));
-    it(0+c, is_deeply(0+c, c.toArray().length));
+    it(0 + c, is_deeply(0 + c, c.toArray().length));
     c = Combinatrics.combination(a, 4);
-    it([a,4], is_deeply(c.toArray(), [
+    it([a, 4], is_deeply(c.toArray(), [
         ["a", "b", "c", "d"],
         ["a", "b", "c", "e"],
-        ["a", "b", "c", "f"],
         ["a", "b", "d", "e"],
-        ["a", "b", "d", "f"],
-        ["a", "b", "e", "f"],
         ["a", "c", "d", "e"],
-        ["a", "c", "d", "f"],
-        ["a", "c", "e", "f"],
-        ["a", "d", "e", "f"],
         ["b", "c", "d", "e"],
+        ["a", "b", "c", "f"],
+        ["a", "b", "d", "f"],
+        ["a", "c", "d", "f"],
         ["b", "c", "d", "f"],
+        ["a", "b", "e", "f"],
+        ["a", "c", "e", "f"],
         ["b", "c", "e", "f"],
+        ["a", "d", "e", "f"],
         ["b", "d", "e", "f"],
         ["c", "d", "e", "f"]
     ]));
-    it(0+c, is_deeply(0+c, c.toArray().length));
+    it(0 + c, is_deeply(0 + c, c.toArray().length));
     c = Combinatrics.combination(a, 5);
-    it([a,5], is_deeply(c.toArray(), [
+    it([a, 5], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e"],
         ["a", "b", "c", "d", "f"],
         ["a", "b", "c", "e", "f"],
@@ -96,8 +97,8 @@ describe('Combinatrics.combination', function () {
         ["b", "c", "d", "e", "f"]
     ]));
     c = Combinatrics.combination(a, 6);
-    it([a,6], is_deeply(c.toArray(), [
+    it([a, 6], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e", "f"]
     ]));
-    it(0+c, is_deeply(0+c, c.toArray().length));
+    it(0 + c, is_deeply(0 + c, c.toArray().length));
 });
