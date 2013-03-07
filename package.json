@@ -1,6 +1,6 @@
 {
   "name": "js-combinatrics",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Simple combinatrics like power set, combination, and permutation in JavaScript",
   "main": "combinatrics.js",
   "directories": {

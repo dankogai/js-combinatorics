@@ -28,20 +28,19 @@
         that.next = function () {
             return that.nth(that.index++);
         };
-        that.each = function (f) {
+        that.forEach = function (f) {
             var i = 0,
                 l = 1 << this.length;
             for (; i < l; i++) f(this.nth(i));
         };
-        that.toArray = function () {
+        that.toArray = that.map = function (f) {
             var i = 0,
                 l = 1 << this.length,
                 result = [];
-            for (; i < l; i++) result[i] = this.nth(i);
+            for (; i < l; i++) result[i] = f ? f(this.nth(i)) : this.nth(i);
             return result;
         };
-        if (typeof (fun) === 'function') that.each(fun);
-        return that;
+        return (typeof (fun) === 'function') ? that.map(fun) : that;
     };
     /* utility functions for combination and permutation */
     var P = function (m, n) {
@@ -86,20 +85,19 @@
             that.index = nextIndex(that.index);
             return result;
         };
-        that.toArray = function () {
+        that.toArray = that.map = function (f) {
             var e, result = [];
             that.index = first;
-            while (e = that.next()) result.push(e);
+            while (e = that.next()) result.push(f ? f(e) : e);
             that.index = first;
             return result;
         };
-        that.each = function (f) {
+        that.forEach = function (f) {
             that.index = first;
             while (e = that.next()) f(e);
             that.index = first;
         }
-        if (typeof (fun) === 'function') that.each(fun);
-        return that;
+        return (typeof (fun) === 'function') ? that.map(fun) : that;
     };
     /* permutation */
     var baseN = function (b, d, n) {
@@ -152,20 +150,19 @@
                     });
                 }
             }
-            that.toArray = function () {
+            that.toArray = that.map = function (f) {
                 var e, result = [];
                 that.index = 0;
-                while (e = that.next()) result.push(e);
+                while (e = that.next()) result.push(f ? f(e) : e);
                 that.index = 0;
                 return result;
             };
-            that.each = function (f) {
+            that.forEach = function (f) {
                 that.index = 0;
                 while (e = that.next()) f(e);
                 that.index = 0;
             }
-            if (typeof (fun) === 'function') that.each(fun);
-            return that;
+            return (typeof (fun) === 'function') ? that.map(fun) : that;
         };
     };
     /* export */

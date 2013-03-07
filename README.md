@@ -82,13 +82,17 @@ All generators have following methods:
 
 Returns the element or `undefined` if no more element is available.
 
-#### .each(function(a){ ... });
+#### .forEach(function(a){ ... });
 
 Applies the callback function for each element.
 
 #### .toArray()
 
 All elements at once.
+
+#### .map(function(a){ ... })
+
+All elements at once with function f applied to each element.
 
 #### 0 + _generator_
 
