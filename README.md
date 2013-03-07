@@ -90,3 +90,9 @@ Applies the callback function for each element.
 
 All elements at once.
 
+#### 0 + _generator_
+
+Returns numeric context which is the number of elements.
+Which equals to _generator_`.toArray().length` but it is precalculated without actually generating elements.
+Handy when you prepare for large iteraiton.
+
