@@ -1,0 +1,25 @@
+{
+  "name": "js-combinatrics",
+  "version": "0.0.1",
+  "description": "Simple combinatrics like power set, combination, and permutation in JavaScript",
+  "main": "combinatrics.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dankogai/js-combinatrics.git"
+  },
+  "keywords": [
+    "Combinatrics",
+    "combination",
+    "permutation"
+  ],
+  "author": "Dan Kogai",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "e3684eb54f7c6fbb24bb7a4d08d88671ce12e9eb"
+}
