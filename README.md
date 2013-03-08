@@ -64,8 +64,8 @@ console.log(cmb.toArray());
   calculates m C n
 + .`factorial(n)`
   calculates `n!`
-+ .`factorandic(n)`
-  returns the factorandic representation of n in array, *LSB ORDER*.  See
++ .`factoradic(n)`
+  returns the factoradic representation of n in array, *LSB ORDER*.  See
   http://en.wikipedia.org/wiki/Factorial_number_system
 
 
