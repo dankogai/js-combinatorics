@@ -1,5 +1,5 @@
 /*
- * $Id: combinatrics.js,v 0.3 2013/03/07 19:49:04 dankogai Exp dankogai $
+ * $Id: combinatrics.js,v 0.10 2013/03/08 01:11:10 dankogai Exp dankogai $
  *
  *  Licensed under the MIT license.
  *  http://www.opensource.org/licenses/mit-license.php
@@ -7,19 +7,52 @@
  *  References:
  *    http://www.ruby-doc.org/core-2.0/Array.html#method-i-combination
  *    http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
- */
+ */ 
 (function (global) {
+    /* combinatory arithmetics */
+    var P = function (m, n) {
+        var t, p = 1;
+        if (m < n) {
+            t = m;
+            m = n;
+            n = t
+        };
+        while (n--) p *= m--;
+        return p;
+    };
+    var C = function (m, n) {
+        return P(m, n) / P(n, n);
+    };
+    var factorial = function (n) {
+        return P(n, n);
+    };
+    // http://en.wikipedia.org/wiki/Factorial_number_system
+    var factoradic = function (n, d) {
+        var f = 1;
+        if (!d) {
+            for (d = 1; f < n; f *= ++d);
+            if (f > n) f /= d--;
+        } else {
+            f = factorial(d);
+        }
+        var result = [0];
+        for (; d; f /= d--) {
+            result[d] = Math.floor(n / f);
+            n %= f;
+        };
+        return result;
+    };
     /* power set */
     var power = function (ary, fun) {
-        if (ary.length > 32) throw 'too many elements';
+        if (ary.length > 32) throw new RangeError;
         var that = ary.slice(),
-            size = Math.pow(2, that.length);
+            size = 1 << that.length;
         that.valueOf = function () {
             return size;
         };
         that.index = 0;
         that.nth = function (n) {
-            if (n >= 1 << this.length) return;
+            if (n >= size) return;
             var i = 0,
                 result = [];
             for (; n; n >>>= 1, i++) if (n & 1) result.push(this[i]);
@@ -42,20 +75,6 @@
         };
         return (typeof (fun) === 'function') ? that.map(fun) : that;
     };
-    /* utility functions for combination and permutation */
-    var P = function (m, n) {
-        var t, p = 1;
-        if (m < n) {
-            t = m;
-            m = n;
-            n = t
-        };
-        while (n--) p *= m--;
-        return p;
-    };
-    var C = function (m, n) {
-        return P(m, n) / P(n, n);
-    };
     /* combination */
     var nextIndex = function (n) {
         var smallest = n & -n,
@@ -65,7 +84,7 @@
         return ripple | ones;
     };
     var combination = function (ary, nelem, fun) {
-        if (ary.length > 32) throw 'too many elements';
+        if (ary.length > 32) throw new RangeError;
         if (!nelem) nelem = ary.length;
         if (nelem < 1) throw new RangeError;
         if (nelem > ary.length) throw new RangeError;
@@ -100,75 +119,72 @@
         return (typeof (fun) === 'function') ? that.map(fun) : that;
     };
     /* permutation */
-    var baseN = function (b, d, n) {
-        var result = [];
-        for (var i = d - 1; i >= 0; --i) {
-            var x = n % b;
-            result[i] = x;
-            n -= x;
-            n /= b;
-        }
-        return result;
-    };
-    var inOrder = function (a) {
-        for (var min = a[0], i = 1, l = a.length; i < l; i++) {
-            if (min >= a[i]) return false;
-            min = a[i];
-        }
-        return true;
-    };
-    var noDupe = function (a) {
-        for (var i = 0, l = a.length, seen = {}; i < l; i++) {
-            if (seen[a[i]]) return false;
-            seen[a[i]] = true;
-        }
-        return true;
-    };
-    var make_cp = function (cond, calc) {
-        return function (ary, nelem, fun) {
-            if (!nelem) nelem = ary.length;
-            if (nelem < 1) throw new RangeError;
-            if (nelem > ary.length) throw new RangeError;
-            var max = Math.pow(ary.length, nelem);
-            if (max >= Math.pow(2, 52)) throw new RangeError;
-            var that = ary.slice(),
-                size = calc(that.length, nelem);
-            that.valueOf = function () {
-                return size
-            };
-            that.index = 0;
-            that.next = function () {
-                var idx = this.index,
-                    len = this.length,
-                    digits, result;
-                for (; idx < max; idx++) {
-                    digits = baseN(len, nelem, idx);
-                    if (!cond(digits)) continue;
-                    this.index = idx + 1;
-                    return digits.map(function (d) {
-                        return that[d]
-                    });
-                }
-            }
-            that.toArray = that.map = function (f) {
-                var e, result = [];
-                that.index = 0;
-                while (e = that.next()) result.push(f ? f(e) : e);
-                that.index = 0;
-                return result;
-            };
-            that.forEach = function (f) {
-                that.index = 0;
-                while (e = that.next()) f(e);
-                that.index = 0;
-            }
-            return (typeof (fun) === 'function') ? that.map(fun) : that;
+    var _permutation = function (ary) {
+        var that = ary.slice(),
+            size = factorial(that.length);
+        that.valueOf = function () {
+            return size;
         };
+        that.index = 0;
+        that.next = function () {
+            if (that.index >= size) return;
+            var copy = this.slice(),
+                digits = factoradic(this.index, this.length),
+                result = [],
+                i = this.length - 1;
+            for (; i >= 0; --i) result.push(copy.splice(digits[i], 1)[0]);
+            that.index++;
+            return result;
+        };
+        return that;
+    };
+    // which is really a permutation of combination
+    var permutation = function (ary, nelem, fun) {
+        if (!nelem) nelem = ary.length;
+        if (nelem < 1) throw new RangeError;
+        if (nelem > ary.length) throw new RangeError;
+        var that = ary.slice(),
+            size = P(that.length, nelem);
+        that.valueOf = function () {
+            return size;
+        };
+        that.init = function () {
+            this.cmb = combination(ary, nelem);
+            this.per = _permutation(that.cmb.next());
+        };
+        that.init();
+        that.next = function () {
+            var result = this.per.next();
+            if (!result) {
+                var cmb = this.cmb.next();
+                if (!cmb) return;
+                this.per = _permutation(cmb);
+                return that.next();
+            }
+            return result;
+        }
+        that.toArray = that.map = function (f) {
+            var e, result = [];
+            this.init();
+            while (e = that.next()) result.push(f ? f(e) : e);
+            this.init();
+            return result;
+        };
+        that.forEach = function (f) {
+            this.init();
+            while (e = that.next()) f(e);
+            this.init();
+        }
+        return (typeof (fun) === 'function') ? that.map(fun) : that;
     };
     /* export */
     if (!global.Combinatrics) global.Combinatrics = {
-        combination: combination, // make_cp(inOrder, C),
-        permutation: make_cp(noDupe, P),
+        C: C,
+        P: P,
+        factorial: factorial,
+        factoradic: factoradic,
+        combination: combination,
+        permutation: permutation,
         power: power
     };
 })(this);

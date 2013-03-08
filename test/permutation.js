@@ -14,58 +14,59 @@ var is_deeply = function (a, e, m) {
 };
 
 describe('Combinatrics.permutation', function () {
-   var a = 'abcd'.split(''), c = Combinatrics.permutation(a, 1);
+    var a = 'abcd'.split(''),
+        c = Combinatrics.permutation(a, 1);
     it([a, 1], is_deeply(c.toArray(), [
         ["a"],
         ["b"],
         ["c"],
         ["d"]
     ]));
-    it(c+0, is_deeply(c+0, c.toArray().length));
+    it(c + 0, is_deeply(c + 0, c.toArray().length));
     c = Combinatrics.permutation(a, 2);
     it([a, 2], is_deeply(c.toArray(), [
         ["a", "b"],
-        ["a", "c"],
-        ["a", "d"],
         ["b", "a"],
-        ["b", "c"],
-        ["b", "d"],
+        ["a", "c"],
         ["c", "a"],
+        ["b", "c"],
         ["c", "b"],
-        ["c", "d"],
+        ["a", "d"],
         ["d", "a"],
+        ["b", "d"],
         ["d", "b"],
+        ["c", "d"],
         ["d", "c"]
     ]));
-    it(c+0, is_deeply(c+0, c.toArray().length));
+    it(c + 0, is_deeply(c + 0, c.toArray().length));
     c = Combinatrics.permutation(a, 3);
     it([a, 3], is_deeply(c.toArray(), [
         ["a", "b", "c"],
-        ["a", "b", "d"],
         ["a", "c", "b"],
-        ["a", "c", "d"],
-        ["a", "d", "b"],
-        ["a", "d", "c"],
         ["b", "a", "c"],
-        ["b", "a", "d"],
         ["b", "c", "a"],
-        ["b", "c", "d"],
-        ["b", "d", "a"],
-        ["b", "d", "c"],
         ["c", "a", "b"],
-        ["c", "a", "d"],
         ["c", "b", "a"],
-        ["c", "b", "d"],
-        ["c", "d", "a"],
-        ["c", "d", "b"],
+        ["a", "b", "d"],
+        ["a", "d", "b"],
+        ["b", "a", "d"],
+        ["b", "d", "a"],
         ["d", "a", "b"],
-        ["d", "a", "c"],
         ["d", "b", "a"],
-        ["d", "b", "c"],
+        ["a", "c", "d"],
+        ["a", "d", "c"],
+        ["c", "a", "d"],
+        ["c", "d", "a"],
+        ["d", "a", "c"],
         ["d", "c", "a"],
+        ["b", "c", "d"],
+        ["b", "d", "c"],
+        ["c", "b", "d"],
+        ["c", "d", "b"],
+        ["d", "b", "c"],
         ["d", "c", "b"]
     ]));
-    it(c+0, is_deeply(c+0, c.toArray().length));
+    it(c + 0, is_deeply(c + 0, c.toArray().length));
     c = Combinatrics.permutation(a, 4);
     it([a, 4], is_deeply(c.toArray(), [
         ["a", "b", "c", "d"],
@@ -93,5 +94,5 @@ describe('Combinatrics.permutation', function () {
         ["d", "c", "a", "b"],
         ["d", "c", "b", "a"]
     ]));
-    it(c+0, is_deeply(c+0, c.toArray().length));
+    it(c + 0, is_deeply(c + 0, c.toArray().length));
 });
