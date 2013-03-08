@@ -55,6 +55,20 @@ console.log(cmb.toArray());
   ["d","b","a","c"],["d","b","c","a"],["d","c","a","b"],["d","c","b","a"]
 ]
 ````
+
+#### Arithmetic Functions
+
++ .`P(m, n)`
+  calculates m P n
++ .`C(m, n)`
+  calculates m C n
++ .`factorial(n)`
+  calculates `n!`
++ .`factorandic(n)`
+  returns the factorandic representation of n in array, *LSB ORDER*.  See
+  http://en.wikipedia.org/wiki/Factorial_number_system
+
+
 DESCRIPTION
 -----------
 
