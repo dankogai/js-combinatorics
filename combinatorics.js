@@ -147,8 +147,8 @@
             next: function() {
                 if (this.index >= maxIndex) return;
                 var i = 0,
-                    n = this.index;
-                result = [];
+                    n = this.index,
+                    result = [];
                 for (; n; n >>>= 1, i++) if (n & 1) result.push(this[i]);
                 this.index = nextIndex(this.index);
                 return result;
