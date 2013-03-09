@@ -25,6 +25,7 @@ describe('Combinatorics.combination', function () {
         ["f"]
     ]));
     it(0 + c, is_deeply(0 + c, c.toArray().length));
+    it(c.length, is_deeply(c.length, c.toArray().length));
     c = Combinatorics.combination(a, 2);
     it([a, 2], is_deeply(c.toArray(), [
         ["a", "b"],
@@ -44,6 +45,7 @@ describe('Combinatorics.combination', function () {
         ["e", "f"]
     ]));
     it(0 + c, is_deeply(0 + c, c.toArray().length));
+    it(c.length, is_deeply(c.length, c.toArray().length));
     c = Combinatorics.combination(a, 3);
     it([a, 3], is_deeply(c.toArray(), [
         ["a", "b", "c"],
@@ -68,6 +70,7 @@ describe('Combinatorics.combination', function () {
         ["d", "e", "f"]
     ]));
     it(0 + c, is_deeply(0 + c, c.toArray().length));
+    it(c.length, is_deeply(c.length, c.toArray().length));
     c = Combinatorics.combination(a, 4);
     it([a, 4], is_deeply(c.toArray(), [
         ["a", "b", "c", "d"],
@@ -87,6 +90,7 @@ describe('Combinatorics.combination', function () {
         ["c", "d", "e", "f"]
     ]));
     it(0 + c, is_deeply(0 + c, c.toArray().length));
+    it(c.length, is_deeply(c.length, c.toArray().length));
     c = Combinatorics.combination(a, 5);
     it([a, 5], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e"],
@@ -104,4 +108,5 @@ describe('Combinatorics.combination', function () {
         ["a", "b", "c", "d", "e", "f"]
     ]));
     it(0 + c, is_deeply(0 + c, c.toArray().length));
+    it(c.length, is_deeply(c.length, c.toArray().length));
 });

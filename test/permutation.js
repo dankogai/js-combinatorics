@@ -23,6 +23,7 @@ describe('Combinatorics.permutation', function () {
         ["d"]
     ]));
     it(c + 0, is_deeply(c + 0, c.toArray().length));
+    it(c.length, is_deeply(c.length, c.toArray().length));
     c = Combinatorics.permutation(a, 2);
     it([a, 2], is_deeply(c.toArray(), [
         ["a", "b"],
@@ -44,6 +45,7 @@ describe('Combinatorics.permutation', function () {
         ["a", "d"]
     ]));
     it(c + 0, is_deeply(c + 0, c.toArray().length));
+    it(c.length, is_deeply(c.length, c.toArray().length));
     c = Combinatorics.permutation(a, 3);
     it([a, 3], is_deeply(c.toArray(), [
         ["a", "b", "c"],
@@ -72,6 +74,7 @@ describe('Combinatorics.permutation', function () {
         ["d", "c", "b"]
     ]));
     it(c + 0, is_deeply(c + 0, c.toArray().length));
+    it(c.length, is_deeply(c.length, c.toArray().length));
     c = Combinatorics.permutation(a, 4);
     it([a, 4], is_deeply(c.toArray(), [
         ["a", "b", "c", "d"],
@@ -100,4 +103,5 @@ describe('Combinatorics.permutation', function () {
         ["d", "c", "b", "a"]
     ]));
     it(c + 0, is_deeply(c + 0, c.toArray().length));
+    it(c.length, is_deeply(c.length, c.toArray().length));
 });

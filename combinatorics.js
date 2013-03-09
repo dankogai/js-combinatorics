@@ -7,6 +7,7 @@
  *  References:
  *    http://www.ruby-doc.org/core-2.0/Array.html#method-i-combination
  *    http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
+ *    http://en.wikipedia.org/wiki/Factorial_number_system
  */
 (function(global) {
     if (global.Combinatorics) return;
@@ -27,7 +28,6 @@
     var factorial = function(n) {
         return P(n, n);
     };
-    // http://en.wikipedia.org/wiki/Factorial_number_system
     var factoradic = function(n, d) {
         var f = 1;
         if (!d) {
@@ -46,8 +46,11 @@
     /* common methods */
     var addProperties = function(dst, src) {
         Object.keys(src).forEach(function(p) {
-            dst[p] = src[p];
+            Object.defineProperty(dst, p, {value:src[p]});
         });
+    };
+    var hideProperty = function(o, p) {
+        Object.defineProperty(o, p, {writable:true});
     };
     var toArray = function(f) {
         var e, result = [];
@@ -77,12 +80,14 @@
     /* power set */
     var power = function(ary, fun) {
         if (ary.length > 32) throw new RangeError;
-        var that = ary.slice(),
-            size = 1 << that.length;
+        var size = 1 << ary.length,
+            sizeOf = function(){ return size },
+            that = Object.create(ary.slice(), {
+                length: { get: sizeOf }
+            });
+        hideProperty(that, 'index');
         addProperties(that, {
-            valueOf: function() {
-                return size;
-            },
+            valueOf: sizeOf,
             init: function() {
                 that.index = 0;
             },
@@ -114,23 +119,26 @@
         if (!nelem) nelem = ary.length;
         if (nelem < 1) throw new RangeError;
         if (nelem > ary.length) throw new RangeError;
-        var that = ary.slice(),
-            size = C(that.length, nelem),
-            first = (1 << nelem) - 1;
+        var first = (1 << nelem) - 1,
+            size = C(ary.length, nelem),
+            maxIndex  = 1 << ary.length,
+            sizeOf = function(){ return size },
+            that = Object.create(ary.slice(), {
+                   length: { get: sizeOf }
+            });
+        hideProperty(that, 'index');
         addProperties(that, {
-            valueOf: function() {
-                return size;
-            },
+            valueOf: sizeOf,
             init: function() {
                 this.index = first;
             },
             next: function() {
-                if (that.index >= 1 << this.length) return;
+                if (this.index >= maxIndex) return;
                 var i = 0,
-                    n = that.index;
+                    n = this.index;
                 result = [];
                 for (; n; n >>>= 1, i++) if (n & 1) result.push(this[i]);
-                that.index = nextIndex(that.index);
+                this.index = nextIndex(this.index);
                 return result;
             }
         });
@@ -142,18 +150,15 @@
     var _permutation = function(ary) {
         var that = ary.slice(),
             size = factorial(that.length);
-        that.valueOf = function() {
-            return size;
-        };
         that.index = 0;
         that.next = function() {
-            if (that.index >= size) return;
+            if (this.index >= size) return;
             var copy = this.slice(),
                 digits = factoradic(this.index, this.length),
                 result = [],
                 i = this.length - 1;
             for (; i >= 0; --i) result.push(copy.splice(digits[i], 1)[0]);
-            that.index++;
+            this.index++;
             return result;
         };
         return that;
@@ -163,8 +168,13 @@
         if (!nelem) nelem = ary.length;
         if (nelem < 1) throw new RangeError;
         if (nelem > ary.length) throw new RangeError;
-        var that = ary.slice(),
-            size = P(that.length, nelem);
+        var size = P(ary.length, nelem),
+            sizeOf = function(){ return size },
+            that = Object.create(ary.slice(), {
+                   length: { get: sizeOf }
+            });
+        hideProperty(that, 'cmb');
+        hideProperty(that, 'per');
         addProperties(that, {
             valueOf: function() {
                 return size;
@@ -172,7 +182,6 @@
             init: function() {
                 this.cmb = combination(ary, nelem);
                 this.per = _permutation(this.cmb.next());
-
             },
             next: function() {
                 var result = this.per.next();
@@ -193,24 +202,25 @@
     var arraySlice = Array.prototype.slice;
     var cartesianProduct = function() {
         if (!arguments.length) throw new RangeError;
-        var that = arraySlice.call(arguments),
-            size = 1;
-        that.forEach(function(e) {
-            size *= e.length;
-        });
+        var args = arraySlice.call(arguments),
+            size = args.reduce(function(p, a){ return p * a.length }, 1),
+            sizeOf = function(){ return size },
+            dim  = args.length,
+            that = Object.create(args, {
+                   length: { get: sizeOf }
+            });
         if (!size) throw new RangeError;
+        hideProperty(that, 'index');
         addProperties(that, {
-            valueOf: function() {
-                return size;
-            },
+            valueOf: sizeOf,
+            dim: dim,
             init: function() {
-                that.index = 0;
+                this.index = 0;
             },
             get: function() {
                 if (arguments.length !== this.length) return;
                 var result = [],
-                    d = 0,
-                    dim = this.length;
+                    d = 0;
                 for (; d < dim; d++) {
                     var i = arguments[d];
                     if (i >= this[d].length) return;
@@ -220,8 +230,7 @@
             },
             nth: function(n) {
                 var result = [],
-                    d = 0,
-                    dim = this.length;
+                    d = 0;
                 for (; d < dim; d++) {
                     var l = this[d].length;
                     var i = n % l;
@@ -232,7 +241,7 @@
                 return result;
             },
             next: function() {
-                if (this.index >= 0 + this) return;
+                if (this.index >= size) return;
                 var result = this.nth(this.index);
                 this.index++;
                 return result;

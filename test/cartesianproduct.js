@@ -45,6 +45,7 @@ describe('Combinatorics.cartesianProduct', function () {
         [2, 20, 200]
     ]));
     it(0 + c, is_deeply(0 + c, c.toArray().length));
+    it(c.length, is_deeply(c.length, c.toArray().length));
     it(c, is_deeply(c.filter(function (a) {
         return a[0] === 0
     }), [
