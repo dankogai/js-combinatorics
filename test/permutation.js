@@ -38,6 +38,11 @@ describe('Combinatorics.permutation', function () {
         ["c", "d"],
         ["d", "c"]
     ]));
+    it([a, 2], is_deeply(c.filter(function(a){ return a[0] === 'a'}), [
+        ["a", "b"],
+        ["a", "c"],
+        ["a", "d"]
+    ]));
     it(c + 0, is_deeply(c + 0, c.toArray().length));
     c = Combinatorics.permutation(a, 3);
     it([a, 3], is_deeply(c.toArray(), [

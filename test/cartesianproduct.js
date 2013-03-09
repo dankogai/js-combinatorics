@@ -14,8 +14,7 @@ var is_deeply = function (a, e, m) {
 };
 describe('Combinatorics.cartesianProduct', function () {
     var c = Combinatorics.cartesianProduct(
-        [0, 1, 2], [0, 10, 20], [0, 100, 200]
-    );
+    [0, 1, 2], [0, 10, 20], [0, 100, 200]);
     it(c, is_deeply(c.toArray(), [
         [0, 0, 0],
         [1, 0, 0],
@@ -46,4 +45,17 @@ describe('Combinatorics.cartesianProduct', function () {
         [2, 20, 200]
     ]));
     it(0 + c, is_deeply(0 + c, c.toArray().length));
+    it(c, is_deeply(c.filter(function (a) {
+        return a[0] === 0
+    }), [
+        [0, 0, 0],
+        [0, 10, 0],
+        [0, 20, 0],
+        [0, 0, 100],
+        [0, 10, 100],
+        [0, 20, 100],
+        [0, 0, 200],
+        [0, 10, 200],
+        [0, 20, 200]
+    ]));
 });

@@ -30,4 +30,7 @@ describe('Combinatorics.power', function () {
         ["a", "b", "c"]
     ]));
     it(0+c, is_deeply(0+c, c.toArray().length));
+    it(a, is_deeply(c.filter(function(a){return a.length === 2}),
+                    Combinatorics.combination(a,2).toArray()
+           ));
 });

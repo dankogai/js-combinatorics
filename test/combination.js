@@ -96,6 +96,9 @@ describe('Combinatorics.combination', function () {
         ["a", "c", "d", "e", "f"],
         ["b", "c", "d", "e", "f"]
     ]));
+    it([a, 5], is_deeply(c.filter(function(a){ return a[0] !== 'a'}), [
+        ["b", "c", "d", "e", "f"]
+    ]));
     c = Combinatorics.combination(a, 6);
     it([a, 6], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e", "f"]
