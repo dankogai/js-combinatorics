@@ -56,6 +56,24 @@ console.log(cmb.toArray());
 ]
 ````
 
+#### cartesian product
+````
+cp = Combinatrics.cartesianProduct([0, 1, 2], [0, 10, 20], [0, 100, 200]);
+console.log(cp.toArray());
+//  [
+  [0, 0, 0],   [1, 0, 0],   [2, 0, 0],
+  [0, 10, 0],  [1, 10, 0],  [2, 10, 0],
+  [0, 20, 0],  [1, 20, 0],  [2, 20, 0],
+  [0, 0, 100], [1, 0, 100], [2, 0, 100],
+  [0, 10, 100],[1, 10, 100],[2, 10, 100],
+  [0, 20, 100],[1, 20, 100],[2, 20, 100],
+  [0, 0, 200], [1, 0, 200], [2, 0, 200],
+  [0, 10, 200],[1, 10, 200],[2, 10, 200],
+  [0, 20, 200],[1, 20, 200],[2, 20, 200]
+]
+````
+
+
 #### Arithmetic Functions
 
 + .`P(m, n)`
@@ -88,6 +106,10 @@ When _nelem_ is ommited, _ary_.length is used.
 Creates a generator which generates the permutation of _ary_ with _nelem_ elements.
 When _nelem_ is ommited, _ary_.length is used.
 
+#### Combinatrics.cartesianProduct( _ary0_, ...)
+
+Creates a generator which generates the cartesian product of the arrays.  All arguments must be arrays with more than one element.
+
 ### Generator Methods
 
 All generators have following methods:
@@ -107,6 +129,15 @@ All elements at once.
 #### .map(function(a){ ... })
 
 All elements at once with function f applied to each element.
+
+#### .nth(n)
+
+Available for  `power` and `cartesianProduct` generator which returns the *n*th element.
+
+#### .get(x0, ...)
+
+Available for `cartesianProduct` generator.  Arguments are coordinates in integer.
+Arguments can be out of bounds but it returns `undefined` in such cases.
 
 #### 0 + _generator_
 
