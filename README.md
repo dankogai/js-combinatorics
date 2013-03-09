@@ -137,7 +137,7 @@ For example, you can redefine combination as follows:
 
 ````
 myCombination = function(ary, n) {
-  return Combinatorics.power([ary]).filter(function (a) {
+  return Combinatorics.power(ary).filter(function (a) {
     return a.length === n;
   });
 };
