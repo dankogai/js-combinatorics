@@ -1,8 +1,8 @@
 {
-  "name": "js-combinatrics",
+  "name": "js-combinatorics",
   "version": "0.2.0",
-  "description": "Simple combinatrics like power set, combination, and permutation in JavaScript",
-  "main": "combinatrics.js",
+  "description": "Simple combinatorics like power set, combination, and permutation in JavaScript",
+  "main": "combinatorics.js",
   "directories": {
     "test": "test"
   },
@@ -17,10 +17,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/dankogai/js-combinatrics.git"
+    "url": "git://github.com/dankogai/js-combinatorics.git"
   },
   "keywords": [
-    "Combinatrics",
+    "Combinatorics",
     "combination",
     "permutation"
   ],
