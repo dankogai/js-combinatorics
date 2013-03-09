@@ -7,8 +7,9 @@
  *  References:
  *    http://www.ruby-doc.org/core-2.0/Array.html#method-i-combination
  *    http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
- */ 
+ */
 (function (global) {
+    if (global.Combinatrics) return;
     /* combinatory arithmetics */
     var P = function (m, n) {
         var t, p = 1;
@@ -59,14 +60,16 @@
             return result;
         };
         that.next = function () {
-            return that.nth(that.index++);
+            return this.nth(this.index++);
         };
         that.forEach = function (f) {
+            this.index = 0;
             var i = 0,
                 l = 1 << this.length;
             for (; i < l; i++) f(this.nth(i));
         };
         that.toArray = that.map = function (f) {
+            this.index = 0;
             var i = 0,
                 l = 1 << this.length,
                 result = [];
@@ -107,13 +110,14 @@
         that.toArray = that.map = function (f) {
             var e, result = [];
             that.index = first;
-            while (e = that.next()) result.push(f ? f(e) : e);
+            while (e = this.next()) result.push(f ? f(e) : e);
             that.index = first;
             return result;
         };
         that.forEach = function (f) {
+            var e;
             that.index = first;
-            while (e = that.next()) f(e);
+            while (e = this.next()) f(e);
             that.index = first;
         }
         return (typeof (fun) === 'function') ? that.map(fun) : that;
@@ -159,30 +163,93 @@
                 var cmb = this.cmb.next();
                 if (!cmb) return;
                 this.per = _permutation(cmb);
-                return that.next();
+                return this.next();
             }
             return result;
         }
         that.toArray = that.map = function (f) {
             var e, result = [];
             this.init();
-            while (e = that.next()) result.push(f ? f(e) : e);
+            while (e = this.next()) result.push(f ? f(e) : e);
             this.init();
             return result;
         };
         that.forEach = function (f) {
+            var e;
             this.init();
-            while (e = that.next()) f(e);
+            while (e = this.next()) f(e);
             this.init();
         }
         return (typeof (fun) === 'function') ? that.map(fun) : that;
     };
+    /* Cartesian Product */
+    var arraySlice = Array.prototype.slice;
+    var cartesianProduct = function () {
+        if (!arguments.length) throw new RangeError;
+        var that = arraySlice.call(arguments),
+            size = 1;
+        that.forEach(function (e) {
+            size *= e.length
+        });
+        if (!size) throw new RangeError;
+        that.valueOf = function () {
+            return size;
+        };
+        that.index = 0;
+        that.get = function () {
+            if (arguments.length !== this.length) return;
+            var result = [],
+                d = 0,
+                dim = this.length;
+            for (; d < dim; d++) {
+                var i = arguments[d];
+                if (i >= this[d].length) return;
+                result.push(this[d][i]);
+            }
+            return result;
+        };
+        that.nth = function (n) {
+            var result = [],
+                d = 0,
+                dim = this.length;
+            for (; d < dim; d++) {
+                var l = this[d].length;
+                var i = n % l;
+                result.push(this[d][i]);
+                n -= i;
+                n /= l;
+            }
+            return result;
+        };
+        that.next = function () {
+            if (this.index >= 0 + this) return;
+            var result = this.nth(this.index);
+            this.index++;
+            return result;
+        }
+        that.toArray = that.map = function (f) {
+            this.index = 0;
+            var i = 0,
+                l = 0 + this,
+                result = [];
+            for (; i < l; i++) result[i] = f ? f(this.nth(i)) : this.nth(i);
+            return result;
+        };
+        that.forEach = function (f) {
+            this.index = 0;
+            var i = 0,
+                l = 0 + this;
+            for (; i < l; i++) f(this.nth(i));
+        }
+        return that;
+    };
     /* export */
-    if (!global.Combinatrics) global.Combinatrics = {
+    global.Combinatrics = {
         C: C,
         P: P,
         factorial: factorial,
         factoradic: factoradic,
+        cartesianProduct: cartesianProduct,
         combination: combination,
         permutation: permutation,
         power: power
