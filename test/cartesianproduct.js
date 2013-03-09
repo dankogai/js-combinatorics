@@ -2,18 +2,20 @@
  * use mocha to test me
  * http://visionmedia.github.com/mocha/
  */
-var assert, Combinatrics;
+var assert, Combinatorics;
 if (this['window'] !== this) {
     assert = require("assert");
-    Combinatrics = require('../combinatrics.js').Combinatrics;
+    Combinatorics = require('../combinatorics.js').Combinatorics;
 }
 var is_deeply = function (a, e, m) {
     return function () {
         assert.equal(JSON.stringify(a), JSON.stringify(e), m)
     }
 };
-describe('Combinatrics.cartesianProduct', function () {
-    var c = Combinatrics.cartesianProduct([0, 1, 2], [0, 10, 20], [0, 100, 200]);
+describe('Combinatorics.cartesianProduct', function () {
+    var c = Combinatorics.cartesianProduct(
+        [0, 1, 2], [0, 10, 20], [0, 100, 200]
+    );
     it(c, is_deeply(c.toArray(), [
         [0, 0, 0],
         [1, 0, 0],

@@ -2,10 +2,10 @@
  * use mocha to test me
  * http://visionmedia.github.com/mocha/
  */
-var assert, Combinatrics;
+var assert, Combinatorics;
 if (this['window'] !== this) {
     assert = require("assert");
-    Combinatrics = require('../combinatrics.js').Combinatrics;
+    Combinatorics = require('../combinatorics.js').Combinatorics;
 }
 var is_deeply = function (a, e, m) {
     return function () {
@@ -13,9 +13,9 @@ var is_deeply = function (a, e, m) {
     }
 };
 
-describe('Combinatrics.permutation', function () {
+describe('Combinatorics.permutation', function () {
     var a = 'abcd'.split(''),
-        c = Combinatrics.permutation(a, 1);
+        c = Combinatorics.permutation(a, 1);
     it([a, 1], is_deeply(c.toArray(), [
         ["a"],
         ["b"],
@@ -23,7 +23,7 @@ describe('Combinatrics.permutation', function () {
         ["d"]
     ]));
     it(c + 0, is_deeply(c + 0, c.toArray().length));
-    c = Combinatrics.permutation(a, 2);
+    c = Combinatorics.permutation(a, 2);
     it([a, 2], is_deeply(c.toArray(), [
         ["a", "b"],
         ["b", "a"],
@@ -39,7 +39,7 @@ describe('Combinatrics.permutation', function () {
         ["d", "c"]
     ]));
     it(c + 0, is_deeply(c + 0, c.toArray().length));
-    c = Combinatrics.permutation(a, 3);
+    c = Combinatorics.permutation(a, 3);
     it([a, 3], is_deeply(c.toArray(), [
         ["a", "b", "c"],
         ["a", "c", "b"],
@@ -67,7 +67,7 @@ describe('Combinatrics.permutation', function () {
         ["d", "c", "b"]
     ]));
     it(c + 0, is_deeply(c + 0, c.toArray().length));
-    c = Combinatrics.permutation(a, 4);
+    c = Combinatorics.permutation(a, 4);
     it([a, 4], is_deeply(c.toArray(), [
         ["a", "b", "c", "d"],
         ["a", "b", "d", "c"],

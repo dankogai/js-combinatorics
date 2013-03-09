@@ -1,5 +1,5 @@
 /*
- * $Id: combinatrics.js,v 0.20 2013/03/09 01:06:30 dankogai Exp dankogai $
+ * $Id: combinatorics.js,v 0.20 2013/03/09 01:06:30 dankogai Exp dankogai $
  *
  *  Licensed under the MIT license.
  *  http://www.opensource.org/licenses/mit-license.php
@@ -9,7 +9,7 @@
  *    http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
  */
 (function (global) {
-    if (global.Combinatrics) return;
+    if (global.Combinatorics) return;
     /* combinatory arithmetics */
     var P = function (m, n) {
         var t, p = 1;
@@ -244,7 +244,7 @@
         return that;
     };
     /* export */
-    global.Combinatrics = {
+    global.Combinatorics = {
         C: C,
         P: P,
         factorial: factorial,

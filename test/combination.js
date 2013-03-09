@@ -2,10 +2,10 @@
  * use mocha to test me
  * http://visionmedia.github.com/mocha/
  */
-var assert, Combinatrics;
+var assert, Combinatorics;
 if (this['window'] !== this) {
     assert = require("assert");
-    Combinatrics = require('../combinatrics.js').Combinatrics;
+    Combinatorics = require('../combinatorics.js').Combinatorics;
 }
 var is_deeply = function (a, e, m) {
     return function () {
@@ -13,9 +13,9 @@ var is_deeply = function (a, e, m) {
     }
 };
 
-describe('Combinatrics.combination', function () {
+describe('Combinatorics.combination', function () {
     var a = 'abcdef'.split(''),
-        c = Combinatrics.combination(a, 1);
+        c = Combinatorics.combination(a, 1);
     it([a, 1], is_deeply(c.toArray(), [
         ["a"],
         ["b"],
@@ -25,7 +25,7 @@ describe('Combinatrics.combination', function () {
         ["f"]
     ]));
     it(0 + c, is_deeply(0 + c, c.toArray().length));
-    c = Combinatrics.combination(a, 2);
+    c = Combinatorics.combination(a, 2);
     it([a, 2], is_deeply(c.toArray(), [
         ["a", "b"],
         ["a", "c"],
@@ -44,7 +44,7 @@ describe('Combinatrics.combination', function () {
         ["e", "f"]
     ]));
     it(0 + c, is_deeply(0 + c, c.toArray().length));
-    c = Combinatrics.combination(a, 3);
+    c = Combinatorics.combination(a, 3);
     it([a, 3], is_deeply(c.toArray(), [
         ["a", "b", "c"],
         ["a", "b", "d"],
@@ -68,7 +68,7 @@ describe('Combinatrics.combination', function () {
         ["d", "e", "f"]
     ]));
     it(0 + c, is_deeply(0 + c, c.toArray().length));
-    c = Combinatrics.combination(a, 4);
+    c = Combinatorics.combination(a, 4);
     it([a, 4], is_deeply(c.toArray(), [
         ["a", "b", "c", "d"],
         ["a", "b", "c", "e"],
@@ -87,7 +87,7 @@ describe('Combinatrics.combination', function () {
         ["c", "d", "e", "f"]
     ]));
     it(0 + c, is_deeply(0 + c, c.toArray().length));
-    c = Combinatrics.combination(a, 5);
+    c = Combinatorics.combination(a, 5);
     it([a, 5], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e"],
         ["a", "b", "c", "d", "f"],
@@ -96,7 +96,7 @@ describe('Combinatrics.combination', function () {
         ["a", "c", "d", "e", "f"],
         ["b", "c", "d", "e", "f"]
     ]));
-    c = Combinatrics.combination(a, 6);
+    c = Combinatorics.combination(a, 6);
     it([a, 6], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e", "f"]
     ]));

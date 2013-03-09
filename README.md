@@ -1,26 +1,26 @@
-[![build status](https://secure.travis-ci.org/dankogai/js-combinatrics.png)](http://travis-ci.org/dankogai/js-combinatrics)
+[![build status](https://secure.travis-ci.org/dankogai/js-combinatorics.png)](http://travis-ci.org/dankogai/js-combinatorics)
 
-combinatrics.js
+combinatorics.js
 ===============
 
-Simple combinatrics like power set, combination, and permutation in JavaScript
+Simple combinatorics like power set, combination, and permutation in JavaScript
 
 SYNOPSIS
 --------
 
 ### In Browser
 ````
-<script src="combinatrics.js"></script>
+<script src="combinatorics.js"></script>
 ````
 ### node.js
 ````
-var Combinatrics = require('./combinatrics.js').Combinatrics;
+var Combinatorics = require('./combinatorics.js').Combinatorics;
 ````
 
 #### power set
 ````
 var cmb, a;
-cmb = Combinatrics.power(['a','b','c']);
+cmb = Combinatorics.power(['a','b','c']);
 cmb.each(function(a){ console.log(a) });
 //  []
 //  ["a"]
@@ -33,7 +33,7 @@ cmb.each(function(a){ console.log(a) });
 ````
 #### combination
 ````
-cmb = Combinatrics.combination(['a','b','c','d'], 2);
+cmb = Combinatorics.combination(['a','b','c','d'], 2);
 while(a = cmb.next()) console.log(a);
 //  ["a", "b"]
 //  ["a", "c"]
@@ -44,7 +44,7 @@ while(a = cmb.next()) console.log(a);
 ````
 #### permutation
 ````
-cmb = Combinatrics.permutation(['a','b','c','d']); // assumes 4
+cmb = Combinatorics.permutation(['a','b','c','d']); // assumes 4
 console.log(cmb.toArray());
 //  [
   ["a","b","c","d"],["a","b","d","c"],["a","c","b","d"],["a","c","d","b"],
@@ -58,7 +58,7 @@ console.log(cmb.toArray());
 
 #### cartesian product
 ````
-cp = Combinatrics.cartesianProduct([0, 1, 2], [0, 10, 20], [0, 100, 200]);
+cp = Combinatorics.cartesianProduct([0, 1, 2], [0, 10, 20], [0, 100, 200]);
 console.log(cp.toArray());
 //  [
   [0, 0, 0],   [1, 0, 0],   [2, 0, 0],
@@ -92,21 +92,21 @@ DESCRIPTION
 
 All methods create _generators_.  Instead of creating all elements at once, each element is created on demand.  So it is memory efficient even when you need to iterate through millions of elements.
 
-#### Combinatrics.power( _ary_ )
+#### Combinatorics.power( _ary_ )
 
 Creates a generator which generates the power set of _ary_
 
-#### Combinatrics.combination( _ary_ , _nelem_ )
+#### Combinatorics.combination( _ary_ , _nelem_ )
 
 Creates a generator which generates the combination of _ary_ with _nelem_ elements.
 When _nelem_ is ommited, _ary_.length is used.
 
-#### Combinatrics.permutation( _ary_, _nelem_ )
+#### Combinatorics.permutation( _ary_, _nelem_ )
 
 Creates a generator which generates the permutation of _ary_ with _nelem_ elements.
 When _nelem_ is ommited, _ary_.length is used.
 
-#### Combinatrics.cartesianProduct( _ary0_, ...)
+#### Combinatorics.cartesianProduct( _ary0_, ...)
 
 Creates a generator which generates the cartesian product of the arrays.  All arguments must be arrays with more than one element.
 
