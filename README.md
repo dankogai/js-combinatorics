@@ -130,6 +130,19 @@ All elements at once.
 
 All elements at once with function f applied to each element.
 
+#### .filter(function(a){ ... })
+
+Returns an array with elements that passes the filter function.
+For example, you can redefine combination as follows:
+
+````
+myCombination = function(ary, n) {
+  return Combinatorics.power([ary]).filter(function (a) {
+    return a.length === n;
+  });
+};
+````
+
 #### .nth(n)
 
 Available for  `power` and `cartesianProduct` generator which returns the *n*th element.
