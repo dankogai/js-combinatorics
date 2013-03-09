@@ -1,5 +1,5 @@
 /*
- * $Id: combinatorics.js,v 0.22 2013/03/09 07:16:21 dankogai Exp dankogai $
+ * $Id: combinatorics.js,v 0.23 2013/03/09 09:02:43 dankogai Exp dankogai $
  *
  *  Licensed under the MIT license.
  *  http://www.opensource.org/licenses/mit-license.php
@@ -46,11 +46,15 @@
     /* common methods */
     var addProperties = function(dst, src) {
         Object.keys(src).forEach(function(p) {
-            Object.defineProperty(dst, p, {value:src[p]});
+            Object.defineProperty(dst, p, {
+                value: src[p]
+            });
         });
     };
     var hideProperty = function(o, p) {
-        Object.defineProperty(o, p, {writable:true});
+        Object.defineProperty(o, p, {
+            writable: true
+        });
     };
     var toArray = function(f) {
         var e, result = [];
@@ -81,9 +85,13 @@
     var power = function(ary, fun) {
         if (ary.length > 32) throw new RangeError;
         var size = 1 << ary.length,
-            sizeOf = function(){ return size },
+            sizeOf = function() {
+                return size;
+            },
             that = Object.create(ary.slice(), {
-                length: { get: sizeOf }
+                length: {
+                    get: sizeOf
+                }
             });
         hideProperty(that, 'index');
         addProperties(that, {
@@ -121,10 +129,14 @@
         if (nelem > ary.length) throw new RangeError;
         var first = (1 << nelem) - 1,
             size = C(ary.length, nelem),
-            maxIndex  = 1 << ary.length,
-            sizeOf = function(){ return size },
+            maxIndex = 1 << ary.length,
+            sizeOf = function() {
+                return size;
+            },
             that = Object.create(ary.slice(), {
-                   length: { get: sizeOf }
+                length: {
+                    get: sizeOf
+                }
             });
         hideProperty(that, 'index');
         addProperties(that, {
@@ -169,9 +181,13 @@
         if (nelem < 1) throw new RangeError;
         if (nelem > ary.length) throw new RangeError;
         var size = P(ary.length, nelem),
-            sizeOf = function(){ return size },
+            sizeOf = function() {
+                return size;
+            },
             that = Object.create(ary.slice(), {
-                   length: { get: sizeOf }
+                length: {
+                    get: sizeOf
+                }
             });
         hideProperty(that, 'cmb');
         hideProperty(that, 'per');
@@ -203,11 +219,17 @@
     var cartesianProduct = function() {
         if (!arguments.length) throw new RangeError;
         var args = arraySlice.call(arguments),
-            size = args.reduce(function(p, a){ return p * a.length }, 1),
-            sizeOf = function(){ return size },
-            dim  = args.length,
+            size = args.reduce(function(p, a) {
+                return p * a.length;
+            }, 1),
+            sizeOf = function() {
+                return size;
+            },
+            dim = args.length,
             that = Object.create(args, {
-                   length: { get: sizeOf }
+                length: {
+                    get: sizeOf
+                }
             });
         if (!size) throw new RangeError;
         hideProperty(that, 'index');
@@ -252,7 +274,7 @@
         return that;
     };
     /* export */
-    global.Combinatorics = {
+    addProperties(global.Combinatorics = Object.create(null), {
         C: C,
         P: P,
         factorial: factorial,
@@ -261,5 +283,5 @@
         combination: combination,
         permutation: permutation,
         power: power
-    };
+    });
 })(this);
