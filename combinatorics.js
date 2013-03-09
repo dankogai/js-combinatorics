@@ -1,5 +1,5 @@
 /*
- * $Id: combinatorics.js,v 0.20 2013/03/09 01:06:30 dankogai Exp dankogai $
+ * $Id: combinatorics.js,v 0.21 2013/03/09 02:09:50 dankogai Exp dankogai $
  *
  *  Licensed under the MIT license.
  *  http://www.opensource.org/licenses/mit-license.php
