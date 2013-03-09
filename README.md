@@ -143,6 +143,16 @@ myCombination = function(ary, n) {
 };
 ````
 
+#### .length
+
+Returns the number of elements to be generated
+Which equals to _generator_`.toArray().length` but it is precalculated without actually generating elements.
+Handy when you prepare for large iteraiton.
+
+#### 0 + _generator_
+
+Same as _generator_`.length`
+
 #### .nth(n)
 
 Available for  `power` and `cartesianProduct` generator which returns the *n*th element.
@@ -151,10 +161,3 @@ Available for  `power` and `cartesianProduct` generator which returns the *n*th 
 
 Available for `cartesianProduct` generator.  Arguments are coordinates in integer.
 Arguments can be out of bounds but it returns `undefined` in such cases.
-
-#### 0 + _generator_
-
-Returns numeric context which is the number of elements.
-Which equals to _generator_`.toArray().length` but it is precalculated without actually generating elements.
-Handy when you prepare for large iteraiton.
-
