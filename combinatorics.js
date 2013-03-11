@@ -1,5 +1,5 @@
 /*
- * $Id: combinatorics.js,v 0.24 2013/03/09 12:24:08 dankogai Exp dankogai $
+ * $Id: combinatorics.js,v 0.25 2013/03/11 15:42:14 dankogai Exp dankogai $
  *
  *  Licensed under the MIT license.
  *  http://www.opensource.org/licenses/mit-license.php
@@ -10,6 +10,7 @@
  *    http://en.wikipedia.org/wiki/Factorial_number_system
  */
 (function(global) {
+    'use strict';
     if (global.Combinatorics) return;
     /* combinatory arithmetics */
     var P = function(m, n) {
