@@ -16,9 +16,7 @@ var is_deeply = function (a, e, m) {
 describe('Combinatorics.combination', function () {
     var a = 'abcdef'.split(''),
         c = Combinatorics.combination(a, 0);
-    it([a, 0], is_deeply(c.toArray(), [
-        []
-    ]));
+    it([a, 0], is_deeply(c.toArray(), [[]].slice()));
     c = Combinatorics.combination(a, 1);
     it([a, 1], is_deeply(c.toArray(), [
         ["a"],
