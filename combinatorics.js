@@ -180,9 +180,11 @@
     };
     // which is really a permutation of combination
     var permutation = function(ary, nelem, fun) {
-        if (!nelem) nelem = ary.length;
-        if (nelem < 1) throw new RangeError;
-        if (nelem > ary.length) throw new RangeError;
+        if (arguments.length > 1) {
+            if (nelem < 0 || nelem > ary.length) throw new RangeError;
+        } else {
+            nelem = ary.length;
+        }
         var size = P(ary.length, nelem),
             sizeOf = function() {
                 return size;
