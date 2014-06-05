@@ -12,6 +12,7 @@
 (function(global) {
     'use strict';
     if (global.Combinatorics) return;
+    var version = "0.3.0";
     /* combinatory arithmetics */
     var P = function(m, n) {
         var t, p = 1;
@@ -343,6 +344,7 @@
         combination: combination,
         permutation: permutation,
         permutationCombination: permutationCombination,
-        power: power
+        power: power,
+        VERSION: version
     });
 })(this);
