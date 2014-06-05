@@ -56,6 +56,40 @@ console.log(cmb.toArray());
 ]
 ````
 
+#### permutation
+````
+cmb = Combinatorics.permutationCombination(['a','b','c']);
+console.log(cmb.toArray());
+//  [
+  ["a","b","c","d"],["a","b","d","c"],["a","c","b","d"],["a","c","d","b"],
+  ["a","d","b","c"],["a","d","c","b"],["b","a","c","d"],["b","a","d","c"],
+  ["b","c","a","d"],["b","c","d","a"],["b","d","a","c"],["b","d","c","a"],
+  ["c","a","b","d"],["c","a","d","b"],["c","b","a","d"],["c","b","d","a"],
+  ["c","d","a","b"],["c","d","b","a"],["d","a","b","c"],["d","a","c","b"],
+  ["d","b","a","c"],["d","b","c","a"],["d","c","a","b"],["d","c","b","a"]
+]
+````
+#### permutationCombination
+````
+cmb = Combinatorics.permutationCombination(['a','b','c']);
+console.log(cmb.toArray());
+// [ 
+  [ 'a' ],
+  [ 'b' ],
+  [ 'c' ],
+  [ 'a', 'b' ],
+  [ 'b', 'a' ],
+  [ 'a', 'c' ],
+  [ 'c', 'a' ],
+  [ 'b', 'c' ],
+  [ 'c', 'b' ],
+  [ 'a', 'b', 'c' ],
+  [ 'a', 'c', 'b' ],
+  [ 'b', 'a', 'c' ],
+  [ 'b', 'c', 'a' ],
+  [ 'c', 'a', 'b' ],
+  [ 'c', 'b', 'a' ] ]
+````
 #### cartesian product
 ````
 cp = Combinatorics.cartesianProduct([0, 1, 2], [0, 10, 20], [0, 100, 200]);
@@ -105,6 +139,13 @@ When _nelem_ is ommited, _ary_.length is used.
 
 Creates a generator which generates the permutation of _ary_ with _nelem_ elements.
 When _nelem_ is ommited, _ary_.length is used.
+
+#### Combinatorics.permutationCombination( _ary_)
+
+Creates a generator which generates the permutation of the combination of _ary_.
+Equivalent to
+`Combinatorics.permutation(Combinatorics.combination(ary))`
+but more efficient.
 
 #### Combinatorics.cartesianProduct( _ary0_, ...)
 
