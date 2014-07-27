@@ -12,7 +12,7 @@
 (function(global) {
     'use strict';
     if (global.Combinatorics) return;
-    var version = "0.3.0";
+    var version = "0.4.0";
     /* combinatory arithmetics */
     var P = function(m, n) {
         var t, p = 1;
