@@ -17,7 +17,10 @@ SYNOPSIS
 var Combinatorics = require('./combinatorics.js').Combinatorics;
 ````
 
-#### power set
+Usage
+-----
+
+### power set
 ````
 var cmb, a;
 cmb = Combinatorics.power(['a','b','c']);
@@ -31,7 +34,8 @@ cmb.each(function(a){ console.log(a) });
 //  ["b", "c"]
 //  ["a", "b", "c"]
 ````
-#### combination
+
+### combination
 ````
 cmb = Combinatorics.combination(['a','b','c','d'], 2);
 while(a = cmb.next()) console.log(a);
@@ -42,7 +46,7 @@ while(a = cmb.next()) console.log(a);
 //  ["b", "d"]
 //  ["c", "d"]
 ````
-#### permutation
+### permutation
 ````
 cmb = Combinatorics.permutation(['a','b','c','d']); // assumes 4
 console.log(cmb.toArray());
@@ -56,20 +60,7 @@ console.log(cmb.toArray());
 ]
 ````
 
-#### permutation
-````
-cmb = Combinatorics.permutationCombination(['a','b','c']);
-console.log(cmb.toArray());
-//  [
-  ["a","b","c","d"],["a","b","d","c"],["a","c","b","d"],["a","c","d","b"],
-  ["a","d","b","c"],["a","d","c","b"],["b","a","c","d"],["b","a","d","c"],
-  ["b","c","a","d"],["b","c","d","a"],["b","d","a","c"],["b","d","c","a"],
-  ["c","a","b","d"],["c","a","d","b"],["c","b","a","d"],["c","b","d","a"],
-  ["c","d","a","b"],["c","d","b","a"],["d","a","b","c"],["d","a","c","b"],
-  ["d","b","a","c"],["d","b","c","a"],["d","c","a","b"],["d","c","b","a"]
-]
-````
-#### permutationCombination
+### permutationCombination
 ````
 cmb = Combinatorics.permutationCombination(['a','b','c']);
 console.log(cmb.toArray());
@@ -90,7 +81,8 @@ console.log(cmb.toArray());
   [ 'c', 'a', 'b' ],
   [ 'c', 'b', 'a' ] ]
 ````
-#### cartesian product
+
+### cartesian product
 ````
 cp = Combinatorics.cartesianProduct([0, 1, 2], [0, 10, 20], [0, 100, 200]);
 console.log(cp.toArray());
@@ -107,7 +99,7 @@ console.log(cp.toArray());
 ]
 ````
 
-#### baseN
+### baseN
 
 Builds a number represented as an array.
 
@@ -145,8 +137,7 @@ console.log(baseN.toArray())
 ]
 ````
 
-
-#### Arithmetic Functions
+### Arithmetic Functions
 
 + .`P(m, n)`
   calculates m P n
