@@ -107,6 +107,44 @@ console.log(cp.toArray());
 ]
 ````
 
+#### baseN
+
+Builds a number represented as an array.
+
+````
+baseN = Combinatorics.baseN(['a','b','c'], 3);
+console.log(baseN.toArray())
+// [ 
+  [ 'a', 'a', 'a' ],
+  [ 'b', 'a', 'a' ],
+  [ 'c', 'a', 'a' ],
+  [ 'a', 'b', 'a' ],
+  [ 'b', 'b', 'a' ],
+  [ 'c', 'b', 'a' ],
+  [ 'a', 'c', 'a' ],
+  [ 'b', 'c', 'a' ],
+  [ 'c', 'c', 'a' ],
+  [ 'a', 'a', 'b' ],
+  [ 'b', 'a', 'b' ],
+  [ 'c', 'a', 'b' ],
+  [ 'a', 'b', 'b' ],
+  [ 'b', 'b', 'b' ],
+  [ 'c', 'b', 'b' ],
+  [ 'a', 'c', 'b' ],
+  [ 'b', 'c', 'b' ],
+  [ 'c', 'c', 'b' ],
+  [ 'a', 'a', 'c' ],
+  [ 'b', 'a', 'c' ],
+  [ 'c', 'a', 'c' ],
+  [ 'a', 'b', 'c' ],
+  [ 'b', 'b', 'c' ],
+  [ 'c', 'b', 'c' ],
+  [ 'a', 'c', 'c' ],
+  [ 'b', 'c', 'c' ],
+  [ 'c', 'c', 'c' ]
+]
+````
+
 
 #### Arithmetic Functions
 
