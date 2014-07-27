@@ -225,7 +225,6 @@
         };
         return total;
     };
-
     // which is really a permutation of combination
     var permutationCombination = function(ary, fun) {
         // if (!nelem) nelem = ary.length;
@@ -334,6 +333,46 @@
         that.init();
         return that;
     };
+    /* baseN */
+    var baseN = function(ary, nelem, fun) {
+                if (!nelem) nelem = ary.length;
+        if (nelem < 1) throw new RangeError;
+        var base = ary.length,
+                size = Math.pow(base, nelem);
+        if (size > Math.pow(2,32)) throw new RangeError;
+        var sizeOf = function() {
+                return size;
+            },
+            that = Object.create(ary.slice(), {
+                length: {
+                    get: sizeOf
+                }
+            });
+        hideProperty(that, 'index');
+        addProperties(that, {
+            valueOf: sizeOf,
+            init: function() {
+                that.index = 0;
+            },
+            nth: function(n) {
+                if (n >= size) return;
+                var result = [];
+                for (var i = 0; i < nelem; i++) {
+                    var d = n % base;
+                    result.push(ary[d])
+                    n -= d; n /= base
+                }
+                return result;
+            },
+            next: function() {
+                return this.nth(this.index++);
+            }
+        });
+        addProperties(that, common);
+        that.init();
+        return (typeof (fun) === 'function') ? that.map(fun) : that;
+    };
+
     /* export */
     addProperties(global.Combinatorics = Object.create(null), {
         C: C,
@@ -345,6 +384,7 @@
         permutation: permutation,
         permutationCombination: permutationCombination,
         power: power,
+        baseN: baseN,
         VERSION: version
     });
 })(this);
