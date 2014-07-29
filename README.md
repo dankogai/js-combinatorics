@@ -60,7 +60,7 @@ console.log(cmb.toArray());
 ]
 ````
 
-### permutationCombination
+### permutation of combination
 ````
 cmb = Combinatorics.permutationCombination(['a','b','c']);
 console.log(cmb.toArray());
@@ -99,9 +99,7 @@ console.log(cp.toArray());
 ]
 ````
 
-### baseN
-
-Builds a number represented as an array.
+### base N
 
 ````
 baseN = Combinatorics.baseN(['a','b','c'], 3);
@@ -146,7 +144,7 @@ console.log(baseN.toArray())
 + .`factorial(n)`
   calculates `n!`
 + .`factoradic(n)`
-  returns the factoradic representation of n in array, *LSB ORDER*.  See
+  returns the factoradic representation of n in array, *in least significant order*.  See
   http://en.wikipedia.org/wiki/Factorial_number_system
 
 
@@ -179,6 +177,13 @@ but more efficient.
 #### Combinatorics.cartesianProduct( _ary0_, ...)
 
 Creates a generator which generates the cartesian product of the arrays.  All arguments must be arrays with more than one element.
+
+#### Combinatorics.baseN( _ary_ , _nelem_ )
+
+Creates a generator which generates _nelem_ -digit "numbers" where each digit is element in _ary_ .
+Note this "number" is in least significant order.
+
+When _nelem_ is ommited, _ary_.length is used.
 
 ### Generator Methods
 
@@ -225,7 +230,7 @@ Same as _generator_`.length`
 
 #### .nth(n)
 
-Available for  `power` and `cartesianProduct` generator which returns the *n*th element.
+Returns the *n*th element (starting 0).  Available for  `power`, `cartesianProduct` and `baseN`.
 
 #### .get(x0, ...)
 
