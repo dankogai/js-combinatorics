@@ -6,7 +6,7 @@
 var assert, Combinatorics;
 if (this['window'] !== this) {
     assert = require("assert");
-    Combinatorics = require('../combinatorics.js').Combinatorics;
+    Combinatorics = require('../.');
 }
 var is_deeply = function (a, e, m) {
     return function () {

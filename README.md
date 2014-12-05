@@ -1,7 +1,7 @@
 [![build status](https://secure.travis-ci.org/dankogai/js-combinatorics.png)](http://travis-ci.org/dankogai/js-combinatorics)
 
-combinatorics.js
-===============
+js-combinatorics
+================
 
 Simple combinatorics like power set, combination, and permutation in JavaScript
 
@@ -14,7 +14,7 @@ SYNOPSIS
 ````
 ### node.js
 ````
-var Combinatorics = require('./combinatorics.js').Combinatorics;
+var Combinatorics = require('js-combinatorics');
 ````
 
 Usage

@@ -9,9 +9,16 @@
  *    http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
  *    http://en.wikipedia.org/wiki/Factorial_number_system
  */
-(function(global) {
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define([], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory();
+    } else {
+        root.Combinatorics = factory();
+    }
+}(this, function () {
     'use strict';
-    if (global.Combinatorics) return;
     var version = "0.4.0";
     /* combinatory arithmetics */
     var P = function(m, n) {
@@ -374,7 +381,8 @@
     };
 
     /* export */
-    addProperties(global.Combinatorics = Object.create(null), {
+    var Combinatorics = Object.create(null);
+    addProperties(Combinatorics, {
         C: C,
         P: P,
         factorial: factorial,
@@ -387,4 +395,5 @@
         baseN: baseN,
         VERSION: version
     });
-})(this);
+    return Combinatorics;
+}));
