@@ -133,9 +133,11 @@
     };
     var combination = function(ary, nelem, fun) {
         if (ary.length > 32) throw new RangeError;
-        if (!nelem) nelem = ary.length;
-        if (nelem < 1) throw new RangeError;
-        if (nelem > ary.length) throw new RangeError;
+        if (arguments.length > 1) {
+            if (nelem < 0 || nelem > ary.length) throw new RangeError;
+        } else {
+            nelem = ary.length;
+        }
         var first = (1 << nelem) - 1,
             size = C(ary.length, nelem),
             maxIndex = 1 << ary.length,
@@ -154,7 +156,7 @@
                 this.index = first;
             },
             next: function() {
-                if (this.index >= maxIndex) return;
+                if (this.index >= maxIndex || this.index < 0) return;
                 var i = 0,
                     n = this.index,
                     result = [];
@@ -186,9 +188,11 @@
     };
     // which is really a permutation of combination
     var permutation = function(ary, nelem, fun) {
-        if (!nelem) nelem = ary.length;
-        if (nelem < 1) throw new RangeError;
-        if (nelem > ary.length) throw new RangeError;
+        if (arguments.length > 1) {
+            if (nelem < 0 || nelem > ary.length) throw new RangeError;
+        } else {
+            nelem = ary.length;
+        }
         var size = P(ary.length, nelem),
             sizeOf = function() {
                 return size;

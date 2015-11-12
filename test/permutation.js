@@ -15,7 +15,9 @@ var is_deeply = function (a, e, m) {
 
 describe('Combinatorics.permutation', function () {
     var a = 'abcd'.split(''),
-        c = Combinatorics.permutation(a, 1);
+        c = Combinatorics.permutation(a, 0);
+    it([a, 0], is_deeply(c.toArray(), [[]].slice()));
+    c = Combinatorics.permutation(a, 1);
     it([a, 1], is_deeply(c.toArray(), [
         ["a"],
         ["b"],
