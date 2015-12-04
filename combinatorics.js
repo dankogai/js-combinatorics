@@ -92,7 +92,6 @@
     };
     /* power set */
     var power = function(ary, fun) {
-        if (ary.length > 32) throw new RangeError;
         var size = 1 << ary.length,
             sizeOf = function() {
                 return size;
@@ -132,7 +131,6 @@
         return ripple | ones;
     };
     var combination = function(ary, nelem, fun) {
-        if (ary.length > 32) throw new RangeError;
         if (!nelem) nelem = ary.length;
         if (nelem < 1) throw new RangeError;
         if (nelem > ary.length) throw new RangeError;
@@ -346,7 +344,6 @@
         if (nelem < 1) throw new RangeError;
         var base = ary.length,
                 size = Math.pow(base, nelem);
-        if (size > Math.pow(2,32)) throw new RangeError;
         var sizeOf = function() {
                 return size;
             },
