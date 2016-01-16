@@ -17,6 +17,15 @@ SYNOPSIS
 var Combinatorics = require('js-combinatorics');
 ````
 
+### Meteor
+
+In your project directory:
+```bash
+meteor add jandres:js-combinatorics
+```
+
+`Combinatorics` is now available in your app/package namespace.
+
 Usage
 -----
 
