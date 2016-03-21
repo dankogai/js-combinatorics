@@ -156,8 +156,109 @@
                 var i = 0,
                     n = this.index,
                     result = [];
-                for (; n; n >>>= 1, i++) if (n & 1) result.push(this[i]);
+                for (; n; n >>>= 1, i++) {
+                    if (n & 1) result[result.length] = this[i];
+                }
+
                 this.index = nextIndex(this.index);
+                return result;
+            }
+        });
+        addProperties(that, common);
+        that.init();
+        return (typeof (fun) === 'function') ? that.map(fun) : that;
+    };
+    /* bigcombination */
+    var bigNextIndex = function(n, nelem) {
+
+        var result = n;
+        var j = nelem;
+        var i = 0;
+        for (i = result.length - 1; i >= 0; i--) {
+            if (result[i] == 1) {
+                j--;
+            } else {
+                break;
+            }
+        } 
+        if (j == 0) {
+            // Overflow
+            result[result.length] = 1;
+            for (var k = result.length - 2; k >= 0; k--) {
+                result[k] = (k < nelem-1)?1:0;
+            }
+        } else {
+            // Normal
+
+            // first zero after 1
+            var i1 = -1;
+            var i0 = -1;
+            for (var i = 0; i < result.length; i++) {
+                if (result[i] == 0 && i1 != -1) {
+                    i0 = i;
+                }
+                if (result[i] == 1) {
+                    i1 = i;
+                }
+                if (i0 != -1 && i1 != -1) {
+                    result[i0] = 1;
+                    result[i1] = 0;
+                    break;
+                }
+            }
+
+            j = nelem;
+            for (var i = result.length - 1; i >= i1; i--) {
+                if (result[i] == 1)
+                    j--;
+            }
+            for (var i = 0; i < i1; i++) {
+                result[i] = (i < j)?1:0;
+            }
+        }
+
+        return result;
+
+    };
+    var buildFirst = function(nelem) {
+        var result = [];
+        for (var i = 0; i < nelem; i++) {
+            result[i] = 1;
+        }
+        result[0] = 1;
+        return result;
+    };
+    var bigCombination = function(ary, nelem, fun) {
+        if (!nelem) nelem = ary.length;
+        if (nelem < 1) throw new RangeError;
+        if (nelem > ary.length) throw new RangeError;
+        var first = buildFirst(nelem),
+            size = C(ary.length, nelem),
+            maxIndex = ary.length,
+            sizeOf = function() {
+                return size;
+            },
+            that = Object.create(ary.slice(), {
+                length: {
+                    get: sizeOf
+                }
+            });
+        hideProperty(that, 'index');
+        addProperties(that, {
+            valueOf: sizeOf,
+            init: function() {
+                this.index = first.concat();
+            },
+            next: function() {
+                if (this.index.length > maxIndex) return;
+                var i = 0,
+                    n = this.index,
+                    result = [];
+                for (var j = 0; j < n.length; j++, i++) {
+                    if (n[j])
+                        result[result.length] = this[i];
+                }
+                bigNextIndex(this.index, nelem);
                 return result;
             }
         });
@@ -386,6 +487,7 @@
         factoradic: factoradic,
         cartesianProduct: cartesianProduct,
         combination: combination,
+        bigCombination: bigCombination,
         permutation: permutation,
         permutationCombination: permutationCombination,
         power: power,

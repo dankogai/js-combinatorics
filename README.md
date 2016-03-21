@@ -55,6 +55,21 @@ while(a = cmb.next()) console.log(a);
 //  ["b", "d"]
 //  ["c", "d"]
 ````
+
+### bigCombination
+This option may be a little slower and use a little more memory but can handle a much larger array 
+````
+cmb = Combinatorics.bigCombination([1,2,3, ... ,35], 2);
+while(a = cmb.next()) console.log(a);
+//  ["1", "2"]
+//  ["1", "3"]
+//  ...
+//  ["1", "32"]
+//  ["2", "3"]
+//  ...
+//  ["2", "32"]
+````
+
 ### permutation
 ````
 cmb = Combinatorics.permutation(['a','b','c','d']); // assumes 4
@@ -167,6 +182,12 @@ All methods create _generators_.  Instead of creating all elements at once, each
 Creates a generator which generates the power set of _ary_
 
 #### Combinatorics.combination( _ary_ , _nelem_ )
+
+Creates a generator which generates the combination of _ary_ with _nelem_ elements.
+When _nelem_ is ommited, _ary_.length is used. _ary_ must be less than 31 in length, for
+larger _ary_ use bigCombination
+
+#### Combinatorics.bigCombination( _ary_ , _nelem_ )
 
 Creates a generator which generates the combination of _ary_ with _nelem_ elements.
 When _nelem_ is ommited, _ary_.length is used.
