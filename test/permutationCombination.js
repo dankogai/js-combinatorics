@@ -35,6 +35,25 @@ describe('Combinatorics.permutationCombination', function () {
     ]));
     it(c + 0, is_deeply(c + 0, c.toArray().length));
     it(c.length, is_deeply(c.length, c.toArray().length));
+
+    // Testing lazy filter
+    c = Combinatorics.permutationCombination(a).lazyFilter(function(a){ 
+        return a[0] === 'a'
+    });
+    it(a, is_deeply(c.toArray(), [
+        ["a"],
+        ["a", "b"]
+    ]));
+
+    // And resetting the lazy filter
+    c.lazyFilter();
+    it(a, is_deeply(c.toArray(), [
+        ["a"],
+        ["b"],
+        ["a", "b"],
+        ["b", "a"]
+    ]));
+
     a = 'abc'.split('');
     c = Combinatorics.permutationCombination(a);
     it(a, is_deeply(c.toArray(), [
@@ -126,4 +145,29 @@ describe('Combinatorics.permutationCombination', function () {
     ]));
     it(c + 0, is_deeply(c + 0, c.toArray().length));
     it(c.length, is_deeply(c.length, c.toArray().length));
+
+
+    a = 'ab'.split('');
+    // Testing lazy map
+    c = Combinatorics.permutationCombination(a).lazyMap(function(a){
+        if (a[0] === 'a') {
+            a[0] = 'z'
+        }
+        return a;
+    });
+    it(a, is_deeply(c.toArray(), [
+        ["z"],
+        ["b"],
+        ["z", "b"],
+        ["b", "a"]
+    ]));
+
+    // And resetting the lazy filter
+    c.lazyMap();
+    it(a, is_deeply(c.toArray(), [
+        ["a"],
+        ["b"],
+        ["a", "b"],
+        ["b", "a"]
+    ]));
 });

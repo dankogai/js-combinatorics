@@ -46,6 +46,34 @@ describe('Combinatorics.permutation', function () {
     ]));
     it(c + 0, is_deeply(c + 0, c.toArray().length));
     it(c.length, is_deeply(c.length, c.toArray().length));
+
+    // Testing lazy filter
+    c = Combinatorics.permutation(a, 2).lazyFilter(function(a){ 
+        return a[0] === 'a'
+    });
+    it([a, 2], is_deeply(c.toArray(), [
+        ["a", "b"],
+        ["a", "c"],
+        ["a", "d"]
+    ]));
+
+    // And resetting the lazy filter
+    c.lazyFilter();
+    it([a, 2], is_deeply(c.toArray(), [
+        ["a", "b"],
+        ["b", "a"],
+        ["a", "c"],
+        ["c", "a"],
+        ["b", "c"],
+        ["c", "b"],
+        ["a", "d"],
+        ["d", "a"],
+        ["b", "d"],
+        ["d", "b"],
+        ["c", "d"],
+        ["d", "c"]
+    ]));
+
     c = Combinatorics.permutation(a, 3);
     it([a, 3], is_deeply(c.toArray(), [
         ["a", "b", "c"],
@@ -104,4 +132,43 @@ describe('Combinatorics.permutation', function () {
     ]));
     it(c + 0, is_deeply(c + 0, c.toArray().length));
     it(c.length, is_deeply(c.length, c.toArray().length));
+
+    // Testing lazy map
+    c = Combinatorics.permutation(a, 2).lazyMap(function(a){
+        if (a[0] === 'a') {
+            a[0] = 'z'
+        }
+        return a;
+    });
+    it([a, 2], is_deeply(c.toArray(), [
+        ["z", "b"],
+        ["b", "a"],
+        ["z", "c"],
+        ["c", "a"],
+        ["b", "c"],
+        ["c", "b"],
+        ["z", "d"],
+        ["d", "a"],
+        ["b", "d"],
+        ["d", "b"],
+        ["c", "d"],
+        ["d", "c"]
+    ]));
+
+    // And resetting the lazy map
+    c.lazyMap();
+    it([a, 2], is_deeply(c.toArray(), [
+        ["a", "b"],
+        ["b", "a"],
+        ["a", "c"],
+        ["c", "a"],
+        ["b", "c"],
+        ["c", "b"],
+        ["a", "d"],
+        ["d", "a"],
+        ["b", "d"],
+        ["d", "b"],
+        ["c", "d"],
+        ["d", "c"]
+    ]));
 });

@@ -56,7 +56,8 @@
     var addProperties = function(dst, src) {
         Object.keys(src).forEach(function(p) {
             Object.defineProperty(dst, p, {
-                value: src[p]
+                value: src[p],
+                configurable: p == 'next'
             });
         });
     };
@@ -87,6 +88,35 @@
             while (e = this.next()) if (f(e)) result.push(e);
             this.init();
             return result;
+        },
+        lazyMap: function(f) {
+            this._lazyMap = f;
+            return this;
+        },
+        lazyFilter: function(f) {
+            Object.defineProperty(this, 'next', {
+                writable: true
+            });
+            if (typeof f !== 'function') {
+                this.next = this._next;
+            } else {
+                if (typeof (this._next) !== 'function') {
+                    this._next = this.next;
+                }
+                var _next = this._next.bind(this);
+                this.next = (function() {
+                    var e;
+                    while (e = _next()) {
+                        if (f(e))
+                            return e;
+                    }
+                    return e;
+                }).bind(this);
+            }
+            Object.defineProperty(this, 'next', {
+                writable: false
+            });
+            return this;
         }
 
     };
@@ -112,7 +142,7 @@
                 var i = 0,
                     result = [];
                 for (; n; n >>>= 1, i++) if (n & 1) result.push(this[i]);
-                return result;
+                return (typeof (that._lazyMap) === 'function')?that._lazyMap(result):result;
             },
             next: function() {
                 return this.nth(this.index++);
@@ -161,7 +191,7 @@
                 }
 
                 this.index = nextIndex(this.index);
-                return result;
+                return (typeof (that._lazyMap) === 'function')?that._lazyMap(result):result;
             }
         });
         addProperties(that, common);
@@ -259,7 +289,7 @@
                         result[result.length] = this[i];
                 }
                 bigNextIndex(this.index, nelem);
-                return result;
+                return (typeof (that._lazyMap) === 'function')?that._lazyMap(result):result;
             }
         });
         addProperties(that, common);
@@ -279,7 +309,7 @@
                 i = this.length - 1;
             for (; i >= 0; --i) result.push(copy.splice(digits[i], 1)[0]);
             this.index++;
-            return result;
+            return (typeof (that._lazyMap) === 'function')?that._lazyMap(result):result;
         };
         return that;
     };
@@ -315,7 +345,7 @@
                     this.per = _permutation(cmb);
                     return this.next();
                 }
-                return result;
+                return (typeof (that._lazyMap) === 'function')?that._lazyMap(result):result;
             }
         });
         addProperties(that, common);
@@ -373,7 +403,7 @@
                     this.per = _permutation(cmb);
                     return this.next();
                 }
-                return result;
+                return (typeof (that._lazyMap) === 'function')?that._lazyMap(result):result;
             }
         });
         addProperties(that, common);
@@ -414,7 +444,7 @@
                     if (i >= this[d].length) return;
                     result.push(this[d][i]);
                 }
-                return result;
+                return (typeof (that._lazyMap) === 'function')?that._lazyMap(result):result;
             },
             nth: function(n) {
                 var result = [],
@@ -426,7 +456,7 @@
                     n -= i;
                     n /= l;
                 }
-                return result;
+                return (typeof (that._lazyMap) === 'function')?that._lazyMap(result):result;
             },
             next: function() {
                 if (this.index >= size) return;
@@ -467,7 +497,7 @@
                     result.push(ary[d])
                     n -= d; n /= base
                 }
-                return result;
+                return (typeof (that._lazyMap) === 'function')?that._lazyMap(result):result;
             },
             next: function() {
                 return this.nth(this.index++);

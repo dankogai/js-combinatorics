@@ -57,4 +57,121 @@ describe('Combinatorics.baseN', function () {
         [ 'a', 'b', 'c' ],
         [ 'a', 'c', 'c' ] 
     ]));
+
+    // Testing lazy filter
+    c = Combinatorics.baseN(a).lazyFilter(function(a){ 
+        return a[0] === 'a'
+    });
+    it(a, is_deeply(c.toArray(),[
+        [ 'a', 'a', 'a' ],
+        [ 'a', 'b', 'a' ],
+        [ 'a', 'c', 'a' ],
+        [ 'a', 'a', 'b' ],
+        [ 'a', 'b', 'b' ],
+        [ 'a', 'c', 'b' ],
+        [ 'a', 'a', 'c' ],
+        [ 'a', 'b', 'c' ],
+        [ 'a', 'c', 'c' ] 
+    ]));
+
+    // And resetting the lazy filter
+    c.lazyFilter();
+    it(a, is_deeply(c.toArray(), [
+        [ 'a', 'a', 'a' ],
+        [ 'b', 'a', 'a' ],
+        [ 'c', 'a', 'a' ],
+        [ 'a', 'b', 'a' ],
+        [ 'b', 'b', 'a' ],
+        [ 'c', 'b', 'a' ],
+        [ 'a', 'c', 'a' ],
+        [ 'b', 'c', 'a' ],
+        [ 'c', 'c', 'a' ],
+        [ 'a', 'a', 'b' ],
+        [ 'b', 'a', 'b' ],
+        [ 'c', 'a', 'b' ],
+        [ 'a', 'b', 'b' ],
+        [ 'b', 'b', 'b' ],
+        [ 'c', 'b', 'b' ],
+        [ 'a', 'c', 'b' ],
+        [ 'b', 'c', 'b' ],
+        [ 'c', 'c', 'b' ],
+        [ 'a', 'a', 'c' ],
+        [ 'b', 'a', 'c' ],
+        [ 'c', 'a', 'c' ],
+        [ 'a', 'b', 'c' ],
+        [ 'b', 'b', 'c' ],
+        [ 'c', 'b', 'c' ],
+        [ 'a', 'c', 'c' ],
+        [ 'b', 'c', 'c' ],
+        [ 'c', 'c', 'c' ] 
+    ])); 
+    
+    // Testing lazy map
+    c = Combinatorics.baseN(a).lazyMap(function(a){ 
+        if (a[0] === 'a') {
+            a[0] = 'z'
+        }
+        return a;
+    });
+    it(a, is_deeply(c.toArray(),[
+        [ 'z', 'a', 'a' ],
+        [ 'b', 'a', 'a' ],
+        [ 'c', 'a', 'a' ],
+        [ 'z', 'b', 'a' ],
+        [ 'b', 'b', 'a' ],
+        [ 'c', 'b', 'a' ],
+        [ 'z', 'c', 'a' ],
+        [ 'b', 'c', 'a' ],
+        [ 'c', 'c', 'a' ],
+        [ 'z', 'a', 'b' ],
+        [ 'b', 'a', 'b' ],
+        [ 'c', 'a', 'b' ],
+        [ 'z', 'b', 'b' ],
+        [ 'b', 'b', 'b' ],
+        [ 'c', 'b', 'b' ],
+        [ 'z', 'c', 'b' ],
+        [ 'b', 'c', 'b' ],
+        [ 'c', 'c', 'b' ],
+        [ 'z', 'a', 'c' ],
+        [ 'b', 'a', 'c' ],
+        [ 'c', 'a', 'c' ],
+        [ 'z', 'b', 'c' ],
+        [ 'b', 'b', 'c' ],
+        [ 'c', 'b', 'c' ],
+        [ 'z', 'c', 'c' ],
+        [ 'b', 'c', 'c' ],
+        [ 'c', 'c', 'c' ] 
+    ]));
+
+    // And resetting the lazy map
+    c.lazyMap();
+    it(a, is_deeply(c.toArray(), [
+        [ 'a', 'a', 'a' ],
+        [ 'b', 'a', 'a' ],
+        [ 'c', 'a', 'a' ],
+        [ 'a', 'b', 'a' ],
+        [ 'b', 'b', 'a' ],
+        [ 'c', 'b', 'a' ],
+        [ 'a', 'c', 'a' ],
+        [ 'b', 'c', 'a' ],
+        [ 'c', 'c', 'a' ],
+        [ 'a', 'a', 'b' ],
+        [ 'b', 'a', 'b' ],
+        [ 'c', 'a', 'b' ],
+        [ 'a', 'b', 'b' ],
+        [ 'b', 'b', 'b' ],
+        [ 'c', 'b', 'b' ],
+        [ 'a', 'c', 'b' ],
+        [ 'b', 'c', 'b' ],
+        [ 'c', 'c', 'b' ],
+        [ 'a', 'a', 'c' ],
+        [ 'b', 'a', 'c' ],
+        [ 'c', 'a', 'c' ],
+        [ 'a', 'b', 'c' ],
+        [ 'b', 'b', 'c' ],
+        [ 'c', 'b', 'c' ],
+        [ 'a', 'c', 'c' ],
+        [ 'b', 'c', 'c' ],
+        [ 'c', 'c', 'c' ] 
+    ])); 
 });
