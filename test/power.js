@@ -34,4 +34,57 @@ describe('Combinatorics.power', function () {
     it(a, is_deeply(c.filter(function(a){return a.length === 2}),
                     Combinatorics.combination(a,2).toArray()
            ));
+
+
+    // Testing lazy filter
+    c = Combinatorics.power(a).lazyFilter(function(a){ 
+        return a.length === 2
+    });
+    it(a, is_deeply(c.toArray(), 
+                         Combinatorics.combination(a,2).toArray()
+            ));
+
+    // And resetting the lazy filter
+    c.lazyFilter();
+    it(a, is_deeply(c.toArray(), [
+        [],
+        ["a"],
+        ["b"],
+        ["a", "b"],
+        ["c"],
+        ["a", "c"],
+        ["b", "c"],
+        ["a", "b", "c"]
+    ]));
+
+    // Testing lazy map
+    c = Combinatorics.power(a).lazyMap(function(a){ 
+        if (a[0] === 'a') {
+            a[0] = 'z'
+        }
+        return a;
+    });
+    it(a, is_deeply(c.toArray(), [
+        [],
+        ["z"],
+        ["b"],
+        ["z", "b"],
+        ["c"],
+        ["z", "c"],
+        ["b", "c"],
+        ["z", "b", "c"]
+    ]));
+
+    // And resetting the lazy map
+    c.lazyMap();
+    it(a, is_deeply(c.toArray(), [
+        [],
+        ["a"],
+        ["b"],
+        ["a", "b"],
+        ["c"],
+        ["a", "c"],
+        ["b", "c"],
+        ["a", "b", "c"]
+    ])); 
 });

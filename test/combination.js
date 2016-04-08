@@ -103,10 +103,57 @@ describe('Combinatorics.combination', function () {
     it([a, 5], is_deeply(c.filter(function(a){ return a[0] !== 'a'}), [
         ["b", "c", "d", "e", "f"]
     ]));
+
+    // Testing lazy filter
+    c = Combinatorics.combination(a, 5).lazyFilter(function(a){ 
+        return a[0] !== 'a'
+    });
+    it([a, 5], is_deeply(c.toArray(), [
+        ["b", "c", "d", "e", "f"]
+    ]));
+
+    // And resetting the lazy filter
+    c.lazyFilter();
+    it([a, 5], is_deeply(c.toArray(), [
+        ["a", "b", "c", "d", "e"],
+        ["a", "b", "c", "d", "f"],
+        ["a", "b", "c", "e", "f"],
+        ["a", "b", "d", "e", "f"],
+        ["a", "c", "d", "e", "f"],
+        ["b", "c", "d", "e", "f"]
+    ]));
+
     c = Combinatorics.combination(a, 6);
     it([a, 6], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e", "f"]
     ]));
     it(0 + c, is_deeply(0 + c, c.toArray().length));
     it(c.length, is_deeply(c.length, c.toArray().length));
+
+    // Testing lazy map
+    c = Combinatorics.combination(a, 5).lazyMap(function(a){
+        if (a[0] === 'a') {
+            a[0] = 'z'
+        }
+        return a;
+    });
+    it([a, 5], is_deeply(c.toArray(), [
+        ["z", "b", "c", "d", "e"],
+        ["z", "b", "c", "d", "f"],
+        ["z", "b", "c", "e", "f"],
+        ["z", "b", "d", "e", "f"],
+        ["z", "c", "d", "e", "f"],
+        ["b", "c", "d", "e", "f"]
+    ]));
+
+    // And resetting the lazy map
+    c.lazyMap();
+    it([a, 5], is_deeply(c.toArray(), [
+        ["a", "b", "c", "d", "e"],
+        ["a", "b", "c", "d", "f"],
+        ["a", "b", "c", "e", "f"],
+        ["a", "b", "d", "e", "f"],
+        ["a", "c", "d", "e", "f"],
+        ["b", "c", "d", "e", "f"]
+    ]));
 });

@@ -235,9 +235,26 @@ All elements at once.
 
 All elements at once with function f applied to each element.
 
+#### .lazyMap(function(a){ ... })
+
+A lazy (late execution) version of map.  Adds a map function that is applied to each element when .next() is called.  This doesn't reset the current progress (call init).  Please call init after calling this if you want to reset your progress.
+
 #### .filter(function(a){ ... })
 
 Returns an array with elements that passes the filter function.
+For example, you can redefine combination as follows:
+
+````
+myCombination = function(ary, n) {
+  return Combinatorics.power(ary).filter(function (a) {
+    return a.length === n;
+  });
+};
+````
+
+#### .lazyFilter(function(a){ ... })
+
+A lazy (late execution) version of filter.  Adds a filter that runs when .next() is called and filters out results that don't match the supplied filter function. This doesn't reset the current progress (call init).  Please call init after calling this if you want to reset your progress.
 For example, you can redefine combination as follows:
 
 ````
