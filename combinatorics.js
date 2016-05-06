@@ -22,12 +22,7 @@
     var version = "0.5.1";
     /* combinatory arithmetics */
     var P = function(m, n) {
-        var t, p = 1;
-        if (m < n) {
-            t = m;
-            m = n;
-            n = t;
-        }
+        var p = 1;
         while (n--) p *= m--;
         return p;
     };
