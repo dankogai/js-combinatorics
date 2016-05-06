@@ -32,6 +32,9 @@
         return p;
     };
     var C = function(m, n) {
+        if (n > m) {
+            return 0;
+        }
         return P(m, n) / P(n, n);
     };
     var factorial = function(n) {
