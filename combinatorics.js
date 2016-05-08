@@ -22,16 +22,14 @@
     var version = "0.5.1";
     /* combinatory arithmetics */
     var P = function(m, n) {
-        var t, p = 1;
-        if (m < n) {
-            t = m;
-            m = n;
-            n = t;
-        }
+        var p = 1;
         while (n--) p *= m--;
         return p;
     };
     var C = function(m, n) {
+        if (n > m) {
+            return 0;
+        }
         return P(m, n) / P(n, n);
     };
     var factorial = function(n) {
