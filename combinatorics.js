@@ -19,7 +19,7 @@
     }
 }(this, function () {
     'use strict';
-    var version = "0.5.1";
+    var version = "0.5.2";
     /* combinatory arithmetics */
     var P = function(m, n) {
         var p = 1;
