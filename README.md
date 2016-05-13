@@ -33,7 +33,7 @@ Usage
 ````
 var cmb, a;
 cmb = Combinatorics.power(['a','b','c']);
-cmb.each(function(a){ console.log(a) });
+cmb.forEach(function(a){ console.log(a) });
 //  []
 //  ["a"]
 //  ["b"]
