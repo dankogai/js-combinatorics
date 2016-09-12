@@ -13,7 +13,7 @@
     "test": "mocha"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "2"
   },
   "repository": {
     "type": "git",
