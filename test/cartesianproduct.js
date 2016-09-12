@@ -12,10 +12,12 @@ var is_deeply = function (a, e, m) {
         assert.equal(JSON.stringify(a), JSON.stringify(e), m)
     }
 };
+var IT=function(t,f){it(JSON.stringify(t),f)}; // mocha 3
+
 describe('Combinatorics.cartesianProduct', function () {
     var c = Combinatorics.cartesianProduct(
     [0, 1, 2], [0, 10, 20], [0, 100, 200]);
-    it(c, is_deeply(c.toArray(), [
+    IT(c.toArray(), is_deeply(c.toArray(), [
         [0, 0, 0],
         [1, 0, 0],
         [2, 0, 0],
@@ -44,9 +46,9 @@ describe('Combinatorics.cartesianProduct', function () {
         [1, 20, 200],
         [2, 20, 200]
     ]));
-    it(0 + c, is_deeply(0 + c, c.toArray().length));
-    it(c.length, is_deeply(c.length, c.toArray().length));
-    it(c, is_deeply(c.filter(function (a) {
+    IT(0 + c, is_deeply(0 + c, c.toArray().length));
+    IT(c.length, is_deeply(c.length, c.toArray().length));
+    IT(c.toArray(), is_deeply(c.filter(function (a) {
         return a[0] === 0
     }), [
         [0, 0, 0],
@@ -65,7 +67,7 @@ describe('Combinatorics.cartesianProduct', function () {
     [0, 1, 2], [0, 10, 20], [0, 100, 200]).lazyFilter(function(a){ 
         return a[0] === 0
     });
-    it(c, is_deeply(c.toArray(), [
+    IT(c.toArray(), is_deeply(c.toArray(), [
         [0, 0, 0],
         [0, 10, 0],
         [0, 20, 0],
@@ -79,7 +81,7 @@ describe('Combinatorics.cartesianProduct', function () {
 
     // And resetting the lazy filter
     c.lazyFilter();
-    it(c, is_deeply(c.toArray(), [
+    IT(c.toArray(), is_deeply(c.toArray(), [
         [0, 0, 0],
         [1, 0, 0],
         [2, 0, 0],
@@ -117,7 +119,7 @@ describe('Combinatorics.cartesianProduct', function () {
         }
         return a;
     });
-    it(c, is_deeply(c.toArray(), [
+    IT(c.toArray(), is_deeply(c.toArray(), [
         [0, 0, 0],
         [1, 0, 0],
         [3, 0, 0],
@@ -149,7 +151,7 @@ describe('Combinatorics.cartesianProduct', function () {
 
     // And resetting the lazy map
     c.lazyMap();
-    it(c, is_deeply(c.toArray(), [
+    IT(c.toArray(), is_deeply(c.toArray(), [
         [0, 0, 0],
         [1, 0, 0],
         [2, 0, 0],

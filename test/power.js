@@ -13,13 +13,15 @@ var is_deeply = function (a, e, m) {
         assert.equal(JSON.stringify(a), JSON.stringify(e), m)
     }
 };
+var IT=function(t,f){it(JSON.stringify(t),f)}; // mocha 3
+
 describe('Combinatorics.power', function () {
     var a = [], c = Combinatorics.power(a);
-    it(c, is_deeply(c.toArray(), [
+    IT(c, is_deeply(c.toArray(), [
         []
     ]));
     a = 'abc'.split(''), c = Combinatorics.power(a);
-    it(a, is_deeply(c.toArray(), [
+    IT(a, is_deeply(c.toArray(), [
         [],
         ["a"],
         ["b"],
@@ -29,9 +31,9 @@ describe('Combinatorics.power', function () {
         ["b", "c"],
         ["a", "b", "c"]
     ]));
-    it(0+c, is_deeply(0+c, c.toArray().length));
-    it(c.length, is_deeply(c.length, c.toArray().length));
-    it(a, is_deeply(c.filter(function(a){return a.length === 2}),
+    IT(0+c, is_deeply(0+c, c.toArray().length));
+    IT(c.length, is_deeply(c.length, c.toArray().length));
+    IT(a, is_deeply(c.filter(function(a){return a.length === 2}),
                     Combinatorics.combination(a,2).toArray()
            ));
 
@@ -40,13 +42,13 @@ describe('Combinatorics.power', function () {
     c = Combinatorics.power(a).lazyFilter(function(a){ 
         return a.length === 2
     });
-    it(a, is_deeply(c.toArray(), 
+    IT(a, is_deeply(c.toArray(), 
                          Combinatorics.combination(a,2).toArray()
             ));
 
     // And resetting the lazy filter
     c.lazyFilter();
-    it(a, is_deeply(c.toArray(), [
+    IT(a, is_deeply(c.toArray(), [
         [],
         ["a"],
         ["b"],
@@ -64,7 +66,7 @@ describe('Combinatorics.power', function () {
         }
         return a;
     });
-    it(a, is_deeply(c.toArray(), [
+    IT(a, is_deeply(c.toArray(), [
         [],
         ["z"],
         ["b"],
@@ -77,7 +79,7 @@ describe('Combinatorics.power', function () {
 
     // And resetting the lazy map
     c.lazyMap();
-    it(a, is_deeply(c.toArray(), [
+    IT(a, is_deeply(c.toArray(), [
         [],
         ["a"],
         ["b"],

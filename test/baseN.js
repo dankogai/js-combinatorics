@@ -13,9 +13,11 @@ var is_deeply = function (a, e, m) {
         assert.equal(JSON.stringify(a), JSON.stringify(e), m)
     }
 };
+var IT=function(t,f){it(JSON.stringify(t),f)}; // mocha 3
+
 describe('Combinatorics.baseN', function () {
     a = 'abc'.split(''), c = Combinatorics.baseN(a);
-    it(a, is_deeply(c.toArray(), [
+    IT(a, is_deeply(c.toArray(), [
         [ 'a', 'a', 'a' ],
         [ 'b', 'a', 'a' ],
         [ 'c', 'a', 'a' ],
@@ -44,9 +46,9 @@ describe('Combinatorics.baseN', function () {
         [ 'b', 'c', 'c' ],
         [ 'c', 'c', 'c' ] 
     ]));
-    it(0+c, is_deeply(0+c, c.toArray().length));
-    it(c.length, is_deeply(c.length, c.toArray().length));
-    it(a, is_deeply(c.filter(function(a){return a[0] === 'a'}),[
+    IT(0+c, is_deeply(0+c, c.toArray().length));
+    IT(c.length, is_deeply(c.length, c.toArray().length));
+    IT(a, is_deeply(c.filter(function(a){return a[0] === 'a'}),[
         [ 'a', 'a', 'a' ],
         [ 'a', 'b', 'a' ],
         [ 'a', 'c', 'a' ],
@@ -62,7 +64,7 @@ describe('Combinatorics.baseN', function () {
     c = Combinatorics.baseN(a).lazyFilter(function(a){ 
         return a[0] === 'a'
     });
-    it(a, is_deeply(c.toArray(),[
+    IT(a, is_deeply(c.toArray(),[
         [ 'a', 'a', 'a' ],
         [ 'a', 'b', 'a' ],
         [ 'a', 'c', 'a' ],
@@ -76,7 +78,7 @@ describe('Combinatorics.baseN', function () {
 
     // And resetting the lazy filter
     c.lazyFilter();
-    it(a, is_deeply(c.toArray(), [
+    IT(a, is_deeply(c.toArray(), [
         [ 'a', 'a', 'a' ],
         [ 'b', 'a', 'a' ],
         [ 'c', 'a', 'a' ],
@@ -113,7 +115,7 @@ describe('Combinatorics.baseN', function () {
         }
         return a;
     });
-    it(a, is_deeply(c.toArray(),[
+    IT(a, is_deeply(c.toArray(),[
         [ 'z', 'a', 'a' ],
         [ 'b', 'a', 'a' ],
         [ 'c', 'a', 'a' ],
@@ -145,7 +147,7 @@ describe('Combinatorics.baseN', function () {
 
     // And resetting the lazy map
     c.lazyMap();
-    it(a, is_deeply(c.toArray(), [
+    IT(a, is_deeply(c.toArray(), [
         [ 'a', 'a', 'a' ],
         [ 'b', 'a', 'a' ],
         [ 'c', 'a', 'a' ],

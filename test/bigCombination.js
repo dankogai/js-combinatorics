@@ -12,12 +12,13 @@ var is_deeply = function (a, e, m) {
         assert.equal(JSON.stringify(a), JSON.stringify(e), m)
     }
 };
+var IT=function(t,f){it(JSON.stringify(t),f)}; // mocha 3
 
 describe('Combinatorics.bigCombination', function () {
     var a = 'abcdef'.split(''),
         b = 'abcdefghijklmnopqrstuvwxyz012345'.split(''),
         c = Combinatorics.bigCombination(a, 1);
-    it([a, 1], is_deeply(c.toArray(), [
+    IT([a, 1], is_deeply(c.toArray(), [
         ["a"],
         ["b"],
         ["c"],
@@ -25,10 +26,10 @@ describe('Combinatorics.bigCombination', function () {
         ["e"],
         ["f"]
     ]));
-    it(0 + c, is_deeply(0 + c, c.toArray().length));
-    it(c.length, is_deeply(c.length, c.toArray().length));
+    IT(0 + c, is_deeply(0 + c, c.toArray().length));
+    IT(c.length, is_deeply(c.length, c.toArray().length));
     c = Combinatorics.bigCombination(a, 2);
-    it([a, 2], is_deeply(c.toArray(), [
+    IT([a, 2], is_deeply(c.toArray(), [
         ["a", "b"],
         ["a", "c"],
         ["b", "c"],
@@ -45,10 +46,10 @@ describe('Combinatorics.bigCombination', function () {
         ["d", "f"],
         ["e", "f"]
     ]));
-    it(0 + c, is_deeply(0 + c, c.toArray().length));
-    it(c.length, is_deeply(c.length, c.toArray().length));
+    IT(0 + c, is_deeply(0 + c, c.toArray().length));
+    IT(c.length, is_deeply(c.length, c.toArray().length));
     c = Combinatorics.bigCombination(a, 3);
-    it([a, 3], is_deeply(c.toArray(), [
+    IT([a, 3], is_deeply(c.toArray(), [
         ["a", "b", "c"],
         ["a", "b", "d"],
         ["a", "c", "d"],
@@ -70,10 +71,10 @@ describe('Combinatorics.bigCombination', function () {
         ["c", "e", "f"],
         ["d", "e", "f"]
     ]));
-    it(0 + c, is_deeply(0 + c, c.toArray().length));
-    it(c.length, is_deeply(c.length, c.toArray().length));
+    IT(0 + c, is_deeply(0 + c, c.toArray().length));
+    IT(c.length, is_deeply(c.length, c.toArray().length));
     c = Combinatorics.bigCombination(a, 4);
-    it([a, 4], is_deeply(c.toArray(), [
+    IT([a, 4], is_deeply(c.toArray(), [
         ["a", "b", "c", "d"],
         ["a", "b", "c", "e"],
         ["a", "b", "d", "e"],
@@ -90,10 +91,10 @@ describe('Combinatorics.bigCombination', function () {
         ["b", "d", "e", "f"],
         ["c", "d", "e", "f"]
     ]));
-    it(0 + c, is_deeply(0 + c, c.toArray().length));
-    it(c.length, is_deeply(c.length, c.toArray().length));
+    IT(0 + c, is_deeply(0 + c, c.toArray().length));
+    IT(c.length, is_deeply(c.length, c.toArray().length));
     c = Combinatorics.bigCombination(a, 5);
-    it([a, 5], is_deeply(c.toArray(), [
+    IT([a, 5], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e"],
         ["a", "b", "c", "d", "f"],
         ["a", "b", "c", "e", "f"],
@@ -101,7 +102,7 @@ describe('Combinatorics.bigCombination', function () {
         ["a", "c", "d", "e", "f"],
         ["b", "c", "d", "e", "f"]
     ]));
-    it([a, 5], is_deeply(c.filter(function(a){ return a[0] !== 'a'}), [
+    IT([a, 5], is_deeply(c.filter(function(a){ return a[0] !== 'a'}), [
         ["b", "c", "d", "e", "f"]
     ]));
 
@@ -109,13 +110,13 @@ describe('Combinatorics.bigCombination', function () {
     c = Combinatorics.bigCombination(a, 5).lazyFilter(function(a){ 
         return a[0] !== 'a'
     });
-    it([a, 5], is_deeply(c.toArray(), [
+    IT([a, 5], is_deeply(c.toArray(), [
         ["b", "c", "d", "e", "f"]
     ]));
 
     // And resetting the lazy filter
     c.lazyFilter();
-    it([a, 5], is_deeply(c.toArray(), [
+    IT([a, 5], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e"],
         ["a", "b", "c", "d", "f"],
         ["a", "b", "c", "e", "f"],
@@ -125,15 +126,15 @@ describe('Combinatorics.bigCombination', function () {
     ]));
 
     c = Combinatorics.bigCombination(a, 6);
-    it([a, 6], is_deeply(c.toArray(), [
+    IT([a, 6], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e", "f"]
     ]));
-    it(0 + c, is_deeply(0 + c, c.toArray().length));
-    it(c.length, is_deeply(c.length, c.toArray().length));
+    IT(0 + c, is_deeply(0 + c, c.toArray().length));
+    IT(c.length, is_deeply(c.length, c.toArray().length));
 
     // Testing large value boundaries...
     c = Combinatorics.bigCombination(b, 1);
-    it([b, 1], is_deeply(c.toArray(), [
+    IT([b, 1], is_deeply(c.toArray(), [
         ["a"], ["b"], ["c"], ["d"], ["e"], ["f"],
         ["g"], ["h"], ["i"], ["j"], ["k"], ["l"],
         ["m"], ["n"], ["o"], ["p"], ["q"], ["r"],
@@ -142,7 +143,7 @@ describe('Combinatorics.bigCombination', function () {
         ["4"], ["5"]
     ]));
     c = Combinatorics.bigCombination(b, 32);
-    it([b, 32], is_deeply(c.toArray(), [
+    IT([b, 32], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e", "f",
         "g", "h", "i", "j", "k", "l",
         "m", "n", "o", "p", "q", "r",
@@ -151,7 +152,7 @@ describe('Combinatorics.bigCombination', function () {
         "4", "5"]
     ]));
     c = Combinatorics.bigCombination(b);
-    it([b], is_deeply(c.toArray(), [
+    IT([b], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e", "f",
         "g", "h", "i", "j", "k", "l",
         "m", "n", "o", "p", "q", "r",
@@ -167,7 +168,7 @@ describe('Combinatorics.bigCombination', function () {
         }
         return a;
     });
-    it([a, 5], is_deeply(c.toArray(), [
+    IT([a, 5], is_deeply(c.toArray(), [
         ["z", "b", "c", "d", "e"],
         ["z", "b", "c", "d", "f"],
         ["z", "b", "c", "e", "f"],
@@ -178,7 +179,7 @@ describe('Combinatorics.bigCombination', function () {
 
     // And resetting the lazy map
     c.lazyMap();
-    it([a, 5], is_deeply(c.toArray(), [
+    IT([a, 5], is_deeply(c.toArray(), [
         ["a", "b", "c", "d", "e"],
         ["a", "b", "c", "d", "f"],
         ["a", "b", "c", "e", "f"],

@@ -12,20 +12,21 @@ var is_deeply = function (a, e, m) {
         assert.equal(JSON.stringify(a), JSON.stringify(e), m)
     }
 };
+var IT=function(t,f){it(JSON.stringify(t),f)}; // mocha 3
 
 describe('Combinatorics.permutation', function () {
     var a = 'abcd'.split(''),
         c = Combinatorics.permutation(a, 1);
-    it([a, 1], is_deeply(c.toArray(), [
+    IT([a, 1], is_deeply(c.toArray(), [
         ["a"],
         ["b"],
         ["c"],
         ["d"]
     ]));
-    it(c + 0, is_deeply(c + 0, c.toArray().length));
-    it(c.length, is_deeply(c.length, c.toArray().length));
+    IT(c + 0, is_deeply(c + 0, c.toArray().length));
+    IT(c.length, is_deeply(c.length, c.toArray().length));
     c = Combinatorics.permutation(a, 2);
-    it([a, 2], is_deeply(c.toArray(), [
+    IT([a, 2], is_deeply(c.toArray(), [
         ["a", "b"],
         ["b", "a"],
         ["a", "c"],
@@ -39,19 +40,19 @@ describe('Combinatorics.permutation', function () {
         ["c", "d"],
         ["d", "c"]
     ]));
-    it([a, 2], is_deeply(c.filter(function(a){ return a[0] === 'a'}), [
+    IT([a, 2], is_deeply(c.filter(function(a){ return a[0] === 'a'}), [
         ["a", "b"],
         ["a", "c"],
         ["a", "d"]
     ]));
-    it(c + 0, is_deeply(c + 0, c.toArray().length));
-    it(c.length, is_deeply(c.length, c.toArray().length));
+    IT(c + 0, is_deeply(c + 0, c.toArray().length));
+    IT(c.length, is_deeply(c.length, c.toArray().length));
 
     // Testing lazy filter
     c = Combinatorics.permutation(a, 2).lazyFilter(function(a){ 
         return a[0] === 'a'
     });
-    it([a, 2], is_deeply(c.toArray(), [
+    IT([a, 2], is_deeply(c.toArray(), [
         ["a", "b"],
         ["a", "c"],
         ["a", "d"]
@@ -59,7 +60,7 @@ describe('Combinatorics.permutation', function () {
 
     // And resetting the lazy filter
     c.lazyFilter();
-    it([a, 2], is_deeply(c.toArray(), [
+    IT([a, 2], is_deeply(c.toArray(), [
         ["a", "b"],
         ["b", "a"],
         ["a", "c"],
@@ -75,7 +76,7 @@ describe('Combinatorics.permutation', function () {
     ]));
 
     c = Combinatorics.permutation(a, 3);
-    it([a, 3], is_deeply(c.toArray(), [
+    IT([a, 3], is_deeply(c.toArray(), [
         ["a", "b", "c"],
         ["a", "c", "b"],
         ["b", "a", "c"],
@@ -101,10 +102,10 @@ describe('Combinatorics.permutation', function () {
         ["d", "b", "c"],
         ["d", "c", "b"]
     ]));
-    it(c + 0, is_deeply(c + 0, c.toArray().length));
-    it(c.length, is_deeply(c.length, c.toArray().length));
+    IT(c + 0, is_deeply(c + 0, c.toArray().length));
+    IT(c.length, is_deeply(c.length, c.toArray().length));
     c = Combinatorics.permutation(a, 4);
-    it([a, 4], is_deeply(c.toArray(), [
+    IT([a, 4], is_deeply(c.toArray(), [
         ["a", "b", "c", "d"],
         ["a", "b", "d", "c"],
         ["a", "c", "b", "d"],
@@ -130,8 +131,8 @@ describe('Combinatorics.permutation', function () {
         ["d", "c", "a", "b"],
         ["d", "c", "b", "a"]
     ]));
-    it(c + 0, is_deeply(c + 0, c.toArray().length));
-    it(c.length, is_deeply(c.length, c.toArray().length));
+    IT(c + 0, is_deeply(c + 0, c.toArray().length));
+    IT(c.length, is_deeply(c.length, c.toArray().length));
 
     // Testing lazy map
     c = Combinatorics.permutation(a, 2).lazyMap(function(a){
@@ -140,7 +141,7 @@ describe('Combinatorics.permutation', function () {
         }
         return a;
     });
-    it([a, 2], is_deeply(c.toArray(), [
+    IT([a, 2], is_deeply(c.toArray(), [
         ["z", "b"],
         ["b", "a"],
         ["z", "c"],
@@ -157,7 +158,7 @@ describe('Combinatorics.permutation', function () {
 
     // And resetting the lazy map
     c.lazyMap();
-    it([a, 2], is_deeply(c.toArray(), [
+    IT([a, 2], is_deeply(c.toArray(), [
         ["a", "b"],
         ["b", "a"],
         ["a", "c"],
