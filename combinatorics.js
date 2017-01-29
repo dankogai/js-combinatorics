@@ -332,7 +332,13 @@
                 return size;
             },
             init: function() {
-                this.cmb = combination(ary, nelem);
+                /* combination can only be used for less than 31 elements */
+                if (ary.length < 31) {
+                    this.cmb = combination(ary, nelem);
+                } else {
+                    this.cmb = bigCombination(ary, nelem);
+                }
+                
                 this.per = _permutation(this.cmb.next());
             },
             next: function() {
