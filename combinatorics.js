@@ -87,6 +87,18 @@
             this.init();
             return result;
         },
+        find: function(f) {
+            var e, result;
+            this.init();
+            while (e = this.next()) {
+                if (f(e)) {
+                    result = e;
+                    break;
+                }
+            }
+            this.init();
+            return result;
+        },
         lazyMap: function(f) {
             this._lazyMap = f;
             return this;
