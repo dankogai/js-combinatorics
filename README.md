@@ -252,6 +252,11 @@ myCombination = function(ary, n) {
 };
 ````
 
+#### .find(function(a){ ... })
+
+Returns the first element that passes the filter function, or
+`undefined` if none matches.  Same as `.filter(f)[0]` but faster.
+
 #### .lazyFilter(function(a){ ... })
 
 A lazy (late execution) version of filter.  Adds a filter that runs when .next() is called and filters out results that don't match the supplied filter function. This doesn't reset the current progress (call init).  Please call init after calling this if you want to reset your progress.
