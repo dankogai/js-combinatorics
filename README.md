@@ -5,6 +5,12 @@ js-combinatorics
 
 Simple combinatorics like power set, combination, and permutation in JavaScript
 
+### For Swift programmers
+
+Check [swift-combinatorics].  More naturally implemented with generics and protocol.
+
+[swift-combinatorics]: https://github.com/dankogai/swift-combinatorics
+
 SYNOPSIS
 --------
 
