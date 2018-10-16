@@ -6,11 +6,9 @@
   "directories": {
     "test": "test"
   },
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "ugly": "uglify -s combinatorics.js -o combinatorics.min.js"
   },
   "devDependencies": {
     "mocha": "*"
