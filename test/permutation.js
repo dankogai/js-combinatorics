@@ -48,6 +48,13 @@ describe('Combinatorics.permutation', function () {
     IT(c + 0, is_deeply(c + 0, c.toArray().length));
     IT(c.length, is_deeply(c.length, c.toArray().length));
 
+    // Testing `RangeError` for fractional `nelem`
+    IT([a, [1.5, 2.25, 7.81], "should throw `RangeError`"], function() {
+        assert.throws(function() { Combinatorics.permutation(a, 1.5) }, RangeError);
+        assert.throws(function() { Combinatorics.permutation(a, 2.25) }, RangeError);
+        assert.throws(function() { Combinatorics.permutation(a, 7.81) }, RangeError);
+    });
+    
     // Testing lazy filter
     c = Combinatorics.permutation(a, 2).lazyFilter(function(a){ 
         return a[0] === 'a'

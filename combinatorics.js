@@ -328,6 +328,7 @@
         if (!nelem) nelem = ary.length;
         if (nelem < 1) throw new RangeError;
         if (nelem > ary.length) throw new RangeError;
+        if (nelem % 1 !== 0) throw new RangeError;
         var size = P(ary.length, nelem),
             sizeOf = function() {
                 return size;
