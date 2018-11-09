@@ -157,4 +157,9 @@ describe('Combinatorics.combination', function () {
         ["a", "c", "d", "e", "f"],
         ["b", "c", "d", "e", "f"]
     ]));
+
+    // Testing `RangeError` for fractional `nelem`
+    IT([a, 1.5, "should throw `RangeError`"], function() {
+        assert.throws(function() { Combinatorics.combination(a, 1.5) }, RangeError);
+    });
 });

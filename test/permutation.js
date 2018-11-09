@@ -172,4 +172,9 @@ describe('Combinatorics.permutation', function () {
         ["c", "d"],
         ["d", "c"]
     ]));
+
+    // Testing `RangeError` for fractional `nelem`
+    IT([a, 1.5, "should throw `RangeError`"], function() {
+        assert.throws(function() { Combinatorics.permutation(a, 1.5) }, RangeError);
+    });
 });
