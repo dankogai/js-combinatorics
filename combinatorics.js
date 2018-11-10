@@ -19,9 +19,10 @@
     }
 }(this, function () {
     'use strict';
-    var version = "0.5.3";
+    var version = "0.5.4";
     /* combinatory arithmetics */
     var P = function(m, n) {
+        if (n % 1 !== 0) throw new RangeError;
         var p = 1;
         while (n--) p *= m--;
         return p;

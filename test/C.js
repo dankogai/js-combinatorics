@@ -20,4 +20,8 @@ describe('Combinatorics.C', function () {
     it('[2, 5] should equal 0', function() {
         assert.equal(Combinatorics.C(2, 5), 0);
     });
+
+    it('[5, 1.5] should throw `RangeError`', function() {
+        assert.throws(function() { Combinatorics.C(5, 1.5) }, RangeError);
+    });
 });
