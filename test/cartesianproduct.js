@@ -180,4 +180,10 @@ describe('Combinatorics.cartesianProduct', function () {
         [1, 20, 200],
         [2, 20, 200]
     ]));  
+
+    // Testing .reduce
+    var r = function(a, e, i){return a + i + ":" + e + ";"};
+    var s = c.toArray().reduce(r, "");
+    IT( s + " // c.reduce", is_deeply(s, c.reduce(r, "")));
+
 });

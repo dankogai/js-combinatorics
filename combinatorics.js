@@ -19,7 +19,7 @@
     }
 }(this, function () {
     'use strict';
-    var version = "0.5.4";
+    var version = "0.5.5";
     /* combinatory arithmetics */
     var P = function(m, n) {
         if (n % 1 !== 0) throw new RangeError;
@@ -98,6 +98,21 @@
                 }
             }
             this.init();
+            return result;
+        },
+        reduce: function(reducer, result) {
+            // return this.toArray().reduce(reducer, init);
+            this.init();
+            var index = 0;
+            if (arguments.length < 2) {
+                result = this.next();
+                index += 1;
+            }
+            var length = this.length;
+            while(index < length) {
+                result = reducer(result, this.next(), index, this);
+                index += 1;
+            }
             return result;
         },
         lazyMap: function(f) {

@@ -187,4 +187,10 @@ describe('Combinatorics.bigCombination', function () {
         ["a", "c", "d", "e", "f"],
         ["b", "c", "d", "e", "f"]
     ]));
+
+    // Testing .reduce
+    var r = function(a, e, i){return a + i + ":" + e + ";"};
+    var s = c.toArray().reduce(r, "");
+    IT( s + " // c.reduce", is_deeply(s, c.reduce(r, "")));
+
 });

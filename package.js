@@ -1,6 +1,6 @@
 Package.describe({
     name: 'jandres:js-combinatorics',
-    version: '0.5.4',
+    version: '0.5.5',
     // Brief, one-line summary of the package.
     summary: 'power set, combination, permutation and more in JavaScript',
     // URL to the Git repository containing the source code for this package.

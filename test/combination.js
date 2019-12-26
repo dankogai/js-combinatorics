@@ -162,4 +162,8 @@ describe('Combinatorics.combination', function () {
     IT([a, 1.5, "should throw `RangeError`"], function() {
         assert.throws(function() { Combinatorics.combination(a, 1.5) }, RangeError);
     });
+    // Testing .reduce
+    var r = function(a, e, i){return a + i + ":" + e + ";"};
+    var s = c.toArray().reduce(r, "");
+    IT( s + " // c.reduce", is_deeply(s, c.reduce(r, "")));
 });

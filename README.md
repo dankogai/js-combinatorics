@@ -278,6 +278,12 @@ myCombination = function(ary, n) {
 };
 ````
 
+#### .reduce(function(accumulator, currentValue[, index, self]){ ... }[, initialValue])
+
+Works the same as [Array.prototype.reduce].  Identical result as `.toArray().reduce()` but more efficient.
+
+[Array.prototype.reduce]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+
 #### .length
 
 Returns the number of elements to be generated
