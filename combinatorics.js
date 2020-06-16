@@ -1,6 +1,4 @@
 /*
- * $Id: combinatorics.js,v 0.25 2013/03/11 15:42:14 dankogai Exp dankogai $
- *
  *  Licensed under the MIT license.
  *  http://www.opensource.org/licenses/mit-license.php
  *
@@ -19,11 +17,16 @@
     }
 }(this, function () {
     'use strict';
-    var version = "0.5.5";
+    var version = "0.6.0";
     /* combinatory arithmetics */
     var P = function(m, n) {
-        if (n % 1 !== 0) throw new RangeError;
-        var p = 1;
+        var p;
+        if (typeof m === 'bigint' && typeof n === 'bigint') {
+            eval('p = 1n;'); // for platforms w/o BigInt
+        } else {
+            if (n % 1 !== 0) throw new RangeError;
+            p = 1;
+        }
         while (n--) p *= m--;
         return p;
     };
