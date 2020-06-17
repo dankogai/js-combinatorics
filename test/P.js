@@ -25,3 +25,18 @@ describe('Combinatorics.P', function () {
         assert.throws(function() { Combinatorics.P(5, 1.5) }, RangeError);
     });
 });
+
+try { eval(`
+    describe('Combinatorics.P for BigInt', () => {
+        it('[3n, 2n] should equal 6n', () => {
+            assert.equal(Combinatorics.P(3n, 2n), 6n);
+        });
+        it('[1n, 1n] should equal 1n', () => {
+            assert.equal(Combinatorics.P(1n, 1n), 1n);
+        });
+        it('[2n, 5n] should equal 0n', () => {
+            assert.equal(Combinatorics.P(2n, 5n), 0n);
+        });
+    });`);
+} catch(e) {
+}

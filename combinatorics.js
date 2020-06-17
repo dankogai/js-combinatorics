@@ -19,23 +19,41 @@
     'use strict';
     var version = "0.6.0";
     /* combinatory arithmetics */
-    var P = function(m, n) {
-        var p;
-        if (typeof m === 'bigint' && typeof n === 'bigint') {
-            eval('p = 1n;'); // for platforms w/o BigInt
-        } else {
+    var P;
+    try { // for platforms w/ BigInt support
+        P = eval(`(m, n) => {
+            var p;
+            if (typeof m === 'bigint' && typeof n === 'bigint') {
+                p = 1n;
+            } else {
+                if (m % 1 !== 0) throw new RangeError;
+                if (n % 1 !== 0) throw new RangeError;
+                p = 1;
+            }
+            while (n--) p *= m--;
+            return p;
+        };`);
+    } catch (e) {
+        P = function(m, n) {
+            if (m % 1 !== 0) throw new RangeError;
             if (n % 1 !== 0) throw new RangeError;
-            p = 1;
-        }
-        while (n--) p *= m--;
-        return p;
-    };
-    var C = function(m, n) {
-        if (n > m) {
-            return 0;
-        }
-        return P(m, n) / P(n, n);
-    };
+            var p = 1;
+            while (n--) p *= m--;
+            return p;
+        };
+    }
+    var C;
+    try {
+        C = eval(`
+        (m, n) => m < n
+            ? typeof m === 'bigint' && typeof n === 'bigint' ? 0n : 0
+            :  P(m, n) / P(n, n);
+        `);
+    } catch(e) {
+        C = function(m, n) {
+            return m < n ? 0 : P(m, n) / P(n, n);
+        };
+    }
     var factorial = function(n) {
         return P(n, n);
     };
