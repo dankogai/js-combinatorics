@@ -170,11 +170,14 @@ console.log(baseN.toArray())
 ### Arithmetic Functions
 
 + .`P(m, n)`
-  calculates m P n
+  calculates `m P n`.
+    * If `m` and `n` are `BigInt`, the result is also `BigInt`.  Otherwise the result is in `Number`.
 + .`C(m, n)`
-  calculates m C n
+  calculates `m C n`.
+    * If `m` and `n` are `BigInt`, the result is also `BigInt`.  Otherwise the result is in `Number`.
 + .`factorial(n)`
   calculates `n!`
+  *   If `n` is `BigInt`, the result is also `BigInt`.  Otherwise the result is in `Number`.
 + .`factoradic(n)`
   returns the factoradic representation of n in array, *in least significant order*.  See
   http://en.wikipedia.org/wiki/Factorial_number_system

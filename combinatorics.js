@@ -17,7 +17,7 @@
     }
 }(this, function () {
     'use strict';
-    var version = "0.6.0";
+    var version = "0.6.1";
     /* combinatory arithmetics */
     var P;
     try { // for platforms w/ BigInt support
