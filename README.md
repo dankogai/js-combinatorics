@@ -15,9 +15,15 @@ SYNOPSIS
 --------
 
 ### In Browser
+
+Suppose `combinatorics.js` is in the same directory as the html,
+
 ```html
-<script src="combinatorics.js"></script>
-<-- or include it directly via CDN -->
+<script src="./combinatorics.js"></script>
+```
+or include it directly via CDN.
+
+```html
 <script src="https://cdn.jsdelivr.net/npm/js-combinatorics@0.6.1/combinatorics.min.js"></script>
 ```
 ### node.js
