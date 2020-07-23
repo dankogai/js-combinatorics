@@ -3,17 +3,19 @@
   "version": "0.6.1",
   "description": "Simple combinatorics like power set, combination, and permutation in JavaScript",
   "main": "combinatorics.js",
-  "directories": {
-    "test": "test"
-  },
-  "directories": {
-    "test": "test"
+  "module": "combinatorics.js",
+  "files": ["combinatorics.js"],
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/plugin-proposal-export-namespace-from": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/register": "^7.10.4",
+    "mocha": "^8.0.0",
+    "chai": "^4.2.0"
   },
   "scripts": {
-    "test": "mocha"
-  },
-  "devDependencies": {
-    "mocha": "*"
+    "test": "mocha --require @babel/register"
   },
   "repository": {
     "type": "git",
