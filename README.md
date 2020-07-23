@@ -5,6 +5,15 @@ js-combinatorics
 
 Simple combinatorics like power set, combination, and permutation in JavaScript
 
+# HEADS UP
+
+In the next major version update, `js-combinatorics` will go ES2015.
+
+* native iterator instead of custom
+* module. `import` instead of `require`.
+
+APIs will change accordingly.  Old versions are available in the `version0` branch.
+
 ### For Swift programmers
 
 Check [swift-combinatorics].  More naturally implemented with generics and protocol.
