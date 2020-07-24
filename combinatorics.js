@@ -41,7 +41,7 @@ export function permutation(n, k) {
  */
 export function combination(n, k) {
     const P = permutation;
-    const c = _BI(P(n, k) / P(k, k))
+    const c = _BI(P(n, k)) / _BI(P(k, k));
     return c <= Number.MAX_SAFE_INTEGER ? Number(c) : c;
 }
 /**
