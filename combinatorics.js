@@ -110,6 +110,12 @@ class _CBase {
     toArray() {
         return [...this];
     }
+    get isBig() {
+        return Number.MAX_SAFE_INTEGER < this.length;
+    }
+    get isSafe() {
+        return typeof BigInt !== 'undefined' || !this.isBig;
+    }
 }
 /**
  * Permutation
@@ -124,11 +130,7 @@ export class Permutation extends _CBase {
         super();
         this.seed = [...seed];
         this.size = 0 < size && size <= this.seed.length ? size : this.seed.length;
-        const length = permutation(seed.length, this.size);
-        if (_BI === Number && Number.MAX_SAFE_INTEGER < length) {
-            throw RangeError(`${length} exceeds Number.MAX_SAFE_INTEGER`);
-        };
-        this.length = length;
+        this.length = permutation(seed.length, this.size);
         Object.freeze(this);
     }
     nth(n) {
@@ -180,6 +182,7 @@ export class Combination extends _CBase {
 export class BaseN extends _CBase {
     constructor(seed, size){
         super();
+        if (!size) size = 1;
         this.seed = [...seed];
         this.size = size;
         let base = this.seed.length;

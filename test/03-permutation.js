@@ -16,7 +16,7 @@ describe('class Permutation', () => {
         it(`new Permutation('${seed}').length === ${sbn}n`, () => {
             $$(c.length).to.equal(BigInt(sbn));
         });
-        it(`new Permutation('${seed}').nth(${sbn}n-1n)`, () => {
+        it(`.nth(${sbn}n-1n)`, () => {
             $$(c.nth(BigInt(sbn)-BigInt(1))).to.deep.equal([...seed].reverse())
         });
     } else {
