@@ -3,7 +3,7 @@
 js-combinatorics
 ================
 
-Simple combinatorics like power set, combination, and permutation in JavaScript
+Simple combinatorics in JavaScript
 
 # HEADS UP
 
@@ -21,303 +21,400 @@ Check [swift-combinatorics].  More naturally implemented with generics and proto
 
 [swift-combinatorics]: https://github.com/dankogai/swift-combinatorics
 
-SYNOPSIS
---------
+## SYNOPSIS
 
-### In Browser
+```javascript
+import * as $C from 'combinatorics.js';
+let it =  new $C.Combination('abcdefgh', 4);
+for (const elem of it) {
+  console.log(elem) // ['a', 'b', 'c', 'd'] ... ['a', 'd', 'e', 'f']
+}
+```
 
-Suppose `combinatorics.js` is in the same directory as the html,
+## Usage
+
+load everything…
+
+```javascript
+import * as Combinatorics from 'combinatorics.js';
+```
+
+or just objects you want.
+
+```javascript
+import {Combination, Permutation} from 'combinatorics.js';
+```
+
+You don't even have to install if you `import` from CDNs.
+
+```javascript
+import * as C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@0.6.1/combinatorics.min.js';
+```
+
+Since this is an ES6 module, `type="module"` is required the `<script>` tags. of your HTML files. But you can make it globally available as follows.
 
 ```html
-<script src="./combinatorics.js"></script>
+<script type="module">
+  import * as $C from 'combinatorics.js';
+  window.Combinatorics = $C;
+</script>
+<script>
+  // now you can access Combinatorics
+  let c = new Combinatorics.Combination('abcdefgh', 4);
+</script>
 ```
-or include it directly via CDN.
 
-```html
-<script src="https://cdn.jsdelivr.net/npm/js-combinatorics@0.6.1/combinatorics.min.js"></script>
-```
-### node.js
-````
+### node.js and commonjs
+```javascript
 var Combinatorics = require('js-combinatorics');
-````
-
-### Meteor
-
-In your project directory:
-```bash
-meteor add jandres:js-combinatorics
 ```
 
-`Combinatorics` is now available in your app/package namespace.
-
-Usage
------
-
-### power set
-````
-var cmb, a;
-cmb = Combinatorics.power(['a','b','c']);
-cmb.forEach(function(a){ console.log(a) });
-//  []
-//  ["a"]
-//  ["b"]
-//  ["a", "b"]
-//  ["c"]
-//  ["a", "c"]
-//  ["b", "c"]
-//  ["a", "b", "c"]
-````
-
-### combination
-````
-cmb = Combinatorics.combination(['a','b','c','d'], 2);
-while(a = cmb.next()) console.log(a);
-//  ["a", "b"]
-//  ["a", "c"]
-//  ["a", "d"]
-//  ["b", "c"]
-//  ["b", "d"]
-//  ["c", "d"]
-````
-
-### bigCombination
-This option may be a little slower and use a little more memory but can handle a much larger array 
-````
-cmb = Combinatorics.bigCombination([1,2,3, ... ,35], 2);
-while(a = cmb.next()) console.log(a);
-//  ["1", "2"]
-//  ["1", "3"]
-//  ...
-//  ["1", "32"]
-//  ["2", "3"]
-//  ...
-//  ["2", "32"]
-````
-
-### permutation
-````
-cmb = Combinatorics.permutation(['a','b','c','d']); // assumes 4
-console.log(cmb.toArray());
-//  [
-  ["a","b","c","d"],["a","b","d","c"],["a","c","b","d"],["a","c","d","b"],
-  ["a","d","b","c"],["a","d","c","b"],["b","a","c","d"],["b","a","d","c"],
-  ["b","c","a","d"],["b","c","d","a"],["b","d","a","c"],["b","d","c","a"],
-  ["c","a","b","d"],["c","a","d","b"],["c","b","a","d"],["c","b","d","a"],
-  ["c","d","a","b"],["c","d","b","a"],["d","a","b","c"],["d","a","c","b"],
-  ["d","b","a","c"],["d","b","c","a"],["d","c","a","b"],["d","c","b","a"]
-]
-````
-
-### permutation of combination
-````
-cmb = Combinatorics.permutationCombination(['a','b','c']);
-console.log(cmb.toArray());
-// [ 
-  [ 'a' ],
-  [ 'b' ],
-  [ 'c' ],
-  [ 'a', 'b' ],
-  [ 'b', 'a' ],
-  [ 'a', 'c' ],
-  [ 'c', 'a' ],
-  [ 'b', 'c' ],
-  [ 'c', 'b' ],
-  [ 'a', 'b', 'c' ],
-  [ 'a', 'c', 'b' ],
-  [ 'b', 'a', 'c' ],
-  [ 'b', 'c', 'a' ],
-  [ 'c', 'a', 'b' ],
-  [ 'c', 'b', 'a' ] ]
-````
-
-### cartesian product
-````
-cp = Combinatorics.cartesianProduct([0, 1, 2], [0, 10, 20], [0, 100, 200]);
-console.log(cp.toArray());
-//  [
-  [0, 0, 0],   [1, 0, 0],   [2, 0, 0],
-  [0, 10, 0],  [1, 10, 0],  [2, 10, 0],
-  [0, 20, 0],  [1, 20, 0],  [2, 20, 0],
-  [0, 0, 100], [1, 0, 100], [2, 0, 100],
-  [0, 10, 100],[1, 10, 100],[2, 10, 100],
-  [0, 20, 100],[1, 20, 100],[2, 20, 100],
-  [0, 0, 200], [1, 0, 200], [2, 0, 200],
-  [0, 10, 200],[1, 10, 200],[2, 10, 200],
-  [0, 20, 200],[1, 20, 200],[2, 20, 200]
-]
-````
-
-### base N
-
-````
-baseN = Combinatorics.baseN(['a','b','c'], 3);
-console.log(baseN.toArray())
-// [ 
-  [ 'a', 'a', 'a' ],
-  [ 'b', 'a', 'a' ],
-  [ 'c', 'a', 'a' ],
-  [ 'a', 'b', 'a' ],
-  [ 'b', 'b', 'a' ],
-  [ 'c', 'b', 'a' ],
-  [ 'a', 'c', 'a' ],
-  [ 'b', 'c', 'a' ],
-  [ 'c', 'c', 'a' ],
-  [ 'a', 'a', 'b' ],
-  [ 'b', 'a', 'b' ],
-  [ 'c', 'a', 'b' ],
-  [ 'a', 'b', 'b' ],
-  [ 'b', 'b', 'b' ],
-  [ 'c', 'b', 'b' ],
-  [ 'a', 'c', 'b' ],
-  [ 'b', 'c', 'b' ],
-  [ 'c', 'c', 'b' ],
-  [ 'a', 'a', 'c' ],
-  [ 'b', 'a', 'c' ],
-  [ 'c', 'a', 'c' ],
-  [ 'a', 'b', 'c' ],
-  [ 'b', 'b', 'c' ],
-  [ 'c', 'b', 'c' ],
-  [ 'a', 'c', 'c' ],
-  [ 'b', 'c', 'c' ],
-  [ 'c', 'c', 'c' ]
-]
-````
+## Description
 
 ### Arithmetic Functions
 
-+ .`P(m, n)`
-  calculates `m P n`.
-    * If `m` and `n` are `BigInt`, the result is also `BigInt`.  Otherwise the result is in `Number`.
-+ .`C(m, n)`
-  calculates `m C n`.
-    * If `m` and `n` are `BigInt`, the result is also `BigInt`.  Otherwise the result is in `Number`.
-+ .`factorial(n)`
-  calculates `n!`
-  *   If `n` is `BigInt`, the result is also `BigInt`.  Otherwise the result is in `Number`.
-+ .`factoradic(n)`
-  returns the factoradic representation of n in array, *in least significant order*.  See
-  http://en.wikipedia.org/wiki/Factorial_number_system
+Self-explanatory, are they not?
 
+```javascript
+import {permutation, combination, factorial, factoradic} from 'combinatorics.js';
 
-DESCRIPTION
------------
+permutation(24, 12);  // 1295295050649600
+permutation(26, 13);  // 64764752532480000n
 
-All methods create _generators_.  Instead of creating all elements at once, each element is created on demand.  So it is memory efficient even when you need to iterate through millions of elements.
+combination(56, 28);  // 7648690600760440
+combination(58, 29);  // 30067266499541040n
 
-#### Combinatorics.power( _ary_ )
+factorial(18);  // 6402373705728000
+factorial(19);  // 121645100408832000n
 
-Creates a generator which generates the power set of _ary_
+factoradic(6402373705727999);     // [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+factoradic(121645100408831999n)   // [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
+```
 
-#### Combinatorics.combination( _ary_ , _nelem_ )
+The arithmetic functions above accept both `Number` and `BigInt` (if supported).  Return answers in `Number` if it is small enough to fit within  `Number.MAX_SAFE_INTEGER` or `BigInt` otherwise.
 
-Creates a generator which generates the combination of _ary_ with _nelem_ elements.
-When _nelem_ is ommited, _ary_.length is used. _ary_ must be less than 31 in length, for
-larger _ary_ use bigCombination
+### classes
 
-#### Combinatorics.bigCombination( _ary_ , _nelem_ )
+The module comes with `Permutation`, `Combination`, `PowerSet`, `BaseN`, and `CartesianProduct`.  You can individually `import` them or all of them via `import *`
 
-Creates a generator which generates the combination of _ary_ with _nelem_ elements.
-When _nelem_ is ommited, _ary_.length is used.
+```javascript
+import * as $C from 'combinatorics.js';
+```
 
-#### Combinatorics.permutation( _ary_, _nelem_ )
+You construct an iterable object by giving a seed iterable and options.  in the example below, `'abcdefgh'` is the seed and `4` is the size of the element.
 
-Creates a generator which generates the permutation of _ary_ with _nelem_ elements.
-When _nelem_ is ommited, _ary_.length is used.
+```javascript
+let it = new $C.Combination('abcdefgh', 4);
+```
 
-#### Combinatorics.permutationCombination( _ary_)
+Once constructed, you can iterate via `for … of` statement or turn it into an array via `[...]` construct.
 
-Creates a generator which generates the permutation of the combination of _ary_.
-Equivalent to
-`Combinatorics.permutation(Combinatorics.combination(ary))`
-but more efficient.
+```javascript
+[...it]; /* [
+  [ 'a', 'b', 'c', 'd' ], [ 'a', 'b', 'c', 'e' ], [ 'a', 'b', 'c', 'f' ],
+  [ 'a', 'b', 'c', 'h' ], [ 'a', 'b', 'd', 'c' ], [ 'a', 'b', 'd', 'g' ],
+  [ 'a', 'b', 'd', 'e' ], [ 'a', 'b', 'd', 'h' ], [ 'a', 'b', 'e', 'd' ],
+  [ 'a', 'b', 'f', 'd' ], [ 'a', 'b', 'e', 'c' ], [ 'a', 'b', 'e', 'f' ],
+  [ 'a', 'b', 'e', 'g' ], [ 'a', 'b', 'f', 'e' ], [ 'a', 'b', 'e', 'h' ],
+  [ 'a', 'b', 'f', 'h' ], [ 'a', 'b', 'g', 'f' ], [ 'a', 'c', 'b', 'f' ],
+  [ 'a', 'b', 'f', 'g' ], [ 'a', 'b', 'g', 'c' ], [ 'a', 'b', 'g', 'd' ],
+  [ 'a', 'b', 'g', 'h' ], [ 'a', 'b', 'g', 'e' ], [ 'a', 'b', 'h', 'c' ],
+  [ 'a', 'b', 'h', 'e' ], [ 'a', 'c', 'b', 'g' ], [ 'a', 'b', 'h', 'd' ],
+  [ 'a', 'b', 'h', 'f' ], [ 'a', 'b', 'h', 'g' ], [ 'a', 'c', 'd', 'b' ],
+  [ 'a', 'c', 'b', 'd' ], [ 'a', 'c', 'd', 'h' ], [ 'a', 'c', 'f', 'e' ],
+  [ 'a', 'd', 'b', 'h' ], [ 'a', 'c', 'b', 'h' ], [ 'a', 'c', 'd', 'e' ],
+  [ 'a', 'c', 'd', 'f' ], [ 'a', 'c', 'e', 'b' ], [ 'a', 'c', 'd', 'g' ],
+  [ 'a', 'c', 'e', 'd' ], [ 'a', 'c', 'e', 'g' ], [ 'a', 'c', 'f', 'g' ],
+  [ 'a', 'c', 'e', 'f' ], [ 'a', 'c', 'e', 'h' ], [ 'a', 'c', 'f', 'b' ],
+  [ 'a', 'c', 'f', 'h' ], [ 'a', 'c', 'f', 'd' ], [ 'a', 'c', 'g', 'd' ],
+  [ 'a', 'c', 'h', 'b' ], [ 'a', 'd', 'c', 'b' ], [ 'a', 'c', 'g', 'b' ],
+  [ 'a', 'c', 'g', 'e' ], [ 'a', 'c', 'g', 'f' ], [ 'a', 'c', 'h', 'd' ],
+  [ 'a', 'c', 'g', 'h' ], [ 'a', 'c', 'h', 'e' ], [ 'a', 'c', 'h', 'g' ],
+  [ 'a', 'd', 'c', 'f' ], [ 'a', 'c', 'h', 'f' ], [ 'a', 'd', 'b', 'c' ],
+  [ 'a', 'd', 'b', 'e' ], [ 'a', 'd', 'e', 'c' ], [ 'a', 'd', 'b', 'f' ],
+  [ 'a', 'd', 'f', 'h' ], [ 'a', 'e', 'c', 'b' ], [ 'a', 'f', 'c', 'g' ],
+  [ 'a', 'd', 'c', 'e' ], [ 'a', 'd', 'c', 'g' ], [ 'a', 'd', 'c', 'h' ],
+  [ 'a', 'd', 'e', 'f' ]
+] */
+```
 
-#### Combinatorics.cartesianProduct( _ary0_, ...)
+The object has `.length` so you don't have to iterate to count the elements.
 
-Creates a generator which generates the cartesian product of the arrays.  All arguments must be arrays with more than one element.
+```javascript
+it.length;  // 70
+```
 
-#### Combinatorics.baseN( _ary_ , _nelem_ )
+The object also has `.nth(n)` method so you can random-access each element.  This is the equivalent of subscript in `Array`.
 
-Creates a generator which generates _nelem_ -digit "numbers" where each digit is element in _ary_ .
-Note this "number" is in least significant order.
+```javascript
+it.nth(69); //  [ 'a', 'd', 'c', 'h' ];
+```
 
-When _nelem_ is ommited, _ary_.length is used.
+### class Permutation
 
-### Generator Methods
+An iterable which permutes a given iterable.
 
-All generators have following methods:
+`new Permutation(seed, size)`
 
-#### .next()
+* `seed`: the seed iterable.   `[...seed]` becomes the seed array.
+* `size`: the number of elements in the iterated element.  defaults to `seed.length`
 
-Returns the element or `undefined` if no more element is available.
+````javascript
+import {Permutation} from 'combinatorics.js';
 
-#### .forEach(function(a){ ... });
+let it = new Permutation('abcd'); // size 4 is assumed4
+it.length;  // 24
+[...it];    /* [
+  [ 'a', 'b', 'c', 'd' ], [ 'a', 'b', 'd', 'c' ],
+  [ 'a', 'c', 'b', 'd' ], [ 'a', 'c', 'd', 'b' ],
+  [ 'a', 'd', 'b', 'c' ], [ 'a', 'd', 'c', 'b' ],
+  [ 'b', 'a', 'c', 'd' ], [ 'b', 'a', 'd', 'c' ],
+  [ 'b', 'c', 'a', 'd' ], [ 'b', 'c', 'd', 'a' ],
+  [ 'b', 'd', 'a', 'c' ], [ 'b', 'd', 'c', 'a' ],
+  [ 'c', 'a', 'b', 'd' ], [ 'c', 'a', 'd', 'b' ],
+  [ 'c', 'b', 'a', 'd' ], [ 'c', 'b', 'd', 'a' ],
+  [ 'c', 'd', 'a', 'b' ], [ 'c', 'd', 'b', 'a' ],
+  [ 'd', 'a', 'b', 'c' ], [ 'd', 'a', 'c', 'b' ],
+  [ 'd', 'b', 'a', 'c' ], [ 'd', 'b', 'c', 'a' ],
+  [ 'd', 'c', 'a', 'b' ], [ 'd', 'c', 'b', 'a' ]
+] */
 
-Applies the callback function for each element.
-
-#### .toArray()
-
-All elements at once.
-
-#### .map(function(a){ ... })
-
-All elements at once with function f applied to each element.
-
-#### .lazyMap(function(a){ ... })
-
-A lazy (late execution) version of map.  Adds a map function that is applied to each element when .next() is called.  This doesn't reset the current progress (call init).  Please call init after calling this if you want to reset your progress.
-
-#### .filter(function(a){ ... })
-
-Returns an array with elements that passes the filter function.
-For example, you can redefine combination as follows:
-
+it = new Permutation('abcdefghijklmnopqrstuvwxyz0123456789');
+it.length;  // 371993326789901217467999448150835200000000n
+it.nth(371993326789901217467999448150835199999999n);  /* [
+  '9', '8', '7', '6', '5', '4', '3',
+  '2', '1', '0', 'z', 'y', 'x', 'w',
+  'v', 'u', 't', 's', 'r', 'q', 'p',
+  'o', 'n', 'm', 'l', 'k', 'j', 'i',
+  'h', 'g', 'f', 'e', 'd', 'c', 'b',
+  'a'
+] */
 ````
-myCombination = function(ary, n) {
-  return Combinatorics.power(ary).filter(function (a) {
-    return a.length === n;
-  });
-};
+
+
+### class Combination
+
+An iterable which emits a combination of a given iterable.
+
+`new Combination(seed, size)`
+
+* `seed`: the seed iterable.
+* `size`: the number of elements in the iterated element.  
+
+````javascript
+import {Combination} from 'combinatorics.js';
+
+let it = new Combination('abcd', 2);
+it.length;  // 6
+[...it];    /* [
+  [ 'a', 'b' ],
+  [ 'a', 'c' ],
+  [ 'a', 'd' ],
+  [ 'b', 'c' ],
+  [ 'b', 'd' ],
+  [ 'c', 'd' ]
+] */
+
+let a100 = Array(100).fill(0).map((v,i)=>i); // [0, 1, ...99]
+it = new Combination(a100, 50);
+it.length;  // 100891344545564193334812497256n
+it.nth(100891344545564193334812497255n);  /* [
+  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10,
+  11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+  22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
+  38, 76, 36, 41, 40, 81, 84, 62, 87, 83, 43,
+  91, 88, 33, 34, 35, 39
+] */
 ````
 
-#### .find(function(a){ ... })
+### class PowerSet
 
-Returns the first element that passes the filter function, or
-`undefined` if none matches.  Same as `.filter(f)[0]` but faster.
+An iterable which emits each element of its power set.
 
-#### .lazyFilter(function(a){ ... })
+`new PowerSet(seed)`
 
-A lazy (late execution) version of filter.  Adds a filter that runs when .next() is called and filters out results that don't match the supplied filter function. This doesn't reset the current progress (call init).  Please call init after calling this if you want to reset your progress.
-For example, you can redefine combination as follows:
+* `seed`: the seed iterable.
 
+````javascript
+import {PowerSet} from 'combinatorics.js';
+
+let it = new PowerSet('abc');
+it.length;  // 8
+[...it];    /* [
+  [],
+  [ 'a' ],
+  [ 'b' ],
+  [ 'a', 'b' ],
+  [ 'c' ],
+  [ 'a', 'c' ],
+  [ 'b', 'c' ],
+  [ 'a', 'b', 'c' ]
+] */
+
+it = new PowerSet(
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+);
+it.length;  // 18446744073709551616n
+it.nth(18446744073709551615n);  /* [
+  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+  'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+  'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a',
+  'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+  'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+  't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1',
+  '2', '3', '4', '5', '6', '7', '8', '9', '+',
+  '/'
+] */
 ````
-myCombination = function(ary, n) {
-  return Combinatorics.power(ary).lazyFilter(function (a) {
-    return a.length === n;
-  }).toArray();
-};
+
+### class BaseN
+
+An iterable which emits all numbers in the given system.
+
+`new BaseN(seed, size)`
+
+* `seed`: the seed iterable whose elements represent digits.
+* `size`: the number of digits
+
+```javascript
+import {BaseN} from 'combinatorics.js';
+
+let it = new BaseN('abc', 3);
+it.length;  // 27
+[...it];    /* [
+  [ 'a', 'a', 'a' ], [ 'b', 'a', 'a' ],
+  [ 'c', 'a', 'a' ], [ 'a', 'b', 'a' ],
+  [ 'b', 'b', 'a' ], [ 'c', 'b', 'a' ],
+  [ 'a', 'c', 'a' ], [ 'b', 'c', 'a' ],
+  [ 'c', 'c', 'a' ], [ 'a', 'a', 'b' ],
+  [ 'b', 'a', 'b' ], [ 'c', 'a', 'b' ],
+  [ 'a', 'b', 'b' ], [ 'b', 'b', 'b' ],
+  [ 'c', 'b', 'b' ], [ 'a', 'c', 'b' ],
+  [ 'b', 'c', 'b' ], [ 'c', 'c', 'b' ],
+  [ 'a', 'a', 'c' ], [ 'b', 'a', 'c' ],
+  [ 'c', 'a', 'c' ], [ 'a', 'b', 'c' ],
+  [ 'b', 'b', 'c' ], [ 'c', 'b', 'c' ],
+  [ 'a', 'c', 'c' ], [ 'b', 'c', 'c' ],
+  [ 'c', 'c', 'c' ]
+] */
+
+it = BaseN('0123456789abcdef', 16);
+it.length;  // 18446744073709551616n
+it.nth(18446744073709551615n);  /* [
+  'f', 'f', 'f', 'f',
+  'f', 'f', 'f', 'f',
+  'f', 'f', 'f', 'f',
+  'f', 'f', 'f', 'f'
+] */
+```
+
+### class CartesianProduct
+
+A [cartesian product] of given sets.
+
+[cartesian Product]: https://en.wikipedia.org/wiki/Cartesian_product
+
+`new CartesianProduct(...args)`
+
+* `args`: iterables that represent sets
+
+```javascript
+import {CartesianProduct} from 'combinatorics.js';
+
+let it = new CartesianProduct('012','abc','xyz');
+it.length;  // 27
+[...it];    /* [
+  [ '0', 'a', 'x' ], [ '1', 'a', 'x' ],
+  [ '2', 'a', 'x' ], [ '0', 'b', 'x' ],
+  [ '1', 'b', 'x' ], [ '2', 'b', 'x' ],
+  [ '0', 'c', 'x' ], [ '1', 'c', 'x' ],
+  [ '2', 'c', 'x' ], [ '0', 'a', 'y' ],
+  [ '1', 'a', 'y' ], [ '2', 'a', 'y' ],
+  [ '0', 'b', 'y' ], [ '1', 'b', 'y' ],
+  [ '2', 'b', 'y' ], [ '0', 'c', 'y' ],
+  [ '1', 'c', 'y' ], [ '2', 'c', 'y' ],
+  [ '0', 'a', 'z' ], [ '1', 'a', 'z' ],
+  [ '2', 'a', 'z' ], [ '0', 'b', 'z' ],
+  [ '1', 'b', 'z' ], [ '2', 'b', 'z' ],
+  [ '0', 'c', 'z' ], [ '1', 'c', 'z' ],
+  [ '2', 'c', 'z' ]
+] */
+```
+
+Since the number of arguments to `CartesianProduct` is variable, it is sometimes helpful to give a single array with all arguments.   But you cannot `new ctor.apply(null, args)` this case.  To mitigate that, you can use `.vmake()`.
+
+```javascript
+let a16 =  Array(16).fill('0123456789abcdef');
+it = CartesianProduct.vmake(a16);
+it.length;  // 18446744073709551616n
+it.nth(18446744073709551615n);  /* [
+  'f', 'f', 'f', 'f',
+  'f', 'f', 'f', 'f',
+  'f', 'f', 'f', 'f',
+  'f', 'f', 'f', 'f'
+] */
 ````
 
-#### .reduce(function(accumulator, currentValue[, index, self]){ ... }[, initialValue])
+## What's missing from version 0.x?
 
-Works the same as [Array.prototype.reduce].  Identical result as `.toArray().reduce()` but more efficient.
+* `bigCombination` is gone because all classes now can handle big -- combinatorially big! -- cases thanks to [BigInt] support getting standard.  Safari 13 and below is a major exception but BigInt is coming to Safari 14 and up.
 
-[Array.prototype.reduce]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+[BigInt]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
 
-#### .length
+* `permutationCombination` is gone because the name is misleading and it is now trivially easy to reconstruct as follow:
 
-Returns the number of elements to be generated
-Which equals to _generator_`.toArray().length` but it is precalculated without actually generating elements.
-Handy when you prepare for large iteraiton.
+```javascript
+class permutationCombination {
+    constructor(seed) {
+        this.seed = [...seed];
+    }
+    [Symbol.iterator]() {
+        return function*(it){
+            for (let i = 1, l = it.length; i <= l; i++) {
+                yield* new Permutation(it, i);
+            }
+        }(this.seed);
+    }
+}
+```
 
-#### 0 + _generator_
+* `js-combinatorics` is now natively iterable.  Meaning its custom iterators are gone -- with its methods like `.map` and `.filter`.  JS iterators are very minimalistic with only `[...]` and `for ... of`.  But don't worry.  There are several ways to make those functional methods back again. 
 
-Same as _generator_`.length`
+For instance, You can use [js-xiterable] like so:
 
-#### .nth(n)
+[js-xiterable]: https://github.com/dankogai/js-xiterator
 
-Returns the *n*th element (starting 0).  Available for  `power`, `cartesianProduct` and `baseN`.
-
-#### .get(x0, ...)
-
-Available for `cartesianProduct` generator.  Arguments are coordinates in integer.
-Arguments can be out of bounds but it returns `undefined` in such cases.
+```javascript
+import {xiterable as $X} from 
+  'https://cdn.jsdelivr.net/npm/js-xiterable@0.0.3/xiterable.min.js';
+import {Permutation} from 'combinatorics.js';
+let it = new Permutation('abcd');
+let words = $X(it).map(v=>v.join(''))
+for (const word of words)) console.log(word)
+/*
+abcd
+abdc
+acbd
+acdb
+adbc
+adcb
+bacd
+badc
+bcad
+bcda
+bdac
+bdca
+cabd
+cadb
+cbad
+cbda
+cdab
+cdba
+dabc
+dacb
+dbac
+dbca
+dcab
+dcba
+*/
+```
