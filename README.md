@@ -7,7 +7,7 @@ Simple combinatorics in JavaScript
 
 # HEADS UP
 
-In the next major version update, `js-combinatorics` will go ES2015.
+In the next major version update, `js-combinatorics` has gone ES2015.
 
 * native iterator instead of custom
 * module. `import` instead of `require`.
@@ -48,7 +48,7 @@ import {Combination, Permutation} from 'combinatorics.js';
 You don't even have to install if you `import` from CDNs.
 
 ```javascript
-import * as C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@0.6.1/combinatorics.min.js';
+import * as C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@1.0.0/combinatorics.min.js';
 ```
 
 Since this is an ES6 module, `type="module"` is required the `<script>` tags. of your HTML files. But you can make it globally available as follows.
@@ -382,7 +382,7 @@ class permutationCombination {
 
 For instance, You can use [js-xiterable] like so:
 
-[js-xiterable]: https://github.com/dankogai/js-xiterator
+[js-xiterable]: https://github.com/dankogai/js-xiterable
 
 ```javascript
 import {xiterable as $X} from 
@@ -394,26 +394,7 @@ for (const word of words)) console.log(word)
 /*
 abcd
 abdc
-acbd
-acdb
-adbc
-adcb
-bacd
-badc
-bcad
-bcda
-bdac
-bdca
-cabd
-cadb
-cbad
-cbda
-cdab
-cdba
-dabc
-dacb
-dbac
-dbca
+...
 dcab
 dcba
 */
