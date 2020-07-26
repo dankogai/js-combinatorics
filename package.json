@@ -7,7 +7,7 @@
   "files": ["combinatorics.js"],
   "runkitExample": "require=require(\"esm\")(module);\nvar Combinatorics=require(\"js-combinatorics\");\n",
   "devDependencies": {
-    "esm":"3.2.25",
+    "esm": "^3.2.25",
     "mocha": "^8.0.0",
     "chai": "^4.2.0"
   },
