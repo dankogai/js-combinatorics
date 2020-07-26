@@ -64,9 +64,48 @@ Since this is an ES6 module, `type="module"` is required the `<script>` tags. of
 </script>
 ```
 
-### node.js and commonjs
-```javascript
-var Combinatorics = require('js-combinatorics');
+### commonjs (node.js)
+
+use [babel] or [esm].
+
+[babel]: https://babeljs.io
+[esm]: https://github.com/standard-things/esm
+
+```shell
+% node -r esm               Welcome to Node.js v14.5.0.
+Type ".help" for more information.
+> import * as $C from './combinatorics.js'
+undefined
+> $C
+[Module] {
+  BaseN: [Function: BaseN],
+  CartesianProduct: [Function: CartesianProduct],
+  Combination: [Function: Combination],
+  Permutation: [Function: Permutation],
+  PowerSet: [Function: PowerSet],
+  combination: [Function: combination],
+  factoradic: [Function: factoradic],
+  factorial: [Function: factorial],
+  permutation: [Function: permutation],
+  version: '1.0.0'
+}
+> [...new $C.Permutation('abcd')]
+[
+  [ 'a', 'b', 'c', 'd' ], [ 'a', 'b', 'd', 'c' ],
+  [ 'a', 'c', 'b', 'd' ], [ 'a', 'c', 'd', 'b' ],
+  [ 'a', 'd', 'b', 'c' ], [ 'a', 'd', 'c', 'b' ],
+  [ 'b', 'a', 'c', 'd' ], [ 'b', 'a', 'd', 'c' ],
+  [ 'b', 'c', 'a', 'd' ], [ 'b', 'c', 'd', 'a' ],
+  [ 'b', 'd', 'a', 'c' ], [ 'b', 'd', 'c', 'a' ],
+  [ 'c', 'a', 'b', 'd' ], [ 'c', 'a', 'd', 'b' ],
+  [ 'c', 'b', 'a', 'd' ], [ 'c', 'b', 'd', 'a' ],
+  [ 'c', 'd', 'a', 'b' ], [ 'c', 'd', 'b', 'a' ],
+  [ 'd', 'a', 'b', 'c' ], [ 'd', 'a', 'c', 'b' ],
+  [ 'd', 'b', 'a', 'c' ], [ 'd', 'b', 'c', 'a' ],
+  [ 'd', 'c', 'a', 'b' ], [ 'd', 'c', 'b', 'a' ]
+]
+> 
+
 ```
 
 ## Description
