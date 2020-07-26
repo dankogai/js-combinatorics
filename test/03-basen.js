@@ -10,6 +10,9 @@ describe('class BaseN', () => {
         it(`new BaseN('${seed}', ${len})`, ()=>$$([...c]).to.deep.equal([...s]));
     }
     seed = '0123456789abcdef';
+    let c = new BaseN(seed, 8);
+    it(`.nth(-1) === .nth(.length-1)`, ()=>
+            $$(c.nth(-1)).to.deep.equal(c.nth(c.length-1)));
     if (typeof BigInt === 'function') {
         const sbn = '18446744073709551616';
         let c = new BaseN(seed, 16);
@@ -19,6 +22,8 @@ describe('class BaseN', () => {
         it(`.nth(${sbn}n-1n)`, () => {
             $$(c.nth(BigInt(sbn)-BigInt(1))).to.deep.equal([...'ffffffffffffffff'])
         });
+        it(`.nth(-1n) === .nth(.length-1n)`, ()=>
+            $$(c.nth(-1n)).to.deep.equal(c.nth(c.length-1n)));
     } else {
         it.skip(`SKIP new BaseN('${seed}',16): BigInt unsupported`, x=>x);
     }

@@ -8,8 +8,11 @@ describe('class CartesianProduct', () => {
         let c = CartesianProduct.vmake(seed);
         let s = new Set(c);
         let seedstr = JSON.stringify(seed)
-        it(`new CartesianProduct(${seedstr})`, ()=>$$([...c]).to.deep.equal([...s]));
+        it(`new CartesianProduct(${seedstr})`, () => $$([...c]).to.deep.equal([...s]));
     }
+    let c = CartesianProduct.vmake(seed);
+    it(`.nth(-1) === .nth(.length-1)`, () =>
+        $$(c.nth(-1)).to.deep.equal(c.nth(c.length - 1)));
     seed = Array(16).fill('0123456789abcdef');
     if (typeof BigInt === 'function') {
         const sbn = '18446744073709551616';
@@ -18,9 +21,11 @@ describe('class CartesianProduct', () => {
             $$(c.length).to.equal(BigInt(sbn));
         });
         it(`.nth(${sbn}n-1n)`, () => {
-            $$(c.nth(BigInt(sbn)-BigInt(1))).to.deep.equal([...'ffffffffffffffff']);
+            $$(c.nth(BigInt(sbn) - BigInt(1))).to.deep.equal([...'ffffffffffffffff']);
         });
+        it(`.nth(-1n) === .nth(.length-1n)`, () =>
+            $$(c.nth(-1n)).to.deep.equal(c.nth(c.length - 1n)));
     } else {
-        it.skip(`SKIP new CartesianProduct('${seed}'): BigInt unsupported`, x=>x);
+        it.skip(`SKIP new CartesianProduct('${seed}'): BigInt unsupported`, x => x);
     }
 });
