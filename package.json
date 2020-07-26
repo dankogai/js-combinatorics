@@ -5,6 +5,7 @@
   "main": "combinatorics.js",
   "module": "combinatorics.js",
   "files": ["combinatorics.js"],
+  "runkitExample": "require=require(\"esm\")(module);\nvar Combinatorics=require(\"js-combinatorics\");\n",
   "devDependencies": {
     "@babel/core": "^7.10.4",
     "@babel/plugin-proposal-export-namespace-from": "^7.10.4",
