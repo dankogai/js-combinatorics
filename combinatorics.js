@@ -17,6 +17,10 @@ export const version = '1.0.0';
  * wrapper to `BigInt`.  if `BigInt` is unavailable, `Number`.
  */
 const _BI = typeof BigInt == 'function' ? BigInt : Number;
+/** 
+ * crops BigInt
+ * */
+const _crop = n => n <= Number.MAX_SAFE_INTEGER ? Number(n) : _BI(n);
 /**
  * calculates `P(n, k)`.
  * 
@@ -29,7 +33,7 @@ export function permutation(n, k) {
     [n, k] = [_BI(n), _BI(k)]
     let p = _BI(1);
     while (k--) p *= n--;
-    return p <= Number.MAX_SAFE_INTEGER ? Number(p) : p;
+    return _crop(p);
 }
 /**
  * calculates `C(n, k)`.
@@ -42,7 +46,7 @@ export function permutation(n, k) {
 export function combination(n, k) {
     const P = permutation;
     const c = _BI(P(n, k)) / _BI(P(k, k));
-    return c <= Number.MAX_SAFE_INTEGER ? Number(c) : c;
+    return _crop(c);
 }
 /**
  * calculates `n!` === `P(n, n)`.
@@ -197,7 +201,7 @@ export class BaseN extends _CBase {
         let base = this.seed.length;
         this.base = base;
         let length = Array(size).fill(_BI(base)).reduce((a,v)=>a*v);
-        this.length = length <= Number.MAX_SAFE_INTEGER ? Number(length) : length;
+        this.length = _crop(length);
         Object.freeze(this);
     }
     nth(n) {
@@ -225,7 +229,7 @@ export class PowerSet extends _CBase {
         super();
         this.seed = seed;
         const length = _BI(1) << _BI(this.seed.length)
-        this.length = length <= Number.MAX_SAFE_INTEGER ? Number(length) : length;
+        this.length = _crop(length);
         Object.freeze(this);
     }
     nth(n) {
@@ -249,7 +253,7 @@ export class CartesianProduct extends _CBase {
         this.seed = args.map(v => [...v]);
         this.size = this.seed.length;
         const length = this.seed.reduce((a,v) => a * _BI(v.length), _BI(1))
-        this.length = length <= Number.MAX_SAFE_INTEGER ? Number(length) : length;
+        this.length = _crop(length);
         Object.freeze(this);
     }
     nth(n) {
