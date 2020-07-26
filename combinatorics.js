@@ -19,8 +19,9 @@ export const version = '1.0.0';
 const _BI = typeof BigInt == 'function' ? BigInt : Number;
 /** 
  * crops BigInt
- * */
+ */
 const _crop = n => n <= Number.MAX_SAFE_INTEGER ? Number(n) : _BI(n);
+;
 /**
  * calculates `P(n, k)`.
  * 
@@ -129,6 +130,17 @@ class _CBase {
     get isSafe() {
         return typeof BigInt !== 'undefined' || !this.isBig;
     }
+    /**
+    * check n for nth
+    */
+    _check(n) {
+       if (n <  0) {
+           if (this.length < -n) throw RangeError(`${n} is too small`)
+           return _crop(_BI(this.length) + _BI(n));
+       }
+       if (this.length <= n) throw RangeError(`${n} is too large`);
+       return n;
+   }
 }
 /**
  * Permutation
@@ -146,7 +158,11 @@ export class Permutation extends _CBase {
         this.length = permutation(seed.length, this.size);
         Object.freeze(this);
     }
-    nth(n) {
+    /**
+    * @param {integer} n
+    */
+    nth(n, nocheck=false) {
+        if (!nocheck) n = this._check(n);
         const offset = this.seed.length - this.size;
         const skip = factorial(offset);
         let digits = factoradic(_BI(n) * _BI(skip), this.seed.length)
@@ -174,7 +190,11 @@ export class Combination extends _CBase {
         this.length = combination(seed.length, this.size);
         Object.freeze(this);
     }
+    /**
+    * @param {integer} n
+    */
     nth(n) {
+        n = this._check(n);
         function findIndex(n) {
             const [one, two] 
                 = typeof n === 'bigint' ? [_BI(1), _BI(2)] : [1, 2];
@@ -186,7 +206,7 @@ export class Combination extends _CBase {
             let m = ((t / s) >> one) - one;
             return r | m;
         }
-        return this.perm.nth(findIndex(n));
+        return this.perm.nth(findIndex(n), true);
     }
 }
 /**
@@ -204,9 +224,11 @@ export class BaseN extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
+    /**
+    * @param {integer} n
+    */
     nth(n) {
-        if (n < 0) throw RangeError(`${n} is too small`)
-        if (this.length <= n) throw RangeError(`${n} is too large`)
+        n = this._check(n);
         const base
             = typeof n === 'bigint' ? _BI(this.base) : this.base;
         let result = [];
@@ -232,9 +254,13 @@ export class PowerSet extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
+    /**
+    * @param {integer} n
+    */
     nth(n) {
+        n = this._check(n);
         if (n < 0) throw RangeError(`${n} is too small`)
-        if (this.length <= n) throw RangeError(`${n} is too large`)
+        if (this.length <= n) throw RangeError(`${n} is out of range`)
         const one = typeof n === 'bigint' ? _BI(1) : 1;
         let result = [];
         for (let i = 0; n; n >>= one, i++) if (n & one) result.push(this.seed[i]);
@@ -256,9 +282,13 @@ export class CartesianProduct extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
+    /**
+    * @param {integer} n
+    */
     nth(n) {
+        n = this._check(n);
         if (n < 0) throw RangeError(`${n} is too small`)
-        if (this.length <= n) throw RangeError(`${n} is too large`)
+        if (this.length <= n) throw RangeError(`${n} is out of range`)
         let result = [];
         for (let i = 0; i < this.size; i++) {
             const base = this.seed[i].length;
