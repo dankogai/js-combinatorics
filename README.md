@@ -48,7 +48,7 @@ import {Combination, Permutation} from 'combinatorics.js';
 You don't even have to install if you `import` from CDNs.
 
 ```javascript
-import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@1.1.0/combinatorics.min.js';
+import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@1.1.1/combinatorics.min.js';
 ```
 
 Since this is an ES6 module, `type="module"` is required the `<script>` tags. of your HTML files. But you can make it globally available as follows.
@@ -97,7 +97,7 @@ undefined
   factoradic: [Function: factoradic],
   factorial: [Function: factorial],
   permutation: [Function: permutation],
-  version: '1.1.0'
+  version: '1.1.1'
 }
 > [...new $C.Permutation('abcd')]
 [
