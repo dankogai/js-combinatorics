@@ -195,7 +195,7 @@ it.nth(69); //  [ 'a', 'd', 'c', 'h' ];
 it.nth(69n);  // [ 'a', 'd', 'c', 'h' ];
 ```
 
-### Beyond ``Number.MAX_SAFE_INTEGER`
+### Beyond `Number.MAX_SAFE_INTEGER`
 
 Occasionally you need `BigInt` to access elements beyond `Number.MAX_SAFE_INTEGER`.
 
