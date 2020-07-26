@@ -72,7 +72,8 @@ use [babel] or [esm].
 [esm]: https://github.com/standard-things/esm
 
 ```shell
-% node -r esm               Welcome to Node.js v14.5.0.
+% node -r esm
+Welcome to Node.js v14.5.0.
 Type ".help" for more information.
 > import * as $C from './combinatorics.js'
 undefined
