@@ -5,9 +5,9 @@ js-combinatorics
 
 Simple combinatorics in JavaScript
 
-# HEADS UP
+## HEADS UP
 
-In the next major version update, `js-combinatorics` has gone ES2015.
+`js-combinatorics` has gone ES2015 since version 1.0.0.
 
 * native iterator instead of custom
 * module. `import` instead of `require`.
