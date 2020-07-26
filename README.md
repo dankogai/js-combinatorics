@@ -189,6 +189,75 @@ The object also has `.nth(n)` method so you can random-access each element.  Thi
 it.nth(69); //  [ 'a', 'd', 'c', 'h' ];
 ```
 
+`nth()` accepts both `Number` and `BigInt`.
+
+```javascript
+it.nth(69n);  // [ 'a', 'd', 'c', 'h' ];
+```
+
+### Beyond ``Number.MAX_SAFE_INTEGER`
+
+Occasionally you need `BigInt` to access elements beyond `Number.MAX_SAFE_INTEGER`.
+
+```javascript
+it = new $C.Permutation('abcdefghijklmnopqrstuvwxyz');
+it.length;  // 403291461126605635584000000n
+```
+
+You can still access elements before `Number.MAX_SAFE_INTEGER` in `Number`.
+
+```javascript
+it.nth(0);  /* [
+  'a', 'b', 'c', 'd', 'e', 'f',
+  'g', 'h', 'i', 'j', 'k', 'l',
+  'm', 'n', 'o', 'p', 'q', 'r',
+  's', 't', 'u', 'v', 'w', 'x',
+  'y', 'z'
+] */
+it.nth(9007199254740990); /* [
+  'a', 'b', 'c', 'd', 'e', 'f',
+  'g', 'i', 'p', 'n', 'r', 'z',
+  'm', 'h', 'y', 'x', 'u', 't',
+  'l', 'j', 'k', 'q', 's', 'o',
+  'v', 'w'
+] */
+```
+
+But how are you goint to acccess elements beyond that?  Just use `BigInt`.
+
+```javascript
+it.nth(9007199254740991n) /* [
+  'a', 'b', 'c', 'd', 'e', 'f',
+  'g', 'i', 'p', 'n', 'r', 'z',
+  'm', 'h', 'y', 'x', 'u', 't',
+  'l', 'j', 'k', 'q', 's', 'o',
+  'w', 'v'
+] */
+it.nth(it.length-1n)  /* [
+  'z', 'y', 'x', 'w', 'v', 'u',
+  't', 's', 'r', 'q', 'p', 'o',
+  'n', 'm', 'l', 'k', 'j', 'i',
+  'h', 'g', 'f', 'e', 'd', 'c',
+  'b', 'a'
+] */
+```
+
+You can tell if you need `BigInt` via `.isBig`.
+
+```javascript
+new $C.Permutation('0123456789').isBig; // true
+new $C.Permutation('abcdefghijklmnopqrstuvwxyz').isBig; // true
+```
+
+You can also check if it is safe on your platform via `.isSafe`.
+
+```javascript
+// true if BigInt is supported
+new $C.Permutation('abcdefghijklmnopqrstuvwxyz').isSafe;
+```
+
+This module still runs on platforms without `BigInt` (notably Safari 13 or below), but its operation is no longer guaranteed if `.isSafe` is false.
+
 ### class Permutation
 
 An iterable which permutes a given iterable.
@@ -229,7 +298,6 @@ it.nth(371993326789901217467999448150835199999999n);  /* [
   'a'
 ] */
 ````
-
 
 ### class Combination
 
