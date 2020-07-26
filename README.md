@@ -7,7 +7,7 @@ Simple combinatorics in JavaScript
 
 ## HEADS UP
 
-`js-combinatorics` has gone ES2015 since version 1.1.0.
+`js-combinatorics` has gone ES2015 since version 1.
 
 * native iterator instead of custom
 * module. `import` instead of `require`.
@@ -70,6 +70,15 @@ use [babel] or [esm].
 
 [babel]: https://babeljs.io
 [esm]: https://github.com/standard-things/esm
+
+* from RunKit example
+
+````
+require=require("esm")(module);
+var Combinatorics=require("js-combinatorics");
+````
+
+* REPL
 
 ```shell
 % node -r esm
