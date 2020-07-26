@@ -110,9 +110,18 @@ class _CBase {
     toArray() {
         return [...this];
     }
+    /**
+     * tells wether you need `BigInt` to access all elements.
+     */
     get isBig() {
         return Number.MAX_SAFE_INTEGER < this.length;
     }
+    /**
+     * tells wether it is safe to work on this instance.
+     * 
+     * * always `true` unless your platform does not support `BigInt`.
+     * * if not, `true` iff `.isBig` is `false`.
+     */
     get isSafe() {
         return typeof BigInt !== 'undefined' || !this.isBig;
     }
