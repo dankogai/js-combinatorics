@@ -187,6 +187,7 @@ it.length;  // 70
 The object also has `.nth(n)` method so you can random-access each element.  This is the equivalent of subscript in `Array`.
 
 ```javascript
+it.nth(0);  //  [ 'a', 'b', 'c', 'd' ];
 it.nth(69); //  [ 'a', 'd', 'c', 'h' ];
 ```
 
@@ -194,6 +195,13 @@ it.nth(69); //  [ 'a', 'd', 'c', 'h' ];
 
 ```javascript
 it.nth(69n);  // [ 'a', 'd', 'c', 'h' ];
+```
+
+`nth()` also accepts negative indexes.   In which case `n` is `(-n)th` element from `.length`.
+
+```javascript
+it.nth(-1);   // [ 'a', 'd', 'c', 'h' ]
+it.nth(-70);  // [ 'a', 'b', 'c', 'd' ]
 ```
 
 ### Beyond `Number.MAX_SAFE_INTEGER`
