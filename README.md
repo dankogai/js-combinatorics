@@ -226,14 +226,14 @@ it.nth(9007199254740990); /* [
 But how are you goint to acccess elements beyond that?  Just use `BigInt`.
 
 ```javascript
-it.nth(9007199254740991n) /* [
+it.nth(9007199254740991n);  /* [
   'a', 'b', 'c', 'd', 'e', 'f',
   'g', 'i', 'p', 'n', 'r', 'z',
   'm', 'h', 'y', 'x', 'u', 't',
   'l', 'j', 'k', 'q', 's', 'o',
   'w', 'v'
 ] */
-it.nth(it.length-1n)  /* [
+it.nth(it.length - 1n); /* [
   'z', 'y', 'x', 'w', 'v', 'u',
   't', 's', 'r', 'q', 'p', 'o',
   'n', 'm', 'l', 'k', 'j', 'i',
@@ -245,7 +245,7 @@ it.nth(it.length-1n)  /* [
 You can tell if you need `BigInt` via `.isBig`.
 
 ```javascript
-new $C.Permutation('0123456789').isBig; // true
+new $C.Permutation('0123456789').isBig; // false
 new $C.Permutation('abcdefghijklmnopqrstuvwxyz').isBig; // true
 ```
 
