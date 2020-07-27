@@ -153,11 +153,6 @@ class _CBase {
  * Permutation
  */
 export class Permutation extends _CBase {
-    /**
-     *
-     * @param {Iterable} seed
-     * @param {Number} size
-     */
     constructor(seed, size = 0) {
         super();
         this.seed = [...seed];
@@ -165,9 +160,6 @@ export class Permutation extends _CBase {
         this.length = permutation(seed.length, this.size);
         Object.freeze(this);
     }
-    /**
-    * @param {anyint} n
-    */
     nth(n: anyint, nocheck = false) {
         if (!nocheck)
             n = this._check(n);
@@ -186,11 +178,6 @@ export class Permutation extends _CBase {
  * Combination
  */
 export class Combination extends _CBase {
-    /**
-     *
-     * @param {Iterable} seed
-     * @param {Number} size
-     */
     perm: Permutation;
     constructor(seed: Iterable<any>, size = 0) {
         super();
@@ -200,9 +187,6 @@ export class Combination extends _CBase {
         this.length = combination(sseed.length, this.size);
         Object.freeze(this);
     }
-    /**
-    * @param {anyint} n
-    */
     nth(n: anyint) {
         n = this._check(n);
         function findIndex(n) {
@@ -235,9 +219,6 @@ export class BaseN extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
-    /**
-    * @param {anyint} bn
-    */
     nth(n: anyint) {
         let bn = _BI(this._check(n));
         const bb = _BI(this.base);
@@ -255,9 +236,6 @@ export class BaseN extends _CBase {
  * Power Set
  */
 export class PowerSet extends _CBase {
-    /**
-     * @param {Iterable} seed
-     */
     constructor(seed: Iterable<any>) {
         super();
         this.seed = [...seed];
@@ -265,9 +243,6 @@ export class PowerSet extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
-    /**
-    * @param {anyint} n
-    */
     nth(n: anyint) {
         let bn = _BI(this._check(n));
         let result = [];
@@ -281,9 +256,6 @@ export class PowerSet extends _CBase {
  * Cartesian Product
  */
 export class CartesianProduct extends _CBase {
-    /**
-     * @param {Iterable[]} args
-     */
     constructor(...args: Iterable<any>[]) {
         super();
         this.seed = args.map(v => [...v]);
@@ -292,9 +264,6 @@ export class CartesianProduct extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
-    /**
-     * 
-    　*/
     nth(n: anyint) {
         let bn = _BI(this._check(n));
         let result = [];
