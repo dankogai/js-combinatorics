@@ -1,6 +1,7 @@
 {
   "name": "js-combinatorics",
   "version": "1.2.1",
+  "type" : "module",
   "description": "Simple combinatorics like power set, combination, and permutation in JavaScript",
   "main": "combinatorics.js",
   "module": "combinatorics.js",
@@ -13,6 +14,10 @@
   "devDependencies": {
     "typescript": "^3.9.7",
     "@types/node": "^14.0.26",
+    "@babel/plugin-proposal-export-namespace-from": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/register": "^7.10.4",
     "mocha": "^8.0.0",
     "chai": "^4.2.0"
   },
