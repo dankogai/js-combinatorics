@@ -1,4 +1,2 @@
-// global.chai = require('chai');
-import chai from 'chai';
-global.chai = chai;
+global.chai = require('chai');
 global.isLegacySafari = false;

@@ -1,16 +1,15 @@
-PJ=package.json
 TS=combinatorics.ts
 JS=combinatorics.js
 MJS=combinatorics.mjs
 DTS=combinatorics.d.ts
 
-all: $(PJ) $(JS)
+all: $(JS)
 
-$(JS): $(PJ) $(TS)
+$(JS): $(TS)
 	tsc -d --target es6 $(TS)
 
-test: $(PJ) $(JS)
-	mocha --require @babel/register
+test: $(JS)
+	mocha --require esm
 
 clean:
 	-rm $(DTS) $(MJS) $(JS)
