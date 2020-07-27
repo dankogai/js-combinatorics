@@ -12,7 +12,7 @@
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
  *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
  */
-export const version = '1.1.1';
+export const version = '1.2.0';
 const _BI = typeof BigInt == 'function' ? BigInt : Number;
 /**
  * crops BigInt
@@ -142,11 +142,6 @@ class _CBase {
  * Permutation
  */
 export class Permutation extends _CBase {
-    /**
-     *
-     * @param {Iterable} seed
-     * @param {Number} size
-     */
     constructor(seed, size = 0) {
         super();
         this.seed = [...seed];
@@ -154,9 +149,6 @@ export class Permutation extends _CBase {
         this.length = permutation(seed.length, this.size);
         Object.freeze(this);
     }
-    /**
-    * @param {anyint} n
-    */
     nth(n, nocheck = false) {
         if (!nocheck)
             n = this._check(n);
@@ -183,9 +175,6 @@ export class Combination extends _CBase {
         this.length = combination(sseed.length, this.size);
         Object.freeze(this);
     }
-    /**
-    * @param {anyint} n
-    */
     nth(n) {
         n = this._check(n);
         function findIndex(n) {
@@ -217,9 +206,6 @@ export class BaseN extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
-    /**
-    * @param {anyint} bn
-    */
     nth(n) {
         let bn = _BI(this._check(n));
         const bb = _BI(this.base);
@@ -237,9 +223,6 @@ export class BaseN extends _CBase {
  * Power Set
  */
 export class PowerSet extends _CBase {
-    /**
-     * @param {Iterable} seed
-     */
     constructor(seed) {
         super();
         this.seed = [...seed];
@@ -247,9 +230,6 @@ export class PowerSet extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
-    /**
-    * @param {anyint} n
-    */
     nth(n) {
         let bn = _BI(this._check(n));
         let result = [];
@@ -263,9 +243,6 @@ export class PowerSet extends _CBase {
  * Cartesian Product
  */
 export class CartesianProduct extends _CBase {
-    /**
-     * @param {Iterable[]} args
-     */
     constructor(...args) {
         super();
         this.seed = args.map(v => [...v]);
@@ -274,9 +251,6 @@ export class CartesianProduct extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
-    /**
-     *
-     */
     nth(n) {
         let bn = _BI(this._check(n));
         let result = [];

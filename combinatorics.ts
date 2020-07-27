@@ -12,7 +12,7 @@
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
  *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
  */
-export const version = '1.1.1';
+export const version = '1.2.0';
 /**
  * BigInt Workaround
  * 

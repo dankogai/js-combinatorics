@@ -12,7 +12,7 @@
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
  *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
  */
-export declare const version = "1.1.1";
+export declare const version = "1.2.0";
 /**
  * BigInt Workaround
  *
@@ -91,31 +91,15 @@ declare class _CBase {
  * Permutation
  */
 export declare class Permutation extends _CBase {
-    /**
-     *
-     * @param {Iterable} seed
-     * @param {Number} size
-     */
     constructor(seed: any, size?: number);
-    /**
-    * @param {anyint} n
-    */
     nth(n: anyint, nocheck?: boolean): any[];
 }
 /**
  * Combination
  */
 export declare class Combination extends _CBase {
-    /**
-     *
-     * @param {Iterable} seed
-     * @param {Number} size
-     */
     perm: Permutation;
     constructor(seed: Iterable<any>, size?: number);
-    /**
-    * @param {anyint} n
-    */
     nth(n: anyint): any[];
 }
 /**
@@ -124,35 +108,20 @@ export declare class Combination extends _CBase {
 export declare class BaseN extends _CBase {
     base: number;
     constructor(seed: Iterable<any>, size?: number);
-    /**
-    * @param {anyint} bn
-    */
     nth(n: anyint): any[];
 }
 /**
  * Power Set
  */
 export declare class PowerSet extends _CBase {
-    /**
-     * @param {Iterable} seed
-     */
     constructor(seed: Iterable<any>);
-    /**
-    * @param {anyint} n
-    */
     nth(n: anyint): any[];
 }
 /**
  * Cartesian Product
  */
 export declare class CartesianProduct extends _CBase {
-    /**
-     * @param {Iterable[]} args
-     */
     constructor(...args: Iterable<any>[]);
-    /**
-     *
-     */
     nth(n: anyint): any[];
 }
 export {};
