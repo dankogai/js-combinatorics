@@ -13,6 +13,8 @@ Simple combinatorics in JavaScript
 * module. `import` instead of `require`.
 * `BigInt` where possible
 
+And from version 1.2 it is written in TypeScript.  `combinatorics.js` and  `combinatorics.d.ts` are compiled from `combinatorics.ts`.
+
 APIs will change accordingly.  Old versions are available in the `version0` branch.
 
 ### For Swift programmers
@@ -48,7 +50,7 @@ import {Combination, Permutation} from 'combinatorics.js';
 You don't even have to install if you `import` from CDNs.
 
 ```javascript
-import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@1.1.1/combinatorics.min.js';
+import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@1.2.0/combinatorics.min.js';
 ```
 
 Since this is an ES6 module, `type="module"` is required the `<script>` tags. of your HTML files. But you can make it globally available as follows.
@@ -97,7 +99,7 @@ undefined
   factoradic: [Function: factoradic],
   factorial: [Function: factorial],
   permutation: [Function: permutation],
-  version: '1.1.1'
+  version: '1.2.0'
 }
 > [...new $C.Permutation('abcd')]
 [
