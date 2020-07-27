@@ -13,17 +13,26 @@
  *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
  */
 export const version = '1.1.1';
-const _BI = typeof BigInt == 'function' ? BigInt : Number;
+/**
+ * BigInt Workaround
+ * 
+ * https://github.com/streamich/memfs/issues/275
+ */
+type anyint = number | bigint;
+// type BigInt = number;
+declare const BigInt: typeof Number;
+const _BI: typeof Number = typeof BigInt == 'function' ? BigInt : Number;
 /**
  * crops BigInt
  */
-const _crop = (n) => n <= Number.MAX_SAFE_INTEGER ? Number(n) : _BI(n);
+const _crop = (n: anyint): anyint =>
+    n <= Number.MAX_SAFE_INTEGER ? Number(n) : _BI(n);
 /**
  * calculates `P(n, k)`.
  *
  * @link https://en.wikipedia.org/wiki/Permutation
  */
-export function permutation(n, k) {
+export function permutation(n: anyint, k: anyint) {
     [n, k] = [_BI(n), _BI(k)];
     let p = _BI(1);
     while (k--)
@@ -35,7 +44,7 @@ export function permutation(n, k) {
  *
  * @link https://en.wikipedia.org/wiki/Combination
  */
-export function combination(n, k) {
+export function combination(n: anyint, k: anyint) {
     const P = permutation;
     const c = _BI(P(n, k)) / _BI(P(k, k));
     return _crop(c);
@@ -45,7 +54,7 @@ export function combination(n, k) {
  *
  * @link https://en.wikipedia.org/wiki/Factorial
  */
-export function factorial(n) {
+export function factorial(n: anyint) {
     return permutation(n, n);
 }
 /**
@@ -54,7 +63,7 @@ export function factorial(n) {
  * @link https://en.wikipedia.org/wiki/Factorial_number_system
  * @param {number} l the number of digits
  */
-export function factoradic(n, l = 0) {
+export function factoradic(n: anyint, l = 0) {
     let [bn, bf] = [_BI(n), _BI(1)];
     if (!l) {
         for (l = 1; bf < bn; bf *= _BI(++l))
@@ -135,8 +144,10 @@ class _CBase {
             throw RangeError(`${n} is too large`);
         return n;
     }
-    nth(n) { return []; }
-    ;
+    nth(n: anyint): any[] { return [] };
+    seed: any[];
+    size: number;
+    length: anyint;
 }
 /**
  * Permutation
@@ -157,7 +168,7 @@ export class Permutation extends _CBase {
     /**
     * @param {anyint} n
     */
-    nth(n, nocheck = false) {
+    nth(n: anyint, nocheck = false) {
         if (!nocheck)
             n = this._check(n);
         const offset = this.seed.length - this.size;
@@ -175,7 +186,13 @@ export class Permutation extends _CBase {
  * Combination
  */
 export class Combination extends _CBase {
-    constructor(seed, size = 0) {
+    /**
+     *
+     * @param {Iterable} seed
+     * @param {Number} size
+     */
+    perm: Permutation;
+    constructor(seed: Iterable<any>, size = 0) {
         super();
         const sseed = [...seed];
         this.perm = new Permutation(sseed, size);
@@ -186,7 +203,7 @@ export class Combination extends _CBase {
     /**
     * @param {anyint} n
     */
-    nth(n) {
+    nth(n: anyint) {
         n = this._check(n);
         function findIndex(n) {
             const [one, two] = typeof n === 'bigint' ? [_BI(1), _BI(2)] : [1, 2];
@@ -206,7 +223,8 @@ export class Combination extends _CBase {
  * Base N
  */
 export class BaseN extends _CBase {
-    constructor(seed, size = 1) {
+    base: number;
+    constructor(seed: Iterable<any>, size = 1) {
         super();
         this.seed = [...seed];
         this.size = size;
@@ -220,7 +238,7 @@ export class BaseN extends _CBase {
     /**
     * @param {anyint} bn
     */
-    nth(n) {
+    nth(n: anyint) {
         let bn = _BI(this._check(n));
         const bb = _BI(this.base);
         let result = [];
@@ -240,7 +258,7 @@ export class PowerSet extends _CBase {
     /**
      * @param {Iterable} seed
      */
-    constructor(seed) {
+    constructor(seed: Iterable<any>) {
         super();
         this.seed = [...seed];
         const length = _BI(1) << _BI(this.seed.length);
@@ -250,7 +268,7 @@ export class PowerSet extends _CBase {
     /**
     * @param {anyint} n
     */
-    nth(n) {
+    nth(n: anyint) {
         let bn = _BI(this._check(n));
         let result = [];
         for (let bi = _BI(0); bn; bn >>= _BI(1), bi++)
@@ -266,7 +284,7 @@ export class CartesianProduct extends _CBase {
     /**
      * @param {Iterable[]} args
      */
-    constructor(...args) {
+    constructor(...args: Iterable<any>[]) {
         super();
         this.seed = args.map(v => [...v]);
         this.size = this.seed.length;
@@ -275,9 +293,9 @@ export class CartesianProduct extends _CBase {
         Object.freeze(this);
     }
     /**
-     *
-     */
-    nth(n) {
+     * 
+    　*/
+    nth(n: anyint) {
         let bn = _BI(this._check(n));
         let result = [];
         for (let i = 0; i < this.size; i++) {

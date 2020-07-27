@@ -23,8 +23,8 @@ describe('class CartesianProduct', () => {
         it(`.nth(${sbn}n-1n)`, () => {
             $$(c.nth(BigInt(sbn) - BigInt(1))).to.deep.equal([...'ffffffffffffffff']);
         });
-        it(`.nth(-1n) === .nth(.length-1n)`, () =>
-            $$(c.nth(-1n)).to.deep.equal(c.nth(c.length - 1n)));
+        it('.nth(-1n) === .nth(.length-1n)', () =>
+            $$(c.nth(-BigInt(1))).to.deep.equal(c.nth(c.length - BigInt(1))));
     } else {
         it.skip(`SKIP new CartesianProduct('${seed}'): BigInt unsupported`, x => x);
     }

@@ -28,8 +28,8 @@ describe('class Combination', () => {
                 91, 88, 33, 34, 35, 39
             ])
         });
-        it(`.nth(-1n) === .nth(.length-1n)`, () =>
-            $$(c.nth(-1n)).to.deep.equal(c.nth(c.length - 1n)));
+        it('.nth(-1n) === .nth(.length-1n)', () =>
+            $$(c.nth(-BigInt(1))).to.deep.equal(c.nth(c.length - BigInt(1))));
     } else {
         it.skip(`SKIP new Combination([0,1...99]): BigInt unsupported`, x => x);
     }
