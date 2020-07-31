@@ -17,7 +17,7 @@
     "chai": "^4.2.0"
   },
   "scripts": {
-    "test": "make test"
+    "test": "make clean && make test"
   },
   "repository": {
     "type": "git",
