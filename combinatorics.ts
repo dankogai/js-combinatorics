@@ -3,10 +3,9 @@
  *
  *  Licensed under the MIT license.
  *  http://www.opensource.org/licenses/mit-license.php
- *
- * @typedef {(number|bigint)} aint
- *
+ * 
  *  @author: Dan Kogai <dankogai+github@gmail.com>
+ *
  *  References:
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-combination
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
@@ -19,6 +18,11 @@ export const version = '1.2.1';
  * https://github.com/streamich/memfs/issues/275
  */
 type anyint = number | bigint;
+/**
+ * Optional<T> will not be official so
+ * @link: https://github.com/microsoft/TypeScript/issues/19944
+ */
+type Optional<T> = T | undefined;
 // type BigInt = number;
 declare const BigInt: typeof Number;
 const _BI: typeof Number = typeof BigInt == 'function' ? BigInt : Number;
@@ -134,17 +138,15 @@ class _CBase {
     /**
     * check n for nth
     */
-    _check(n) {
+    _check(n:anyint): Optional<anyint> {
         if (n < 0) {
-            if (this.length < -n)
-                throw RangeError(`${n} is too small`);
+            if (this.length < -n) return undefined;
             return _crop(_BI(this.length) + _BI(n));
         }
-        if (this.length <= n)
-            throw RangeError(`${n} is too large`);
+        if (this.length <= n) return undefined;
         return n;
     }
-    nth(n: anyint): any[] { return [] };
+    nth(n: anyint): Optional<any[]> { return [] };
     seed: any[];
     size: number;
     length: anyint;
@@ -160,9 +162,10 @@ export class Permutation extends _CBase {
         this.length = permutation(seed.length, this.size);
         Object.freeze(this);
     }
-    nth(n: anyint, nocheck = false) {
+    nth(n: anyint, nocheck = false): Optional<any[]> {
         if (!nocheck)
             n = this._check(n);
+        if (n === undefined) return undefined;
         const offset = this.seed.length - this.size;
         const skip = factorial(offset);
         let digits = factoradic(_BI(n) * _BI(skip), this.seed.length);
@@ -187,8 +190,9 @@ export class Combination extends _CBase {
         this.length = combination(sseed.length, this.size);
         Object.freeze(this);
     }
-    nth(n: anyint) {
+    nth(n: anyint): Optional<any[]> {
         n = this._check(n);
+        if (n === undefined) return undefined;
         function findIndex(n) {
             const [one, two] = typeof n === 'bigint' ? [_BI(1), _BI(2)] : [1, 2];
             if (n <= two)
@@ -219,8 +223,10 @@ export class BaseN extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
-    nth(n: anyint) {
-        let bn = _BI(this._check(n));
+    nth(n: anyint): Optional<any[]> {
+        n = this._check(n);
+        if (n === undefined) return undefined;
+        let bn = _BI(n);
         const bb = _BI(this.base);
         let result = [];
         for (let i = 0; i < this.size; i++) {
@@ -243,8 +249,10 @@ export class PowerSet extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
-    nth(n: anyint) {
-        let bn = _BI(this._check(n));
+    nth(n: anyint): Optional<any[]> {
+        n = this._check(n);
+        if (n === undefined) return undefined;
+        let bn = _BI(n);
         let result = [];
         for (let bi = _BI(0); bn; bn >>= _BI(1), bi++)
             if (bn & _BI(1))
@@ -264,8 +272,10 @@ export class CartesianProduct extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
-    nth(n: anyint) {
-        let bn = _BI(this._check(n));
+    nth(n: anyint): Optional<any[]> {
+        n = this._check(n);
+        if (n === undefined) return undefined;
+        let bn = _BI(n);
         let result = [];
         for (let i = 0; i < this.size; i++) {
             const base = this.seed[i].length;

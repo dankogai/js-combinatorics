@@ -4,9 +4,8 @@
  *  Licensed under the MIT license.
  *  http://www.opensource.org/licenses/mit-license.php
  *
- * @typedef {(number|bigint)} aint
- *
  *  @author: Dan Kogai <dankogai+github@gmail.com>
+ *
  *  References:
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-combination
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
@@ -19,6 +18,7 @@ export declare const version = "1.2.1";
  * https://github.com/streamich/memfs/issues/275
  */
 declare type anyint = number | bigint;
+declare type Optional<T> = T | undefined;
 /**
  * calculates `P(n, k)`.
  *
@@ -81,8 +81,8 @@ declare class _CBase {
     /**
     * check n for nth
     */
-    _check(n: any): any;
-    nth(n: anyint): any[];
+    _check(n: anyint): Optional<anyint>;
+    nth(n: anyint): Optional<any[]>;
     seed: any[];
     size: number;
     length: anyint;
@@ -92,7 +92,7 @@ declare class _CBase {
  */
 export declare class Permutation extends _CBase {
     constructor(seed: any, size?: number);
-    nth(n: anyint, nocheck?: boolean): any[];
+    nth(n: anyint, nocheck?: boolean): Optional<any[]>;
 }
 /**
  * Combination
@@ -100,7 +100,7 @@ export declare class Permutation extends _CBase {
 export declare class Combination extends _CBase {
     perm: Permutation;
     constructor(seed: Iterable<any>, size?: number);
-    nth(n: anyint): any[];
+    nth(n: anyint): Optional<any[]>;
 }
 /**
  * Base N
@@ -108,20 +108,20 @@ export declare class Combination extends _CBase {
 export declare class BaseN extends _CBase {
     base: number;
     constructor(seed: Iterable<any>, size?: number);
-    nth(n: anyint): any[];
+    nth(n: anyint): Optional<any[]>;
 }
 /**
  * Power Set
  */
 export declare class PowerSet extends _CBase {
     constructor(seed: Iterable<any>);
-    nth(n: anyint): any[];
+    nth(n: anyint): Optional<any[]>;
 }
 /**
  * Cartesian Product
  */
 export declare class CartesianProduct extends _CBase {
     constructor(...args: Iterable<any>[]);
-    nth(n: anyint): any[];
+    nth(n: anyint): Optional<any[]>;
 }
 export {};

@@ -4,9 +4,8 @@
  *  Licensed under the MIT license.
  *  http://www.opensource.org/licenses/mit-license.php
  *
- * @typedef {(number|bigint)} aint
- *
  *  @author: Dan Kogai <dankogai+github@gmail.com>
+ *
  *  References:
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-combination
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
@@ -128,11 +127,11 @@ class _CBase {
     _check(n) {
         if (n < 0) {
             if (this.length < -n)
-                throw RangeError(`${n} is too small`);
+                return undefined;
             return _crop(_BI(this.length) + _BI(n));
         }
         if (this.length <= n)
-            throw RangeError(`${n} is too large`);
+            return undefined;
         return n;
     }
     nth(n) { return []; }
@@ -152,6 +151,8 @@ export class Permutation extends _CBase {
     nth(n, nocheck = false) {
         if (!nocheck)
             n = this._check(n);
+        if (n === undefined)
+            return undefined;
         const offset = this.seed.length - this.size;
         const skip = factorial(offset);
         let digits = factoradic(_BI(n) * _BI(skip), this.seed.length);
@@ -177,6 +178,8 @@ export class Combination extends _CBase {
     }
     nth(n) {
         n = this._check(n);
+        if (n === undefined)
+            return undefined;
         function findIndex(n) {
             const [one, two] = typeof n === 'bigint' ? [_BI(1), _BI(2)] : [1, 2];
             if (n <= two)
@@ -207,7 +210,10 @@ export class BaseN extends _CBase {
         Object.freeze(this);
     }
     nth(n) {
-        let bn = _BI(this._check(n));
+        n = this._check(n);
+        if (n === undefined)
+            return undefined;
+        let bn = _BI(n);
         const bb = _BI(this.base);
         let result = [];
         for (let i = 0; i < this.size; i++) {
@@ -231,7 +237,10 @@ export class PowerSet extends _CBase {
         Object.freeze(this);
     }
     nth(n) {
-        let bn = _BI(this._check(n));
+        n = this._check(n);
+        if (n === undefined)
+            return undefined;
+        let bn = _BI(n);
         let result = [];
         for (let bi = _BI(0); bn; bn >>= _BI(1), bi++)
             if (bn & _BI(1))
@@ -252,7 +261,10 @@ export class CartesianProduct extends _CBase {
         Object.freeze(this);
     }
     nth(n) {
-        let bn = _BI(this._check(n));
+        n = this._check(n);
+        if (n === undefined)
+            return undefined;
+        let bn = _BI(n);
         let result = [];
         for (let i = 0; i < this.size; i++) {
             const base = this.seed[i].length;
