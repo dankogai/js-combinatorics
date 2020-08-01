@@ -468,11 +468,11 @@ it.length;  // 27
 ] */
 ```
 
-Since the number of arguments to `CartesianProduct` is variable, it is sometimes helpful to give a single array with all arguments.   But you cannot `new ctor.apply(null, args)` this case.  To mitigate that, you can use `.vmake()`.
+Since the number of arguments to `CartesianProduct` is variable, it is sometimes helpful to give a single array with all arguments.   But you cannot `new ctor.apply(null, args)` this case.  To mitigate that, you can use `.from()`.
 
 ```javascript
 let a16 =  Array(16).fill('0123456789abcdef');
-it = CartesianProduct.vmake(a16);
+it = CartesianProduct.from(a16);
 it.length;  // 18446744073709551616n
 it.nth(18446744073709551615n);  /* [
   'f', 'f', 'f', 'f',

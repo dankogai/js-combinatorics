@@ -56,13 +56,13 @@ declare class _CBase {
      * does `new`
      * @param args
      */
-    static make(...args: any[]): any;
+    static of(...args: any[]): any;
     /**
-     * Same as `make` but takes a single array `arg`
+     * Same as `of` but takes a single array `arg`
      *
      * cf. https://stackoverflow.com/questions/1606797/use-of-apply-with-new-operator-is-this-possible
      */
-    static vmake(arg: any): any;
+    static from(arg: any): any;
     /**
      * Common iterator
      */
