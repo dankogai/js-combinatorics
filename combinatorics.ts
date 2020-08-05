@@ -1,3 +1,5 @@
+import { doesNotThrow } from "assert";
+
 /**
  * combinatorics.js
  *
@@ -86,6 +88,42 @@ export function factoradic(n: anyint, l = 0) {
     return digits;
 }
 /**
+ *
+ */
+const _crypto = typeof crypto !== 'undefined' ? crypto : {};
+const _randomBytes: (len :number) => Uint8Array
+    = typeof _crypto['randomBytes'] === 'function'
+        ? (len: number) => Uint8Array.from(_crypto['randomBytes'](len))
+        : typeof _crypto['getRandomValues'] === 'function'
+            ? (len: number) => _crypto['getRandomValues'](new Uint8Array(len))
+            : (len: number) => Uint8Array.from(Array(len), () => Math.random() * 256);
+/**
+ * returns random integer `n` where `min` <= `n` < `max`:
+ *
+ * if the argument is `BigInt` the result is also `BigInt`.
+ *
+ * @param {anyint} min
+ * @param {anyint} max
+ */
+export function randomInteger(min: anyint = 0, max: anyint = Math.pow(2, 53)) {
+    let ctor = min.constructor;
+    if (arguments.length === 0) {
+        return Math.floor(Math.random() * ctor(max));
+    }
+    if (arguments.length == 1) {
+        [min, max] = [ctor(0), min];
+    }
+    if (typeof min == 'number') {   // number
+        [min, max] = [Math.ceil(Number(min)), Math.ceil(Number(max))];
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+    const mag = ctor(max) - ctor(min);
+    const len = mag.toString(16).length;
+    const u8s = _randomBytes(len);
+    const rnd = u8s.reduce((a, v) => ((a << ctor(8)) + ctor(v)), ctor(0));
+    return ((ctor(rnd) * mag) >> ctor(len * 8)) + ctor(min);
+};
+/**
  * Base Class of `js-combinatorics`
  */
 class _CBase {
@@ -108,11 +146,9 @@ class _CBase {
      * Common iterator
      */
     [Symbol.iterator]() {
-        return function* (length, that) {
-            let i = 0;
-            while (i < length)
-                yield that.nth(i++);
-        }(this.length, this);
+        return function* (it, len) {
+            for (let i = 0; i < len; i++) yield it.nth(i);
+        }(this, this.length);
     }
     /**
      * returns `[...this]`.
@@ -138,7 +174,7 @@ class _CBase {
     /**
     * check n for nth
     */
-    _check(n:anyint): Optional<anyint> {
+    _check(n: anyint): Optional<anyint> {
         if (n < 0) {
             if (this.length < -n) return undefined;
             return _crop(_BI(this.length) + _BI(n));
@@ -150,6 +186,14 @@ class _CBase {
     seed: any[];
     size: number;
     length: anyint;
+    sample(): Optional<any[]> {
+        return this.nth(randomInteger(this.length));
+    }
+    samples() {
+        return function* (it) {
+            while (true) yield it.sample();
+        }(this);
+    }
 }
 /**
  * Permutation

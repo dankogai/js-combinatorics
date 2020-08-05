@@ -49,6 +49,15 @@ export declare function factorial(n: anyint): number | bigint;
  */
 export declare function factoradic(n: anyint, l?: number): number[];
 /**
+ * returns random integer `n` where `min` <= `n` < `max`:
+ *
+ * if the argument is `BigInt` the result is also `BigInt`.
+ *
+ * @param {anyint} min
+ * @param {anyint} max
+ */
+export declare function randomInteger(min?: anyint, max?: anyint): any;
+/**
  * Base Class of `js-combinatorics`
  */
 declare class _CBase {
@@ -90,6 +99,8 @@ declare class _CBase {
     seed: any[];
     size: number;
     length: anyint;
+    sample(): Optional<any[]>;
+    samples(): Generator<any[], never, unknown>;
 }
 /**
  * Permutation
