@@ -1,34 +1,38 @@
+<!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <title>Mocha Tests of js-combinatorics</title>
-    <link href="https://unpkg.com/mocha@8.0.1/mocha.css" rel="stylesheet" />
-    <link rel="icon" href="https://www.dan.co.jp/favicon.ico" />
+  <meta charset="utf-8">
+  <title>Mocha Tests of js-combinatorics</title>
+  <link href="https://unpkg.com/mocha@8.0.1/mocha.css" rel="stylesheet" />
+  <link rel="icon" href="https://www.dan.co.jp/favicon.ico" />
 </head>
+
 <body>
-<div id="mocha"></div>
-<script src="https://cdn.jsdelivr.net/npm/platform@1.3.6/platform.min.js"></script>
-<script>
-  isLegacySafari = ((p) => {
-    const name = p.name;
-    const ver  = Number(p.version.split('.')[0]);
-    console.log(name, ver, p.description);
-    return (name === 'Safari' && ver <= 13);
-  })(platform);
-</script>
-<script src="https://unpkg.com/chai@4.2.0/chai.js"></script>
-<script src="https://unpkg.com/mocha@8.0.1/mocha.js"></script>
-<script>mocha.setup('bdd')</script>
-<script type="module" src="./01-import.js"></script>
-<script type="module" src="./02-arithmetics.js"></script>
-<script type="module" src="./03-permutation.js"></script>
-<script type="module" src="./03-combination.js"></script>
-<script type="module" src="./03-basen.js"></script>
-<script type="module" src="./03-powerset.js"></script>
-<script type="module" src="./03-permcomb.js"></script>
-<script type="module">
-  mocha.checkLeaks();
-  mocha.run();
-</script>
+  <div id="mocha"></div>
+  <script src="https://cdn.jsdelivr.net/npm/platform@1.3.6/platform.min.js"></script>
+  <script>
+    isLegacySafari = ((p) => {
+      const name = p.name;
+      const ver = Number(p.version.split('.')[0]);
+      console.log(name, ver, p.description);
+      return (name === 'Safari' && ver <= 13);
+    })(platform);
+  </script>
+  <script src="https://unpkg.com/chai@4.2.0/chai.js"></script>
+  <script src="https://unpkg.com/mocha@8.0.1/mocha.js"></script>
+  <script>mocha.setup('bdd')</script>
+  <script type="module" src="./01-import.js"></script>
+  <script type="module" src="./02-arithmetics.js"></script>
+  <script type="module" src="./03-permutation.js"></script>
+  <script type="module" src="./03-combination.js"></script>
+  <script type="module" src="./03-basen.js"></script>
+  <script type="module" src="./03-powerset.js"></script>
+  <script type="module" src="./03-permcomb.js"></script>
+  <script type="module">
+    mocha.checkLeaks();
+    mocha.run();
+  </script>
 </body>
+
 </html>
