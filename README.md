@@ -207,7 +207,7 @@ The object has `.length` so you don't have to iterate to count the elements.
 it.length;  // 70
 ```
 
-### `.nth()`
+#### `.nth()`
 
 And the object has `.nth(n)` method so you can random-access each element.  This is the equivalent of subscript in `Array`.
 
