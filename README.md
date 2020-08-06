@@ -50,7 +50,7 @@ import {Combination, Permutation} from 'combinatorics.js';
 You don't even have to install if you `import` from CDNs.
 
 ```javascript
-import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@1.2.3/combinatorics.min.js';
+import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@1.2.2/combinatorics.min.js';
 ```
 
 Since this is an ES6 module, `type="module"` is required the `<script>` tags. of your HTML files. But you can make it globally available as follows.
@@ -99,7 +99,7 @@ undefined
   factoradic: [Function: factoradic],
   factorial: [Function: factorial],
   permutation: [Function: permutation],
-  version: '1.2.3'
+  version: '1.2.2'
 }
 > [...new $C.Permutation('abcd')]
 [
@@ -139,7 +139,11 @@ factorial(18);  // 6402373705728000
 factorial(19);  // 121645100408832000n
 
 factoradic(6402373705727999);     // [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
-factoradic(121645100408831999n)   // [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
+factoradic(121645100408831999n);  // [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
+
+randomInteger(6402373705727999);    // random n  [0,6402373705728000)
+randomInteger(121645100408832000n); // ramdom n  [0n, 121645100408832000n)
+
 ```
 
 The arithmetic functions above accept both `Number` and `BigInt` (if supported).  Return answers in `Number` if it is small enough to fit within  `Number.MAX_SAFE_INTEGER` or `BigInt` otherwise.
@@ -156,6 +160,12 @@ You construct an iterable object by giving a seed iterable and options.  in the 
 
 ```javascript
 let it = new $C.Combination('abcdefgh', 4);
+```
+
+if you hate `new`, you can use `Klass.of` where `Klass` is one of the classes this module offers.
+
+```javascript
+let it = $C.Combination.of('abcdefgh', 4);
 ```
 
 Once constructed, you can iterate via `for … of` statement or turn it into an array via `[...]` construct.
@@ -189,13 +199,17 @@ Once constructed, you can iterate via `for … of` statement or turn it into an 
 ] */
 ```
 
+#### `.length`
+
 The object has `.length` so you don't have to iterate to count the elements.
 
 ```javascript
 it.length;  // 70
 ```
 
-The object also has `.nth(n)` method so you can random-access each element.  This is the equivalent of subscript in `Array`.
+### `.nth()`
+
+And the object has `.nth(n)` method so you can random-access each element.  This is the equivalent of subscript in `Array`.
 
 ```javascript
 it.nth(0);  //  [ 'a', 'b', 'c', 'd' ];
@@ -213,6 +227,14 @@ it.nth(69n);  // [ 'a', 'd', 'c', 'h' ];
 ```javascript
 it.nth(-1);   // [ 'a', 'd', 'c', 'h' ]
 it.nth(-70);  // [ 'a', 'b', 'c', 'd' ]
+```
+
+#### `.sample()`
+
+And `.sample()` picks random element, which is defined as `.nth(randomInteger(.length))`.
+
+```javascript
+it.sample() // one of ['a', 'b', 'c', 'd'] ... ['a', 'd', 'e', 'f']
 ```
 
 ### Beyond `Number.MAX_SAFE_INTEGER`
@@ -278,7 +300,7 @@ new $C.Permutation('abcdefghijklmnopqrstuvwxyz').isSafe;
 
 This module still runs on platforms without `BigInt` (notably Safari 13 or below), but its operation is no longer guaranteed if `.isSafe` is false.
 
-### class Permutation
+### class `Permutation`
 
 An iterable which permutes a given iterable.
 
@@ -319,7 +341,17 @@ it.nth(371993326789901217467999448150835199999999n);  /* [
 ] */
 ````
 
-### class Combination
+Making a permutation of the iterable then taking its sample is functionally the same as [Fisher–Yates shuffle] of the iterable.  
+
+```javascript
+it.sample(); // something between ['a','b', ... '9'] and ['9','8',....'a'] 
+```
+
+It is in fact a little better because `.sample()` only needs one random number (between 0 and `.length - 1`) while Fisher–Yates needs `n` random numbers.
+
+[Fisher–Yates shuffle]: https://en.wikipedia.org/wiki/Fisher–Yates_shuffle
+
+### class `Combination`
 
 An iterable which emits a combination of a given iterable.
 
@@ -354,7 +386,7 @@ it.nth(100891344545564193334812497255n);  /* [
 ] */
 ````
 
-### class PowerSet
+### class `PowerSet`
 
 An iterable which emits each element of its power set.
 
@@ -394,7 +426,7 @@ it.nth(18446744073709551615n);  /* [
 ] */
 ````
 
-### class BaseN
+### class `BaseN`
 
 An iterable which emits all numbers in the given system.
 
@@ -435,7 +467,7 @@ it.nth(18446744073709551615n);  /* [
 ] */
 ```
 
-### class CartesianProduct
+### class `CartesianProduct`
 
 A [cartesian product] of given sets.
 
