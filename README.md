@@ -341,7 +341,7 @@ it.nth(371993326789901217467999448150835199999999n);  /* [
 ] */
 ````
 
-Making a permutation of the iterable then taking its sample is functionally the same as [Fisher–Yates shuffle] of the iterable.  
+Making a permutation of the iterable then taking its sample is functionally the same as [Fisher–Yates shuffle] of the iterable.  Instead of shuffling the deck, it make all possible cases available and let you pick one.
 
 ```javascript
 it.sample(); // something between ['a','b', ... '9'] and ['9','8',....'a'] 
