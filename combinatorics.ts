@@ -93,10 +93,12 @@ export function factoradic(n: anyint, l = 0) {
  * @link https://en.wikipedia.org/wiki/Combinatorial_number_system
  */
 export function combinadic(n, k, m) {
+    let count = combination(n, k);
+    if (m < 0 || count <= m) throw RangeError('index out of range');
     let digits = [];
     let a = n;
     let b = k;
-    let x = _BI(combination(n, k)) - _BI(1) - _BI(m)
+    let x = _BI(count) - _BI(1) - _BI(m)
     for (let i = 0; i < k; i++) {
         a--;
         while (x < combination(a, b)) a--;
