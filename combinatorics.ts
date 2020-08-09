@@ -39,6 +39,8 @@ const _crop = (n: anyint): anyint =>
  * @link https://en.wikipedia.org/wiki/Permutation
  */
 export function permutation(n: anyint, k: anyint) {
+    if (0 == k) return 1;
+    if (n < k) return 0;
     [n, k] = [_BI(n), _BI(k)];
     let p = _BI(1);
     while (k--)
@@ -51,6 +53,9 @@ export function permutation(n: anyint, k: anyint) {
  * @link https://en.wikipedia.org/wiki/Combination
  */
 export function combination(n: anyint, k: anyint) {
+    if (0 == k) return 1;
+    if (n == k) return 1;
+    if (n < k) return 0;
     const P = permutation;
     const c = _BI(P(n, k)) / _BI(P(k, k));
     return _crop(c);
