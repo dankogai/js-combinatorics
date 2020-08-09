@@ -5,8 +5,8 @@ const $$ = chai.expect.bind(chai);
 describe('class Combination', () => {
     let seed = 'abcdefgh';
     for (let len = 0; len <= seed.length; len++) {
-        let c = [...new Combination(seed, len)].map(v => v.join(''));
-        let s = c.slice(0).sort(); // check if it is lexicographic order
+        let c = [...new Combination(seed, len)];
+        let s = c.slice(0).map(v => v.sort()).sort();
         it(`new Combination('${seed}', ${len})`, () => $$(c).to.deep.equal(s));
     }
     let c = new Combination(seed, 4);
