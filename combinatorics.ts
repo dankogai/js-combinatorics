@@ -13,7 +13,7 @@ import { doesNotThrow } from "assert";
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
  *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
  */
-export const version = '1.4.0';
+export const version = '1.4.1';
 /**
  * BigInt Workaround
  * 
