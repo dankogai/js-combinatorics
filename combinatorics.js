@@ -72,6 +72,26 @@ export function factoradic(n, l = 0) {
     return digits;
 }
 /**
+ * returns the combinadics representation of `m` for `n C k`.
+ *
+ * @link https://en.wikipedia.org/wiki/Combinatorial_number_system
+ */
+export function combinadic(n, k, m) {
+    let digits = [];
+    let a = n;
+    let b = k;
+    let x = _BI(combination(n, k)) - _BI(1) - _BI(m);
+    for (let i = 0; i < k; i++) {
+        a--;
+        while (x < combination(a, b))
+            a--;
+        digits.push(n - 1 - a);
+        x -= _BI(combination(a, b));
+        b--;
+    }
+    return digits;
+}
+/**
  *
  */
 const _crypto = typeof crypto !== 'undefined' ? crypto : {};
@@ -189,7 +209,7 @@ export class Permutation extends _CBase {
         super();
         this.seed = [...seed];
         this.size = 0 < size && size <= this.seed.length ? size : this.seed.length;
-        this.length = permutation(seed.length, this.size);
+        this.length = permutation(this.seed.length, this.size);
         Object.freeze(this);
     }
     nth(n, nocheck = false) {
@@ -214,28 +234,17 @@ export class Permutation extends _CBase {
 export class Combination extends _CBase {
     constructor(seed, size = 0) {
         super();
-        const sseed = [...seed];
-        this.perm = new Permutation(sseed, size);
-        this.size = this.perm.size;
-        this.length = combination(sseed.length, this.size);
+        this.seed = [...seed];
+        this.size = 0 < size && size <= this.seed.length ? size : this.seed.length;
+        this.length = combination(this.seed.length, this.size);
         Object.freeze(this);
     }
     nth(n) {
         n = this._check(n);
         if (n === undefined)
             return undefined;
-        function findIndex(n) {
-            const [one, two] = typeof n === 'bigint' ? [_BI(1), _BI(2)] : [1, 2];
-            if (n <= two)
-                return n;
-            let p = n - one;
-            let s = p & -p;
-            let r = p + s;
-            let t = r & -r;
-            let m = ((t / s) >> one) - one;
-            return r | m;
-        }
-        return this.perm.nth(findIndex(n), true);
+        return combinadic(this.seed.length, this.size, n)
+            .reduce((a, v) => a.concat(this.seed[v]), []);
     }
 }
 /**

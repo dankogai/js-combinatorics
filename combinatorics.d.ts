@@ -49,6 +49,12 @@ export declare function factorial(n: anyint): number | bigint;
  */
 export declare function factoradic(n: anyint, l?: number): number[];
 /**
+ * returns the combinadics representation of `m` for `n C k`.
+ *
+ * @link https://en.wikipedia.org/wiki/Combinatorial_number_system
+ */
+export declare function combinadic(n: any, k: any, m: any): any[];
+/**
  * returns random integer `n` where `min` <= `n` < `max`:
  *
  * if the argument is `BigInt` the result is also `BigInt`.
@@ -106,7 +112,7 @@ declare class _CBase {
  * Permutation
  */
 export declare class Permutation extends _CBase {
-    constructor(seed: any, size?: number);
+    constructor(seed: Iterable<any>, size?: number);
     nth(n: anyint, nocheck?: boolean): Optional<any[]>;
 }
 /**
