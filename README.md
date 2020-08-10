@@ -29,7 +29,7 @@ Check [swift-combinatorics].  More naturally implemented with generics and proto
 import * as $C from 'js-combinatorics';
 let it =  new $C.Combination('abcdefgh', 4);
 for (const elem of it) {
-  console.log(elem) // ['a', 'b', 'c', 'd'] ... ['a', 'd', 'e', 'f']
+  console.log(elem) // ['a', 'b', 'c', 'd'] ... ['e', 'f', 'g', 'h']
 }
 ```
 
