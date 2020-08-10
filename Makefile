@@ -9,6 +9,9 @@ all: $(PJ) $(JS)
 $(JS): $(PJ) $(TS)
 	tsc -d --target es6 $(TS)
 
+commonjs: $(PJ) $(TS)
+	tsc --module commonjs --target es6 $(TS)
+
 test: $(PJ) $(JS)
 	mocha --require esm
 
