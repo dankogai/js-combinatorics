@@ -6,7 +6,8 @@ describe('class Combination', () => {
     let seed = 'abcdefgh';
     for (let len = 0; len <= seed.length; len++) {
         let c = [...new Combination(seed, len)];
-        let s = c.slice(0).map(v => v.sort()).sort();
+        let s = [...new Set(c.slice(0).map(v => v.sort()))];
+        // all unique, each in lex order
         it(`new Combination('${seed}', ${len})`, () => $$(c).to.deep.equal(s));
     }
     let c = new Combination(seed, 4);

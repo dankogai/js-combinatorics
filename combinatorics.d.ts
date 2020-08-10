@@ -123,6 +123,13 @@ export declare class Permutation extends _CBase {
 export declare class Combination extends _CBase {
     comb: (anyint: any) => number[];
     constructor(seed: Iterable<any>, size?: number);
+    /**
+     * returns an iterator which is more efficient
+     * than the default iterator that uses .nth
+     *
+     * @link https://en.wikipedia.org/wiki/Combinatorial_number_system#Applications
+     */
+    bitwiseIterator(): Generator<any[], void, unknown>;
     nth(n: anyint): Optional<any[]>;
 }
 /**
