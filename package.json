@@ -7,7 +7,9 @@
   "types": "combinatorics.d.ts",
   "files": [
     "combinatorics.d.ts",
-    "combinatorics.js"
+    "combinatorics.js",
+    "umd",
+    "commonjs"
   ],
   "runkitExample": "require=require(\"esm\")(module);\nvar Combinatorics=require(\"js-combinatorics\");\n",
   "devDependencies": {
