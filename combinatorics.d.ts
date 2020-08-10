@@ -103,11 +103,30 @@ declare class _CBase {
     * check n for nth
     */
     _check(n: anyint): Optional<anyint>;
+    /**
+     * get the `n`th element of the iterator.
+     * negative `n` goes backwards
+     */
     nth(n: anyint): Optional<any[]>;
+    /**
+     * the seed iterable
+     */
     seed: any[];
+    /**
+     * the size (# of elements) of each element.
+     */
     size: number;
+    /**
+     * the number of elements
+     */
     length: anyint;
+    /**
+     * pick random element
+     */
     sample(): Optional<any[]>;
+    /**
+     * an infinite steam of random elements
+     */
     samples(): Generator<any[], never, unknown>;
 }
 /**

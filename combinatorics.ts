@@ -212,13 +212,32 @@ class _CBase {
         if (this.length <= n) return undefined;
         return n;
     }
+    /**
+     * get the `n`th element of the iterator.
+     * negative `n` goes backwards
+     */
     nth(n: anyint): Optional<any[]> { return [] };
+    /**
+     * the seed iterable
+     */
     seed: any[];
+    /**
+     * the size (# of elements) of each element.
+     */
     size: number;
+    /**
+     * the number of elements
+     */
     length: anyint;
+    /**
+     * pick random element
+     */
     sample(): Optional<any[]> {
         return this.nth(randomInteger(this.length));
     }
+    /**
+     * an infinite steam of random elements
+     */
     samples() {
         return function* (it) {
             while (true) yield it.sample();

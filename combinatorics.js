@@ -207,11 +207,21 @@ class _CBase {
             return undefined;
         return n;
     }
+    /**
+     * get the `n`th element of the iterator.
+     * negative `n` goes backwards
+     */
     nth(n) { return []; }
     ;
+    /**
+     * pick random element
+     */
     sample() {
         return this.nth(randomInteger(this.length));
     }
+    /**
+     * an infinite steam of random elements
+     */
     samples() {
         return function* (it) {
             while (true)
