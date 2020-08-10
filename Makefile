@@ -12,6 +12,9 @@ $(JS): $(PJ) $(TS)
 commonjs: $(PJ) $(TS)
 	tsc --module commonjs --target es6 $(TS)
 
+umd: $(PJ) $(TS)
+	tsc --module umd --target es6 $(TS)
+
 test: $(PJ) $(JS)
 	mocha --require esm
 
