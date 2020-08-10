@@ -82,6 +82,8 @@ export function factoradic(n, l = 0) {
     return digits;
 }
 /**
+ * `combinadic(n, k)` returns a function
+ * that takes `m` as an argument and
  * returns the combinadics representation of `m` for `n C k`.
  *
  * @link https://en.wikipedia.org/wiki/Combinatorial_number_system
@@ -226,9 +228,8 @@ export class Permutation extends _CBase {
         this.length = permutation(this.seed.length, this.size);
         Object.freeze(this);
     }
-    nth(n, nocheck = false) {
-        if (!nocheck)
-            n = this._check(n);
+    nth(n) {
+        n = this._check(n);
         if (n === undefined)
             return undefined;
         const offset = this.seed.length - this.size;

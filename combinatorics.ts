@@ -235,9 +235,8 @@ export class Permutation extends _CBase {
         this.length = permutation(this.seed.length, this.size);
         Object.freeze(this);
     }
-    nth(n: anyint, nocheck = false): Optional<any[]> {
-        if (!nocheck)
-            n = this._check(n);
+    nth(n: anyint): Optional<any[]> {
+        n = this._check(n);
         if (n === undefined) return undefined;
         const offset = this.seed.length - this.size;
         const skip = factorial(offset);
