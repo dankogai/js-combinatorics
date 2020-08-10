@@ -176,7 +176,9 @@ c58_29(30067266499541039n); /* [
 
 [factoradic]: https://en.wikipedia.org/wiki/Factorial_number_system
 
-Unlike other arithmetic functions, `combinadic()` returns a function which returns `m`th combinadic digit of `n C k`.  For an array `ary` with `n` elements, you can get its `m`th combination by picking `ary[i]` for each `i` in the combinadic.
+Unlike other arithmetic functions, `combinadic()` returns a function which returns `m`th [combinadic] digit of `n C k`.  For an array `ary` with `n` elements, you can get its `m`th combination by picking `ary[i]` for each `i` in the combinadic.
+
+[combinadic]: https://en.wikipedia.org/wiki/Combinatorial_number_system
 
 ### classes
 
@@ -340,7 +342,7 @@ An iterable which permutes a given iterable.
 * `size`: the number of elements in the iterated element.  defaults to `seed.length`
 
 ````javascript
-import {Permutation} from 'combinatorics.js';
+import {Permutation} from 'js-combinatorics';
 
 let it = new Permutation('abcd'); // size 4 is assumed4
 it.length;  // 24
@@ -391,7 +393,7 @@ An iterable which emits a combination of a given iterable.
 * `size`: the number of elements in the iterated element.  
 
 ````javascript
-import {Combination} from 'combinatorics.js';
+import {Combination} from 'js-combinatorics';
 
 let it = new Combination('abcd', 2);
 it.length;  // 6
@@ -425,7 +427,7 @@ An iterable which emits each element of its power set.
 * `seed`: the seed iterable.
 
 ````javascript
-import {PowerSet} from 'combinatorics.js';
+import {PowerSet} from 'js-combinatorics';
 
 let it = new PowerSet('abc');
 it.length;  // 8
@@ -466,7 +468,7 @@ An iterable which emits all numbers in the given system.
 * `size`: the number of digits
 
 ```javascript
-import {BaseN} from 'combinatorics.js';
+import {BaseN} from 'js-combinatorics';
 
 let it = new BaseN('abc', 3);
 it.length;  // 27
@@ -508,7 +510,7 @@ A [cartesian product] of given sets.
 * `args`: iterables that represent sets
 
 ```javascript
-import {CartesianProduct} from 'combinatorics.js';
+import {CartesianProduct} from 'js-combinatorics';
 
 let it = new CartesianProduct('012','abc','xyz');
 it.length;  // 27
