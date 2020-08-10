@@ -4,21 +4,24 @@ JS=combinatorics.js
 MJS=combinatorics.mjs
 DTS=combinatorics.d.ts
 COMMONJS_DIR=commonjs
+COMMONJS=$(COMMONJS_DIR)/$(JS)
 UMD_DIR=umd
+UMD=$(UMD_DIR)/$(JS)
 
-all: $(PJ) $(JS) $(COMMONJS_DIR)/$(JS) $(UMD_DIR)/$(JS)
+all: $(PJ) $(JS) $(COMMONJS) $(UMD)
 
 $(JS): $(PJ) $(TS)
 	tsc -d --target es6 $(TS)
 
-$(COMMONJS_DIR)/$(JS): $(PJ) $(TS)
+$(COMMONJS): $(PJ) $(TS)
 	tsc --module commonjs --outDir $(COMMONJS_DIR) --target es6 $(TS)
 
-$(UMD_DIR)/$(JS): $(PJ) $(TS)
+$(UMD): $(PJ) $(TS)
 	tsc --module umd --outDir $(UMD_DIR) --target es6 $(TS)
 
-test: $(PJ) $(JS)
+test: all
 	mocha --require esm
 
 clean:
-	-rm $(DTS) $(MJS) $(JS)
+	-rm $(DTS) $(MJS) $(JS) $(COMMONJS) $(UMD)
+

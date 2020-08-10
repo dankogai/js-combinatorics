@@ -216,11 +216,21 @@ class _CBase {
             return undefined;
         return n;
     }
+    /**
+     * get the `n`th element of the iterator.
+     * negative `n` goes backwards
+     */
     nth(n) { return []; }
     ;
+    /**
+     * pick random element
+     */
     sample() {
         return this.nth(randomInteger(this.length));
     }
+    /**
+     * an infinite steam of random elements
+     */
     samples() {
         return function* (it) {
             while (true)
@@ -266,6 +276,34 @@ class Combination extends _CBase {
         this.length = combination(this.seed.length, this.size);
         this.comb = combinadic(this.seed.length, this.size);
         Object.freeze(this);
+    }
+    /**
+     * returns an iterator which is more efficient
+     * than the default iterator that uses .nth
+     *
+     * @link https://en.wikipedia.org/wiki/Combinatorial_number_system#Applications
+     */
+    bitwiseIterator() {
+        // console.log('overriding _CBase');
+        const ctor = this.length.constructor;
+        const [zero, one, two] = [ctor(0), ctor(1), ctor(2)];
+        const inc = (x) => {
+            const u = x & -x;
+            const v = u + x;
+            return v + (((v ^ x) / u) >> two);
+        };
+        let x = (one << ctor(this.size)) - one; // 0b11...1
+        return function* (it, len) {
+            for (let i = 0; i < len; i++, x = inc(x)) {
+                var result = [];
+                for (let y = x, j = 0; zero < y; y >>= one, j++) {
+                    if (y & one)
+                        result.push(it.seed[j]);
+                }
+                // console.log(`x = ${x}`);
+                yield result;
+            }
+        }(this, this.length);
     }
     nth(n) {
         n = this._check(n);
