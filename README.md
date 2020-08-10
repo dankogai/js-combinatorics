@@ -26,7 +26,7 @@ Check [swift-combinatorics].  More naturally implemented with generics and proto
 ## SYNOPSIS
 
 ```javascript
-import * as $C from 'combinatorics.js';
+import * as $C from 'js-combinatorics';
 let it =  new $C.Combination('abcdefgh', 4);
 for (const elem of it) {
   console.log(elem) // ['a', 'b', 'c', 'd'] ... ['a', 'd', 'e', 'f']
@@ -38,19 +38,19 @@ for (const elem of it) {
 load everything…
 
 ```javascript
-import * as Combinatorics from 'combinatorics.js';
+import * as Combinatorics from 'js-combinatorics';
 ```
 
 or just objects you want.
 
 ```javascript
-import {Combination, Permutation} from 'combinatorics.js';
+import { Combination, Permutation}  from 'js-combinatorics';
 ```
 
 You don't even have to install if you `import` from CDNs.
 
 ```javascript
-import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@1.2.2/combinatorics.min.js';
+import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@1.4.1/combinatorics.min.js';
 ```
 
 Since this is an ES6 module, `type="module"` is required the `<script>` tags. of your HTML files. But you can make it globally available as follows.
@@ -127,7 +127,7 @@ undefined
 Self-explanatory, are they not?
 
 ```javascript
-import {permutation, combination, factorial, factoradic} from 'combinatorics.js';
+import { permutation, combination, factorial, randomInteger } from 'js-combinatorics';
 
 permutation(24, 12);  // 1295295050649600
 permutation(26, 13);  // 64764752532480000n
@@ -138,15 +138,45 @@ combination(58, 29);  // 30067266499541040n
 factorial(18);  // 6402373705728000
 factorial(19);  // 121645100408832000n
 
-factoradic(6402373705727999);     // [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
-factoradic(121645100408831999n);  // [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
-
 randomInteger(6402373705727999);    // random n  [0,6402373705728000)
 randomInteger(121645100408832000n); // ramdom n  [0n, 121645100408832000n)
-
 ```
 
 The arithmetic functions above accept both `Number` and `BigInt` (if supported).  Return answers in `Number` if it is small enough to fit within  `Number.MAX_SAFE_INTEGER` or `BigInt` otherwise.
+
+#### `factoradic()` and `combinadic()`
+
+They need a little more explanation.
+
+```javascript
+import { factoradic, combinadic } from 'js-combinatorics';
+
+factoradic(6402373705727999);     // [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+factoradic(121645100408831999n);  // [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
+
+const c16_8 = combinadic(16, 8);
+c16_8(0);     // [ 0,  1,  2,  3,  4,  5,  6,  7]
+c16_8(12870); // [ 8,  9, 10, 11, 12, 13, 14, 15]
+const c58_29 = combinadic(58, 29);
+c58_29(0); /* [
+   0,  1,  2,  3,  4,  5,  6,  7,  8,
+   9, 10, 11, 12, 13, 14, 15, 16, 17,
+  18, 19, 20, 21, 22, 23, 24, 25, 26,
+  27, 28
+] */
+c58_29(30067266499541039n); /* [
+  29, 30, 31, 32, 33, 34, 35, 36, 37,
+  38, 39, 40, 41, 42, 43, 44, 45, 46,
+  47, 48, 49, 50, 51, 52, 53, 54, 55,
+  56, 57
+] */
+```
+
+`factoradic(n)` returns the [factoradic] representation of `n`. For an array `ary` with `n` elements, you can get its `n`th permutation by picking `ary[i]` for each `i` in the factoradic.
+
+[factoradic]: https://en.wikipedia.org/wiki/Factorial_number_system
+
+Unlike other arithmetic functions, `combinadic()` returns a function which returns `m`th combinadic digit of `n C k`.  For an array `ary` with `n` elements, you can get its `m`th combination by picking `ary[i]` for each `i` in the combinadic.
 
 ### classes
 

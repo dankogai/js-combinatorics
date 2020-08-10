@@ -64,6 +64,8 @@ export function factorial(n) {
  * @param {number} l the number of digits
  */
 export function factoradic(n, l = 0) {
+    if (n < 0)
+        return undefined;
     let [bn, bf] = [_BI(n), _BI(1)];
     if (!l) {
         for (l = 1; bf < bn; bf *= _BI(++l))
@@ -92,7 +94,7 @@ export function combinadic(n, k) {
     const count = combination(n, k);
     return (m) => {
         if (m < 0 || count <= m)
-            throw RangeError('index out of range');
+            return undefined;
         let digits = [];
         let [a, b] = [n, k];
         let x = _BI(count) - _BI(1) - _BI(m);
