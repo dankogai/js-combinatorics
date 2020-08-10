@@ -93,25 +93,28 @@ export function factoradic(n: anyint, l = 0) {
     return digits;
 }
 /**
+ * `combinadic(n, k)` returns a function
+ * that takes `m` as an argument and
  * returns the combinadics representation of `m` for `n C k`.
  *
  * @link https://en.wikipedia.org/wiki/Combinatorial_number_system
  */
-export function combinadic(n, k, m) {
-    let count = combination(n, k);
-    if (m < 0 || count <= m) throw RangeError('index out of range');
-    let digits = [];
-    let a = n;
-    let b = k;
-    let x = _BI(count) - _BI(1) - _BI(m)
-    for (let i = 0; i < k; i++) {
-        a--;
-        while (x < combination(a, b)) a--;
-        digits.push(n - 1 - a);
-        x -= _BI(combination(a, b));
-        b--;
+export function combinadic(n: number, k: number) {
+    const count = combination(n, k);
+    return (m: anyint): number[] => {
+        if (m < 0 || count <= m) throw RangeError('index out of range');
+        let digits = [];
+        let [a, b] = [n, k];
+        let x = _BI(count) - _BI(1) - _BI(m);
+        for (let i = 0; i < k; i++) {
+            a--;
+            while (x < combination(a, b)) a--;
+            digits.push(n - 1 - a);
+            x -= _BI(combination(a, b));
+            b--;
+        }
+        return digits;
     }
-    return digits;
 }
 /**
  *
@@ -251,19 +254,19 @@ export class Permutation extends _CBase {
  * Combination
  */
 export class Combination extends _CBase {
-    perm: Permutation;
+    comb: (anyint) => number[];
     constructor(seed: Iterable<any>, size = 0) {
         super();
         this.seed = [...seed];
         this.size = 0 < size && size <= this.seed.length ? size : this.seed.length;
         this.length = combination(this.seed.length, this.size);
+        this.comb = combinadic(this.seed.length, this.size);
         Object.freeze(this);
     }
     nth(n: anyint): Optional<any[]> {
         n = this._check(n);
         if (n === undefined) return undefined;
-        return combinadic(this.seed.length, this.size, n)
-            .reduce((a, v) => a.concat(this.seed[v]), []);
+        return this.comb(n).reduce((a, v) => a.concat(this.seed[v]), []);
     }
 }
 /**

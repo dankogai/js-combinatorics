@@ -86,23 +86,24 @@ export function factoradic(n, l = 0) {
  *
  * @link https://en.wikipedia.org/wiki/Combinatorial_number_system
  */
-export function combinadic(n, k, m) {
-    let count = combination(n, k);
-    if (m < 0 || count <= m)
-        throw RangeError('index out of range');
-    let digits = [];
-    let a = n;
-    let b = k;
-    let x = _BI(count) - _BI(1) - _BI(m);
-    for (let i = 0; i < k; i++) {
-        a--;
-        while (x < combination(a, b))
+export function combinadic(n, k) {
+    const count = combination(n, k);
+    return (m) => {
+        if (m < 0 || count <= m)
+            throw RangeError('index out of range');
+        let digits = [];
+        let [a, b] = [n, k];
+        let x = _BI(count) - _BI(1) - _BI(m);
+        for (let i = 0; i < k; i++) {
             a--;
-        digits.push(n - 1 - a);
-        x -= _BI(combination(a, b));
-        b--;
-    }
-    return digits;
+            while (x < combination(a, b))
+                a--;
+            digits.push(n - 1 - a);
+            x -= _BI(combination(a, b));
+            b--;
+        }
+        return digits;
+    };
 }
 /**
  *
@@ -250,14 +251,14 @@ export class Combination extends _CBase {
         this.seed = [...seed];
         this.size = 0 < size && size <= this.seed.length ? size : this.seed.length;
         this.length = combination(this.seed.length, this.size);
+        this.comb = combinadic(this.seed.length, this.size);
         Object.freeze(this);
     }
     nth(n) {
         n = this._check(n);
         if (n === undefined)
             return undefined;
-        return combinadic(this.seed.length, this.size, n)
-            .reduce((a, v) => a.concat(this.seed[v]), []);
+        return this.comb(n).reduce((a, v) => a.concat(this.seed[v]), []);
     }
 }
 /**

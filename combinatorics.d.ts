@@ -53,7 +53,7 @@ export declare function factoradic(n: anyint, l?: number): number[];
  *
  * @link https://en.wikipedia.org/wiki/Combinatorial_number_system
  */
-export declare function combinadic(n: any, k: any, m: any): any[];
+export declare function combinadic(n: number, k: number): (m: anyint) => number[];
 /**
  * returns random integer `n` where `min` <= `n` < `max`:
  *
@@ -119,7 +119,7 @@ export declare class Permutation extends _CBase {
  * Combination
  */
 export declare class Combination extends _CBase {
-    perm: Permutation;
+    comb: (anyint: any) => number[];
     constructor(seed: Iterable<any>, size?: number);
     nth(n: anyint): Optional<any[]>;
 }
