@@ -44,7 +44,7 @@ import * as Combinatorics from './combinatorics.js';
 or just objects you want.
 
 ```javascript
-import { Combination, Permutation}  from './combinatorics.js';
+import { Combination, Permutation }  from './combinatorics.js';
 ```
 
 You don't even have to install if you `import` from CDNs.
@@ -117,8 +117,9 @@ undefined
   [ 'd', 'c', 'a', 'b' ], [ 'd', 'c', 'b', 'a' ]
 ]
 > 
-
 ```
+
+`./combinatorics.js` is an ECMAScript module but if you still need a UMD or commonjs version, they are available as `./umd/combinatorics.js` and `./commonjs/combinatorics.js` respectively.
 
 ## Description
 
