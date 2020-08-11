@@ -26,7 +26,7 @@ Check [swift-combinatorics].  More naturally implemented with generics and proto
 ## SYNOPSIS
 
 ```javascript
-import * as $C from 'js-combinatorics';
+import * as $C from './combinatorics.js';
 let it =  new $C.Combination('abcdefgh', 4);
 for (const elem of it) {
   console.log(elem) // ['a', 'b', 'c', 'd'] ... ['e', 'f', 'g', 'h']
@@ -38,13 +38,13 @@ for (const elem of it) {
 load everything…
 
 ```javascript
-import * as Combinatorics from 'js-combinatorics';
+import * as Combinatorics from './combinatorics.js';
 ```
 
 or just objects you want.
 
 ```javascript
-import { Combination, Permutation}  from 'js-combinatorics';
+import { Combination, Permutation}  from './combinatorics.js';
 ```
 
 You don't even have to install if you `import` from CDNs.
@@ -127,7 +127,7 @@ undefined
 Self-explanatory, are they not?
 
 ```javascript
-import { permutation, combination, factorial, randomInteger } from 'js-combinatorics';
+import { permutation, combination, factorial, randomInteger } from './combinatorics.js';
 
 permutation(24, 12);  // 1295295050649600
 permutation(26, 13);  // 64764752532480000n
@@ -149,7 +149,7 @@ The arithmetic functions above accept both `Number` and `BigInt` (if supported).
 They need a little more explanation.
 
 ```javascript
-import { factoradic, combinadic } from 'js-combinatorics';
+import { factoradic, combinadic } from './combinatorics.js';
 
 factoradic(6402373705727999);     // [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
 factoradic(121645100408831999n);  // [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
@@ -342,7 +342,7 @@ An iterable which permutes a given iterable.
 * `size`: the number of elements in the iterated element.  defaults to `seed.length`
 
 ````javascript
-import {Permutation} from 'js-combinatorics';
+import {Permutation} from './combinatorics.js';
 
 let it = new Permutation('abcd'); // size 4 is assumed4
 it.length;  // 24
@@ -393,7 +393,7 @@ An iterable which emits a combination of a given iterable.
 * `size`: the number of elements in the iterated element.  
 
 ````javascript
-import {Combination} from 'js-combinatorics';
+import {Combination} from './combinatorics.js';
 
 let it = new Combination('abcd', 2);
 it.length;  // 6
@@ -427,7 +427,7 @@ An iterable which emits each element of its power set.
 * `seed`: the seed iterable.
 
 ````javascript
-import {PowerSet} from 'js-combinatorics';
+import {PowerSet} from './combinatorics.js';
 
 let it = new PowerSet('abc');
 it.length;  // 8
@@ -468,7 +468,7 @@ An iterable which emits all numbers in the given system.
 * `size`: the number of digits
 
 ```javascript
-import {BaseN} from 'js-combinatorics';
+import {BaseN} from './combinatorics.js';
 
 let it = new BaseN('abc', 3);
 it.length;  // 27
@@ -510,7 +510,7 @@ A [cartesian product] of given sets.
 * `args`: iterables that represent sets
 
 ```javascript
-import {CartesianProduct} from 'js-combinatorics';
+import {CartesianProduct} from './combinatorics.js';
 
 let it = new CartesianProduct('012','abc','xyz');
 it.length;  // 27
