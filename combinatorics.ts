@@ -251,7 +251,7 @@ export class Permutation extends _CBase {
     constructor(seed: Iterable<any>, size = 0) {
         super();
         this.seed = [...seed];
-        this.size = 0 < size && size <= this.seed.length ? size : this.seed.length;
+        this.size = 0 < size ? size : this.seed.length;
         this.length = permutation(this.seed.length, this.size);
         Object.freeze(this);
     }
@@ -277,7 +277,8 @@ export class Combination extends _CBase {
     constructor(seed: Iterable<any>, size = 0) {
         super();
         this.seed = [...seed];
-        this.size = 0 < size && size <= this.seed.length ? size : this.seed.length;
+        this.size = 0 < size ? size : this.seed.length;
+        this.size = size;
         this.length = combination(this.seed.length, this.size);
         this.comb = combinadic(this.seed.length, this.size);
         Object.freeze(this);
