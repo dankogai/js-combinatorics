@@ -26,6 +26,10 @@ const _crop = (n) => n <= Number.MAX_SAFE_INTEGER ? Number(n) : _BI(n);
  * @link https://en.wikipedia.org/wiki/Permutation
  */
 function permutation(n, k) {
+    if (n < 0)
+        throw new RangeError(`negative n is not acceptable`);
+    if (k < 0)
+        throw new RangeError(`negative k is not acceptable`);
     if (0 == k)
         return 1;
     if (n < k)

@@ -39,6 +39,8 @@ const _crop = (n: anyint): anyint =>
  * @link https://en.wikipedia.org/wiki/Permutation
  */
 export function permutation(n: anyint, k: anyint) {
+    if (n < 0) throw new RangeError(`negative n is not acceptable`);
+    if (k < 0) throw new RangeError(`negative k is not acceptable`);
     if (0 == k) return 1;
     if (n < k) return 0;
     [n, k] = [_BI(n), _BI(k)];

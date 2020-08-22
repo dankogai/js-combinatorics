@@ -11,10 +11,15 @@ describe('permutation', () => {
     it('permutation(2,5) === 0', ()=>$$(permutation(2, 5)).to.equal(0));
     if (!isLegacySafari) {
         it('permutation(5,1.5) throws RangeError', () => {
-            chai.assert.throws(() => combination(5, 1.5), RangeError)
+            chai.assert.throws(() => permutation(5, 1.5), RangeError)
+        });
+        it('permutation(5, -1) throws RangeError', () => {
+            chai.assert.throws(() => permutation(5, -1), RangeError)
         });
     } else {
         it.skip('SKIP permutation(5,1.5): assert.throws may not work', x=>x);
+        it.skip('SKIP permutation(5, -1): assert.throws may not work', x=>x);
+
     }
     if (typeof BigInt === 'function') {
         const sbn = '10333147966386144929666651337523200000000';
@@ -35,8 +40,12 @@ describe('combination', () => {
         it('combination(5,1.5) throws RangeError', () => {
             chai.assert.throws(() => combination(5, 1.5), RangeError)
         });
+        it('combination(5, -1) throws RangeError', () => {
+            chai.assert.throws(() => combination(5, -1), RangeError)
+        });
     } else {
         it.skip('SKIP combination(5,1.5): assert.throws may not work', x=>x);
+        it.skip('SKIP combination(5, -1): assert.throws may not work', x=>x);
     }
     if (typeof BigInt === 'function') {
         const sbn = '23951146041928082866135587776380551750';
