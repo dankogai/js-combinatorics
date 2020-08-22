@@ -68,7 +68,7 @@ export declare function randomInteger(min?: anyint, max?: anyint): any;
 /**
  * Base Class of `js-combinatorics`
  */
-declare class _CBase {
+declare class _CBase<T, U> {
     /**
      * does `new`
      * @param args
@@ -83,11 +83,11 @@ declare class _CBase {
     /**
      * Common iterator
      */
-    [Symbol.iterator](): Generator<any[], void, unknown>;
+    [Symbol.iterator](): Generator<U[], void, unknown>;
     /**
      * returns `[...this]`.
      */
-    toArray(): any[][];
+    toArray(): U[][];
     /**
      * tells wether you need `BigInt` to access all elements.
      */
@@ -107,11 +107,11 @@ declare class _CBase {
      * get the `n`th element of the iterator.
      * negative `n` goes backwards
      */
-    nth(n: anyint): Optional<any[]>;
+    nth(n: anyint): Optional<U[]>;
     /**
      * the seed iterable
      */
-    seed: any[];
+    seed: T[];
     /**
      * the size (# of elements) of each element.
      */
@@ -123,25 +123,25 @@ declare class _CBase {
     /**
      * pick random element
      */
-    sample(): Optional<any[]>;
+    sample(): Optional<U[]>;
     /**
      * an infinite steam of random elements
      */
-    samples(): Generator<any[], never, unknown>;
+    samples(): Generator<U[], never, unknown>;
 }
 /**
  * Permutation
  */
-export declare class Permutation extends _CBase {
-    constructor(seed: Iterable<any>, size?: number);
-    nth(n: anyint): Optional<any[]>;
+export declare class Permutation<T> extends _CBase<T, T> {
+    constructor(seed: Iterable<T>, size?: number);
+    nth(n: anyint): Optional<T[]>;
 }
 /**
  * Combination
  */
-export declare class Combination extends _CBase {
+export declare class Combination<T> extends _CBase<T, T> {
     comb: (anyint: any) => number[];
-    constructor(seed: Iterable<any>, size?: number);
+    constructor(seed: Iterable<T>, size?: number);
     /**
      * returns an iterator which is more efficient
      * than the default iterator that uses .nth
@@ -149,28 +149,28 @@ export declare class Combination extends _CBase {
      * @link https://en.wikipedia.org/wiki/Combinatorial_number_system#Applications
      */
     bitwiseIterator(): Generator<any[], void, unknown>;
-    nth(n: anyint): Optional<any[]>;
+    nth(n: anyint): Optional<T[]>;
 }
 /**
  * Base N
  */
-export declare class BaseN extends _CBase {
+export declare class BaseN<T> extends _CBase<T, T> {
     base: number;
-    constructor(seed: Iterable<any>, size?: number);
-    nth(n: anyint): Optional<any[]>;
+    constructor(seed: Iterable<T>, size?: number);
+    nth(n: anyint): Optional<T[]>;
 }
 /**
  * Power Set
  */
-export declare class PowerSet extends _CBase {
-    constructor(seed: Iterable<any>);
-    nth(n: anyint): Optional<any[]>;
+export declare class PowerSet<T> extends _CBase<T, T> {
+    constructor(seed: Iterable<T>);
+    nth(n: anyint): Optional<T[]>;
 }
 /**
  * Cartesian Product
  */
-export declare class CartesianProduct extends _CBase {
-    constructor(...args: Iterable<any>[]);
-    nth(n: anyint): Optional<any[]>;
+export declare class CartesianProduct<T> extends _CBase<T[], T> {
+    constructor(...args: Iterable<T>[]);
+    nth(n: anyint): Optional<T[]>;
 }
 export {};

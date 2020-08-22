@@ -158,7 +158,7 @@ export function randomInteger(min: anyint = 0, max: anyint = Math.pow(2, 53)) {
 /**
  * Base Class of `js-combinatorics`
  */
-class _CBase {
+class _CBase<T, U> {
     /**
      * does `new`
      * @param args
@@ -218,11 +218,11 @@ class _CBase {
      * get the `n`th element of the iterator.
      * negative `n` goes backwards
      */
-    nth(n: anyint): Optional<any[]> { return [] };
+    nth(n: anyint): Optional<U[]> { return [] };
     /**
      * the seed iterable
      */
-    seed: any[];
+    seed: T[];
     /**
      * the size (# of elements) of each element.
      */
@@ -234,7 +234,7 @@ class _CBase {
     /**
      * pick random element
      */
-    sample(): Optional<any[]> {
+    sample(): Optional<U[]> {
         return this.nth(randomInteger(this.length));
     }
     /**
@@ -249,15 +249,15 @@ class _CBase {
 /**
  * Permutation
  */
-export class Permutation extends _CBase {
-    constructor(seed: Iterable<any>, size = 0) {
+export class Permutation<T> extends _CBase<T, T> {
+    constructor(seed: Iterable<T>, size = 0) {
         super();
         this.seed = [...seed];
         this.size = 0 < size ? size : this.seed.length;
         this.length = permutation(this.seed.length, this.size);
         Object.freeze(this);
     }
-    nth(n: anyint): Optional<any[]> {
+    nth(n: anyint): Optional<T[]> {
         n = this._check(n);
         if (n === undefined) return undefined;
         const offset = this.seed.length - this.size;
@@ -274,9 +274,9 @@ export class Permutation extends _CBase {
 /**
  * Combination
  */
-export class Combination extends _CBase {
+export class Combination<T> extends _CBase<T, T> {
     comb: (anyint) => number[];
-    constructor(seed: Iterable<any>, size = 0) {
+    constructor(seed: Iterable<T>, size = 0) {
         super();
         this.seed = [...seed];
         this.size = 0 < size ? size : this.seed.length;
@@ -312,7 +312,7 @@ export class Combination extends _CBase {
             }
         }(this, this.length);
     }
-    nth(n: anyint): Optional<any[]> {
+    nth(n: anyint): Optional<T[]> {
         n = this._check(n);
         if (n === undefined) return undefined;
         return this.comb(n).reduce((a, v) => a.concat(this.seed[v]), []);
@@ -321,9 +321,9 @@ export class Combination extends _CBase {
 /**
  * Base N
  */
-export class BaseN extends _CBase {
+export class BaseN<T> extends _CBase<T, T> {
     base: number;
-    constructor(seed: Iterable<any>, size = 1) {
+    constructor(seed: Iterable<T>, size = 1) {
         super();
         this.seed = [...seed];
         this.size = size;
@@ -334,7 +334,7 @@ export class BaseN extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
-    nth(n: anyint): Optional<any[]> {
+    nth(n: anyint): Optional<T[]> {
         n = this._check(n);
         if (n === undefined) return undefined;
         let bn = _BI(n);
@@ -352,15 +352,15 @@ export class BaseN extends _CBase {
 /**
  * Power Set
  */
-export class PowerSet extends _CBase {
-    constructor(seed: Iterable<any>) {
+export class PowerSet<T> extends _CBase<T, T> {
+    constructor(seed: Iterable<T>) {
         super();
         this.seed = [...seed];
         const length = _BI(1) << _BI(this.seed.length);
         this.length = _crop(length);
         Object.freeze(this);
     }
-    nth(n: anyint): Optional<any[]> {
+    nth(n: anyint): Optional<T[]> {
         n = this._check(n);
         if (n === undefined) return undefined;
         let bn = _BI(n);
@@ -374,8 +374,8 @@ export class PowerSet extends _CBase {
 /**
  * Cartesian Product
  */
-export class CartesianProduct extends _CBase {
-    constructor(...args: Iterable<any>[]) {
+export class CartesianProduct<T> extends _CBase<T[], T> {
+    constructor(...args: Iterable<T>[]) {
         super();
         this.seed = args.map(v => [...v]);
         this.size = this.seed.length;
@@ -383,7 +383,7 @@ export class CartesianProduct extends _CBase {
         this.length = _crop(length);
         Object.freeze(this);
     }
-    nth(n: anyint): Optional<any[]> {
+    nth(n: anyint): Optional<T[]> {
         n = this._check(n);
         if (n === undefined) return undefined;
         let bn = _BI(n);
