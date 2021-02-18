@@ -28,7 +28,7 @@ Check [swift-combinatorics].  More naturally implemented with generics and proto
 ## SYNOPSIS
 
 ```javascript
-import * as $C from './combinatorics.js';
+import * as $C from 'js-combinatorics/combinatorics.js';
 let it =  new $C.Combination('abcdefgh', 4);
 for (const elem of it) {
   console.log(elem) // ['a', 'b', 'c', 'd'] ... ['e', 'f', 'g', 'h']
@@ -40,13 +40,13 @@ for (const elem of it) {
 load everything…
 
 ```javascript
-import * as Combinatorics from './combinatorics.js';
+import * as Combinatorics from 'js-combinatorics/combinatorics.js';
 ```
 
 or just objects you want.
 
 ```javascript
-import { Combination, Permutation }  from './combinatorics.js';
+import { Combination, Permutation }  from 'js-combinatorics/combinatorics.js';
 ```
 
 You don't even have to install if you `import` from CDNs.
@@ -130,7 +130,7 @@ undefined
 Self-explanatory, are they not?
 
 ```javascript
-import { permutation, combination, factorial, randomInteger } from './combinatorics.js';
+import { permutation, combination, factorial, randomInteger } from 'js-combinatorics/combinatorics.js';
 
 permutation(24, 12);  // 1295295050649600
 permutation(26, 13);  // 64764752532480000n
@@ -152,7 +152,7 @@ The arithmetic functions above accept both `Number` and `BigInt` (if supported).
 They need a little more explanation.
 
 ```javascript
-import { factoradic, combinadic } from './combinatorics.js';
+import { factoradic, combinadic } from 'js-combinatorics/combinatorics.js';
 
 factoradic(6402373705727999);     // [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
 factoradic(121645100408831999n);  // [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
