@@ -290,7 +290,7 @@ export class Combination extends _CBase {
         let x = (one << ctor(this.size)) - one; // 0b11...1
         return function* (it, len) {
             for (let i = 0; i < len; i++, x = inc(x)) {
-                var result = [];
+                let result = [];
                 for (let y = x, j = 0; zero < y; y >>= one, j++) {
                     if (y & one)
                         result.push(it.seed[j]);
@@ -304,7 +304,7 @@ export class Combination extends _CBase {
         n = this._check(n);
         if (n === undefined)
             return undefined;
-        var result = [];
+        let result = [];
         for (let i of this.comb(n)) {
             result.push(this.seed[i]);
         }
@@ -334,7 +334,7 @@ export class BaseN extends _CBase {
         const bb = _BI(this.base);
         let result = [];
         for (let i = 0; i < this.size; i++) {
-            var bd = bn % bb;
+            let bd = bn % bb;
             result.push(this.seed[Number(bd)]);
             bn -= bd;
             bn /= bb;
