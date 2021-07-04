@@ -52,7 +52,7 @@ import { Combination, Permutation }  from './combinatorics.js';
 You don't even have to install if you `import` from CDNs.
 
 ```javascript
-import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@1.5.0/combinatorics.min.js';
+import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@1.5.1/combinatorics.min.js';
 ```
 
 Since this is an ES6 module, `type="module"` is required the `<script>` tags. of your HTML files. But you can make it globally available as follows.
