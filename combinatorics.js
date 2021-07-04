@@ -304,10 +304,11 @@ export class Combination extends _CBase {
         n = this._check(n);
         if (n === undefined)
             return undefined;
-        return this.comb(n).reduce((a, v) => {
-            const elem = this.seed[v];
-            return a.concat(Array.isArray(elem) ? [elem] : elem);
-        }, []);
+        var result = [];
+        for (let i of this.comb(n)) {
+            result.push(this.seed[i]);
+        }
+        return result;
     }
 }
 /**
