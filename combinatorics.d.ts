@@ -28,19 +28,19 @@ declare type Optional<T> = T | undefined;
  *
  * @link https://en.wikipedia.org/wiki/Permutation
  */
-export declare function permutation(n: anyint, k: anyint): number | bigint;
+export declare function permutation(n: anyint, k: anyint): anyint;
 /**
  * calculates `C(n, k)`.
  *
  * @link https://en.wikipedia.org/wiki/Combination
  */
-export declare function combination(n: anyint, k: anyint): number | bigint;
+export declare function combination(n: anyint, k: anyint): anyint;
 /**
  * calculates `n!` === `P(n, n)`.
  *
  * @link https://en.wikipedia.org/wiki/Factorial
  */
-export declare function factorial(n: anyint): number | bigint;
+export declare function factorial(n: anyint): anyint;
 /**
  * returns the factoradic representation of `n`, least significant order.
  *

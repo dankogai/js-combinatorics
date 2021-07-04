@@ -30,4 +30,11 @@ describe('class Combination', () => {
     } else {
         it.skip(`SKIP new Combination([0,1...99]): BigInt unsupported`, x => x);
     }
+    // https://github.com/dankogai/js-combinatorics/issues/82
+    seed = [[1, 2], [3, 4], [5, 6]];
+    it(`new Combination(${JSON.stringify(seed)}, 2)`, () => $$([...new Combination(seed, 2)]).to.deep.equal([
+        [[1, 2], [3, 4]],
+        [[1, 2], [5, 6]],
+        [[3, 4], [5, 6]]
+    ]));
 });

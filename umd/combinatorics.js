@@ -323,7 +323,10 @@
             n = this._check(n);
             if (n === undefined)
                 return undefined;
-            return this.comb(n).reduce((a, v) => a.concat(this.seed[v]), []);
+            return this.comb(n).reduce((a, v) => {
+                const elem = this.seed[v];
+                return a.concat(Array.isArray(elem) ? [elem] : elem);
+            }, []);
         }
     }
     exports.Combination = Combination;
