@@ -1,6 +1,6 @@
 [![ES2015](https://img.shields.io/badge/JavaScript-ES2015-blue.svg)](http://www.ecma-international.org/ecma-262/6.0/)
 [![MIT LiCENSE](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![build status](https://travis-ci.com/dankogai/js-combinatorics.svg)](http://travis-ci.com/dankogai/js-combinatorics)
+[![build status](https://app.travis-ci.com/dankogai/js-combinatorics.svg)](https://app.travis-ci.com/github/dankogai/js-combinatorics)
 
 js-combinatorics
 ================
