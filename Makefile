@@ -20,7 +20,7 @@ $(UMD): $(PJ) $(TS)
 	tsc --module umd --outDir $(UMD_DIR) --target es6 $(TS)
 
 test: all
-	mocha --require esm
+	mocha
 
 clean:
 	-rm $(DTS) $(MJS) $(JS) $(COMMONJS) $(UMD)
