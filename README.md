@@ -7,18 +7,6 @@ js-combinatorics
 
 Simple combinatorics in JavaScript
 
-## HEADS UP
-
-`js-combinatorics` has gone ES2015 since version 1.
-
-* native iterator instead of custom
-* module. `import` instead of `require`.
-* `BigInt` where possible
-
-And from version 1.2 it is written in TypeScript.  `combinatorics.js` and  `combinatorics.d.ts` are compiled from `combinatorics.ts`.
-
-APIs will change accordingly.  Old versions are available in the `version0` branch.
-
 ### For Swift programmers
 
 Check [swift-combinatorics].  More naturally implemented with generics and protocol.
@@ -68,27 +56,13 @@ Since this is an ES6 module, `type="module"` is required the `<script>` tags. of
 </script>
 ```
 
-### commonjs (node.js)
-
-use [babel] or [esm].
-
-[babel]: https://babeljs.io
-[esm]: https://github.com/standard-things/esm
-
-* from RunKit example
-
-````
-require=require("esm")(module);
-var Combinatorics=require("js-combinatorics");
-````
-
-* REPL
+### node.js REPL
 
 ```shell
-% node -r esm
-Welcome to Node.js v14.5.0.
+% node
+Welcome to Node.js v16.13.1.
 Type ".help" for more information.
-> import * as $C from './combinatorics.js'
+> const $C = await import('js-combinatorics')
 undefined
 > $C
 [Module] {
@@ -101,7 +75,7 @@ undefined
   factoradic: [Function: factoradic],
   factorial: [Function: factorial],
   permutation: [Function: permutation],
-  version: '1.2.2'
+  version: '1.5.5'
 }
 > [...new $C.Permutation('abcd')]
 [
@@ -120,6 +94,8 @@ undefined
 ]
 > 
 ```
+
+### commonjs (node.js)
 
 `./combinatorics.js` is an ECMAScript module but if you still need a UMD or commonjs version, they are available as `./umd/combinatorics.js` and `./commonjs/combinatorics.js` respectively.
 
@@ -549,7 +525,19 @@ it.nth(18446744073709551615n);  /* [
 ] */
 ````
 
-## What's missing from version 0.x?
+## What's new from version 0.x?
+
+`js-combinatorics` has gone ES2015 since version 1.
+
+* native iterator instead of custom
+* module. `import` instead of `require`.
+* `BigInt` where possible
+
+And from version 1.2 it is written in TypeScript.  `combinatorics.js` and  `combinatorics.d.ts` are compiled from `combinatorics.ts`.
+
+APIs will change accordingly.  Old versions are available in the `version0` branch.
+
+### What's gone from version 0.x?
 
 * `bigCombination` is gone because all classes now can handle big -- combinatorially big! -- cases thanks to [BigInt] support getting standard.  Safari 13 and below is a major exception but BigInt is coming to Safari 14 and up.
 
