@@ -14,7 +14,7 @@ exports.CartesianProduct = exports.PowerSet = exports.BaseN = exports.Combinatio
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
  *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
  */
-exports.version = '1.5.5';
+exports.version = '1.5.6';
 const _BI = typeof BigInt == 'function' ? BigInt : Number;
 /**
  * crops BigInt
