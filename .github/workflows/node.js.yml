@@ -1,16 +1,25 @@
-name: Caching with npm
+# cf.
+# https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs#starting-with-the-nodejs-workflow-template
+# https://dev.classmethod.jp/articles/caching-dependencies-in-workflow-execution-on-github-actions/
+name: Node.js CI with npm with cache
 
 on: push
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [16]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ matrix.node-version }}
       - uses: actions/cache@v3
         id: node_modules_cache_id
         env:
