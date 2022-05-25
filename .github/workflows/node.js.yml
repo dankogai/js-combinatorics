@@ -25,4 +25,8 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: echo '${{ toJSON(steps.setup_node_id.outputs) }}'
+    - if: ${{ steps.setup_node_id.outputs.cache-hit != 'true' }}
+      run: npm install
     - run: npm test
