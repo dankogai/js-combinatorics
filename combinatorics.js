@@ -11,7 +11,7 @@
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
  *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
  */
-export const version = '1.5.6';
+export const version = '1.5.7';
 const _BI = typeof BigInt === 'function' ? BigInt : Number;
 /**
  * crops BigInt
