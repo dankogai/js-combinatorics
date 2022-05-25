@@ -1,4 +1,5 @@
 import { doesNotThrow } from "assert";
+import { type } from "os";
 
 /**
  * combinatorics.js
@@ -27,7 +28,7 @@ type anyint = number | bigint;
 type Optional<T> = T | undefined;
 // type BigInt = number;
 declare const BigInt: typeof Number;
-const _BI: typeof Number = typeof BigInt == 'function' ? BigInt : Number;
+const _BI: typeof Number = typeof BigInt === 'function' ? BigInt : Number;
 /**
  * crops BigInt
  */
@@ -293,16 +294,18 @@ export class Combination<T> extends _CBase<T, T> {
      */
     bitwiseIterator() {
         // console.log('overriding _CBase');
-        const ctor = this.length.constructor;
-        const [zero, one, two] = [ctor(0), ctor(1), ctor(2)];
+        if (typeof BigInt !== 'function') {
+            throw new RangeError(`needs BigInt`);
+        }
+        const [zero, one, two] = [_BI(0), _BI(1), _BI(2)];
         const inc = (x) => {
-            const u = x & -x
-            const v = u + x
+            const u = x & -x;
+            const v = u + x;
             return v + (((v ^ x) / u) >> two);
         }
-        let x = (one << ctor(this.size)) - one; // 0b11...1
+        let x = (one << _BI(this.size)) - one; // 0b11...1
         return function* (it, len) {
-            for (let i = 0; i < len; i++, x = inc(x)) {
+            for (let i = zero; i < _BI(len); i++, x = inc(x)) {
                 let result = [];
                 for (let y = x, j = 0; zero < y; y >>= one, j++) {
                     if (y & one) result.push(it.seed[j]);
