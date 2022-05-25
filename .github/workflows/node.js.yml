@@ -3,7 +3,7 @@
 # https://dev.classmethod.jp/articles/caching-dependencies-in-workflow-execution-on-github-actions/
 name: Node.js CI with npm with cache
 
-on: push
+on:
   push:
     branches: [ main ]
   pull_request:
