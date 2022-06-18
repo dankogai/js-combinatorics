@@ -11,7 +11,7 @@
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
  *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
  */
-export declare const version = "1.5.7";
+export declare const version = "2.0.0";
 /**
  * BigInt Workaround
  *
@@ -28,19 +28,19 @@ declare type Optional<T> = T | undefined;
  *
  * @link https://en.wikipedia.org/wiki/Permutation
  */
-export declare function permutation(n: anyint, k: anyint): anyint;
+export declare function permutation(n: anyint, k: anyint): bigint;
 /**
  * calculates `C(n, k)`.
  *
  * @link https://en.wikipedia.org/wiki/Combination
  */
-export declare function combination(n: anyint, k: anyint): anyint;
+export declare function combination(n: anyint, k: anyint): bigint;
 /**
  * calculates `n!` === `P(n, n)`.
  *
  * @link https://en.wikipedia.org/wiki/Factorial
  */
-export declare function factorial(n: anyint): anyint;
+export declare function factorial(n: anyint): bigint;
 /**
  * returns the factoradic representation of `n`, least significant order.
  *
@@ -55,7 +55,7 @@ export declare function factoradic(n: anyint, l?: number): number[];
  *
  * @link https://en.wikipedia.org/wiki/Combinatorial_number_system
  */
-export declare function combinadic(n: number, k: number): (m: anyint) => number[];
+export declare function combinadic(n: anyint, k: anyint): (anyint: any) => number[];
 /**
  * returns random integer `n` where `min` <= `n` < `max`:
  *
@@ -64,7 +64,7 @@ export declare function combinadic(n: number, k: number): (m: anyint) => number[
  * @param {anyint} min
  * @param {anyint} max
  */
-export declare function randomInteger(min?: anyint, max?: anyint): any;
+export declare function randomInteger(min?: anyint, max?: anyint): anyint;
 /**
  * Base Class of `js-combinatorics`
  */
@@ -89,10 +89,12 @@ declare class _CBase<T, U> {
      */
     toArray(): U[][];
     /**
+     * @deprecated
      * tells wether you need `BigInt` to access all elements.
      */
     get isBig(): boolean;
     /**
+     * @deprecated
      * tells wether it is safe to work on this instance.
      *
      * * always `true` unless your platform does not support `BigInt`.
@@ -119,7 +121,7 @@ declare class _CBase<T, U> {
     /**
      * the number of elements
      */
-    length: anyint;
+    length: bigint;
     /**
      * pick random element
      */

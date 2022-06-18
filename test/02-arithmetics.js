@@ -5,10 +5,10 @@ import {
 const $$ = chai.expect.bind(chai);
 
 describe('permutation', () => {
-    it('permutation(3,2) === 6', ()=>$$(permutation(3, 2)).to.equal(6));
-    it('permutation(1,1) === 1', ()=>$$(permutation(1, 1)).to.equal(1));
-    it('permutation(1,0) === 1', ()=>$$(permutation(1, 0)).to.equal(1));
-    it('permutation(2,5) === 0', ()=>$$(permutation(2, 5)).to.equal(0));
+    it('permutation(3,2) === 6', ()=>$$(permutation(3, 2)).to.equal(6n));
+    it('permutation(1,1) === 1', ()=>$$(permutation(1, 1)).to.equal(1n));
+    it('permutation(1,0) === 1', ()=>$$(permutation(1, 0)).to.equal(1n));
+    it('permutation(2,5) === 0', ()=>$$(permutation(2, 5)).to.equal(0n));
     if (!isLegacySafari) {
         it('permutation(5,1.5) throws RangeError', () => {
             chai.assert.throws(() => permutation(5, 1.5), RangeError)
@@ -32,10 +32,10 @@ describe('permutation', () => {
 });
 
 describe('combination', () => {
-    it('combination(3,2) === 3', ()=>$$(combination(3, 2)).to.equal(3));
-    it('combination(1,1) === 1', ()=>$$(combination(1, 1)).to.equal(1));
-    it('combination(1,0) === 1', ()=>$$(combination(1, 0)).to.equal(1));
-    it('combination(2,5) === 0', ()=>$$(combination(2, 5)).to.equal(0));
+    it('combination(3,2) === 3', ()=>$$(combination(3, 2)).to.equal(3n));
+    it('combination(1,1) === 1', ()=>$$(combination(1, 1)).to.equal(1n));
+    it('combination(1,0) === 1', ()=>$$(combination(1, 0)).to.equal(1n));
+    it('combination(2,5) === 0', ()=>$$(combination(2, 5)).to.equal(0n));
     if (!isLegacySafari) {
         it('combination(5,1.5) throws RangeError', () => {
             chai.assert.throws(() => combination(5, 1.5), RangeError)

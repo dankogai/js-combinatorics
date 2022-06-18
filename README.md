@@ -7,6 +7,13 @@ js-combinatorics
 
 Simple combinatorics in JavaScript
 
+## HEADS UP: Version 2 and BigInt
+
+Now that [Internet Explorer has officially retired], It is safe to assume `BigInt` is available in every JavaScript environment.  From version 2.0 this module goes fully BigInt.  While integer arguments can still be either `number` or `bigint`, all integer values that can be `bigint` are always `bigint`, whereas previous versions may return `number` when the value <= `Number.MAX_SAFE_INTEGER`.  It is not only more combinatorically natural, but also makes debugging easier especially on TypeScript.
+
+[Internet Explorer has officially retired]: https://blogs.windows.com/windowsexperience/2022/06/15/internet-explorer-11-has-retired-and-is-officially-out-of-support-what-you-need-to-know/
+[in every JavaScript environment]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+
 ### For Swift programmers
 
 Check [swift-combinatorics].  More naturally implemented with generics and protocol.
@@ -40,7 +47,7 @@ import { Combination, Permutation }  from './combinatorics.js';
 You don't even have to install if you `import` from CDNs.
 
 ```javascript
-import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@1.5.7/combinatorics.min.js';
+import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@2.0.0/combinatorics.min.js';
 ```
 
 Since this is an ES6 module, `type="module"` is required the `<script>` tags. of your HTML files. But you can make it globally available as follows.
@@ -60,22 +67,24 @@ Since this is an ES6 module, `type="module"` is required the `<script>` tags. of
 
 ```shell
 % node
-Welcome to Node.js v16.13.1.
+Welcome to Node.js v16.15.0.
 Type ".help" for more information.
 > const $C = await import('js-combinatorics')
 undefined
 > $C
-[Module] {
-  BaseN: [Function: BaseN],
-  CartesianProduct: [Function: CartesianProduct],
-  Combination: [Function: Combination],
-  Permutation: [Function: Permutation],
-  PowerSet: [Function: PowerSet],
+[Module: null prototype] {
+  BaseN: [class BaseN extends _CBase],
+  CartesianProduct: [class CartesianProduct extends _CBase],
+  Combination: [class Combination extends _CBase],
+  Permutation: [class Permutation extends _CBase],
+  PowerSet: [class PowerSet extends _CBase],
+  combinadic: [Function: combinadic],
   combination: [Function: combination],
   factoradic: [Function: factoradic],
   factorial: [Function: factorial],
   permutation: [Function: permutation],
-  version: '1.5.7'
+  randomInteger: [Function: randomInteger],
+  version: '2.0.0'
 }
 > [...new $C.Permutation('abcd')]
 [
@@ -108,20 +117,20 @@ Self-explanatory, are they not?
 ```javascript
 import { permutation, combination, factorial, randomInteger } from './combinatorics.js';
 
-permutation(24, 12);  // 1295295050649600
+permutation(24, 12);  // 1295295050649600n
 permutation(26, 13);  // 64764752532480000n
 
-combination(56, 28);  // 7648690600760440
+combination(56, 28);  // 7648690600760440n
 combination(58, 29);  // 30067266499541040n
 
-factorial(18);  // 6402373705728000
+factorial(18);  // 6402373705728000n
 factorial(19);  // 121645100408832000n
 
 randomInteger(6402373705727999);    // random n  [0,6402373705728000)
 randomInteger(121645100408832000n); // ramdom n  [0n, 121645100408832000n)
 ```
 
-The arithmetic functions above accept both `Number` and `BigInt` (if supported).  Return answers in `Number` if it is small enough to fit within  `Number.MAX_SAFE_INTEGER` or `BigInt` otherwise.
+The arithmetic functions above accept both `Number` and `BigInt` (if supported).  Return answers always in `BigInt`.
 
 #### `factoradic()` and `combinadic()`
 
@@ -212,10 +221,10 @@ Once constructed, you can iterate via `for … of` statement or turn it into an 
 
 #### `.length`
 
-The object has `.length` so you don't have to iterate to count the elements.
+The object has `.length` so you don't have to iterate to count the elements.  Note the value is in `bigint` so you need to convert to `number`.
 
 ```javascript
-it.length;  // 70
+it.length;  // 70n
 ```
 
 #### `.nth()`
@@ -295,18 +304,17 @@ it.nth(it.length - 1n); /* [
 ] */
 ```
 
-You can tell if you need `BigInt` via `.isBig`.
+You can tell if you need `BigInt` via `.isBig`.  Note `.length` is always `bigint` from version 2.0 so you may not need this method any more.  So it is now deprecated.
 
 ```javascript
 new $C.Permutation('0123456789').isBig; // false
 new $C.Permutation('abcdefghijklmnopqrstuvwxyz').isBig; // true
 ```
 
-You can also check if it is safe on your platform via `.isSafe`.
+You can also check if it is safe on your platform via `.isSafe`.  It is now deprecated for the same reason as `.isBig`.
 
 ```javascript
-// true if BigInt is supported
-new $C.Permutation('abcdefghijklmnopqrstuvwxyz').isSafe;
+new $C.Permutation('abcdefghijklmnopqrstuvwxyz').isSafe; // always true
 ```
 
 This module still runs on platforms without `BigInt` (notably Safari 13 or below), but its operation is no longer guaranteed if `.isSafe` is false.
@@ -323,8 +331,8 @@ An iterable which permutes a given iterable.
 ````javascript
 import {Permutation} from './combinatorics.js';
 
-let it = new Permutation('abcd'); // size 4 is assumed4
-it.length;  // 24
+let it = new Permutation('abcd'); // size 4 is assumed
+it.length;  // 24n
 [...it];    /* [
   [ 'a', 'b', 'c', 'd' ], [ 'a', 'b', 'd', 'c' ],
   [ 'a', 'c', 'b', 'd' ], [ 'a', 'c', 'd', 'b' ],
@@ -375,7 +383,7 @@ An iterable which emits a combination of a given iterable.
 import {Combination} from './combinatorics.js';
 
 let it = new Combination('abcd', 2);
-it.length;  // 6
+it.length;  // 6n
 [...it];    /* [
   [ 'a', 'b' ],
   [ 'a', 'c' ],
@@ -409,7 +417,7 @@ An iterable which emits each element of its power set.
 import {PowerSet} from './combinatorics.js';
 
 let it = new PowerSet('abc');
-it.length;  // 8
+it.length;  // 8n
 [...it];    /* [
   [],
   [ 'a' ],
@@ -450,7 +458,7 @@ An iterable which emits all numbers in the given system.
 import {BaseN} from './combinatorics.js';
 
 let it = new BaseN('abc', 3);
-it.length;  // 27
+it.length;  // 27n
 [...it];    /* [
   [ 'a', 'a', 'a' ], [ 'b', 'a', 'a' ],
   [ 'c', 'a', 'a' ], [ 'a', 'b', 'a' ],
@@ -492,7 +500,7 @@ A [cartesian product] of given sets.
 import {CartesianProduct} from './combinatorics.js';
 
 let it = new CartesianProduct('012','abc','xyz');
-it.length;  // 27
+it.length;  // 27n
 [...it];    /* [
   [ '0', 'a', 'x' ], [ '1', 'a', 'x' ],
   [ '2', 'a', 'x' ], [ '0', 'b', 'x' ],

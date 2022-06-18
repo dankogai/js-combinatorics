@@ -12,7 +12,7 @@ describe('class CartesianProduct', () => {
     }
     let c = CartesianProduct.from(seed);
     it(`.nth(-1) === .nth(.length-1)`, () =>
-        $$(c.nth(-1)).to.deep.equal(c.nth(c.length - 1)));
+        $$(c.nth(-1)).to.deep.equal(c.nth(c.length - 1n)));
     seed = Array(16).fill('0123456789abcdef');
     if (typeof BigInt === 'function') {
         const sbn = '18446744073709551616';

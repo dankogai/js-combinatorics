@@ -11,7 +11,7 @@ describe('class PowerSet', () => {
     }
     let c = new PowerSet(seed);
     it(`.nth(-1) === .nth(.length-1)`, () =>
-        $$(c.nth(-1)).to.deep.equal(c.nth(c.length - 1)));
+        $$(c.nth(-1)).to.deep.equal(c.nth(c.length - 1n)));
     seed = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
     if (typeof BigInt === 'function') {
         const sbn = '18446744073709551616';

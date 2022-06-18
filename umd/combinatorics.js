@@ -23,12 +23,7 @@
      *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
      *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
      */
-    exports.version = '1.5.7';
-    const _BI = typeof BigInt === 'function' ? BigInt : Number;
-    /**
-     * crops BigInt
-     */
-    const _crop = (n) => n <= Number.MAX_SAFE_INTEGER ? Number(n) : _BI(n);
+    exports.version = '2.0.0';
     /**
      * calculates `P(n, k)`.
      *
@@ -40,14 +35,13 @@
         if (k < 0)
             throw new RangeError(`negative k is not acceptable`);
         if (0 == k)
-            return 1;
+            return 1n;
         if (n < k)
-            return 0;
-        [n, k] = [_BI(n), _BI(k)];
-        let p = _BI(1);
-        while (k--)
-            p *= n--;
-        return _crop(p);
+            return 0n;
+        let [bn, bk, bp] = [BigInt(n), BigInt(k), 1n];
+        while (bk--)
+            bp *= bn--;
+        return bp;
     }
     exports.permutation = permutation;
     /**
@@ -57,14 +51,12 @@
      */
     function combination(n, k) {
         if (0 == k)
-            return 1;
+            return 1n;
         if (n == k)
-            return 1;
+            return 1n;
         if (n < k)
-            return 0;
-        const P = permutation;
-        const c = _BI(P(n, k)) / _BI(P(k, k));
-        return _crop(c);
+            return 0n;
+        return permutation(n, k) / permutation(k, k);
     }
     exports.combination = combination;
     /**
@@ -85,19 +77,19 @@
     function factoradic(n, l = 0) {
         if (n < 0)
             return undefined;
-        let [bn, bf] = [_BI(n), _BI(1)];
+        let [bn, bf] = [BigInt(n), BigInt(1)];
         if (!l) {
-            for (l = 1; bf < bn; bf *= _BI(++l))
+            for (l = 1; bf < bn; bf *= BigInt(++l))
                 ;
             if (bn < bf)
-                bf /= _BI(l--);
+                bf /= BigInt(l--);
         }
         else {
-            bf = _BI(factorial(l));
+            bf = BigInt(factorial(l));
         }
         let digits = [0];
-        for (; l; bf /= _BI(l--)) {
-            digits[l] = Math.floor(Number(bn / bf));
+        for (; l; bf /= BigInt(l--)) {
+            digits[l] = Number(bn / bf);
             bn %= bf;
         }
         return digits;
@@ -112,19 +104,20 @@
      */
     function combinadic(n, k) {
         const count = combination(n, k);
+        const [bn, bk] = [BigInt(n), BigInt(k)];
         return (m) => {
             if (m < 0 || count <= m)
                 return undefined;
             let digits = [];
-            let [a, b] = [n, k];
-            let x = _BI(count) - _BI(1) - _BI(m);
+            let [ba, bb] = [bn, bk];
+            let x = BigInt(count) - 1n - BigInt(m);
             for (let i = 0; i < k; i++) {
-                a--;
-                while (x < combination(a, b))
-                    a--;
-                digits.push(n - 1 - a);
-                x -= _BI(combination(a, b));
-                b--;
+                ba--;
+                while (x < combination(ba, bb))
+                    ba--;
+                digits.push(Number(bn - 1n - ba));
+                x -= combination(ba, bb);
+                bb--;
             }
             return digits;
         };
@@ -191,7 +184,7 @@
          */
         [Symbol.iterator]() {
             return function* (it, len) {
-                for (let i = 0; i < len; i++)
+                for (let i = 0n; i < len; i++)
                     yield it.nth(i);
             }(this, this.length);
         }
@@ -202,12 +195,14 @@
             return [...this];
         }
         /**
+         * @deprecated
          * tells wether you need `BigInt` to access all elements.
          */
         get isBig() {
             return Number.MAX_SAFE_INTEGER < this.length;
         }
         /**
+         * @deprecated
          * tells wether it is safe to work on this instance.
          *
          * * always `true` unless your platform does not support `BigInt`.
@@ -223,7 +218,7 @@
             if (n < 0) {
                 if (this.length < -n)
                     return undefined;
-                return _crop(_BI(this.length) + _BI(n));
+                return BigInt(this.length) + BigInt(n);
             }
             if (this.length <= n)
                 return undefined;
@@ -268,7 +263,7 @@
                 return undefined;
             const offset = this.seed.length - this.size;
             const skip = factorial(offset);
-            let digits = factoradic(_BI(n) * _BI(skip), this.seed.length);
+            let digits = factoradic(BigInt(n) * BigInt(skip), this.seed.length);
             let source = this.seed.slice();
             let result = [];
             for (let i = this.seed.length - 1; offset <= i; i--) {
@@ -302,15 +297,15 @@
             if (typeof BigInt !== 'function') {
                 throw new RangeError(`needs BigInt`);
             }
-            const [zero, one, two] = [_BI(0), _BI(1), _BI(2)];
+            const [zero, one, two] = [BigInt(0), BigInt(1), BigInt(2)];
             const inc = (x) => {
                 const u = x & -x;
                 const v = u + x;
                 return v + (((v ^ x) / u) >> two);
             };
-            let x = (one << _BI(this.size)) - one; // 0b11...1
+            let x = (one << BigInt(this.size)) - one; // 0b11...1
             return function* (it, len) {
-                for (let i = zero; i < _BI(len); i++, x = inc(x)) {
+                for (let i = zero; i < BigInt(len); i++, x = inc(x)) {
                     let result = [];
                     for (let y = x, j = 0; zero < y; y >>= one, j++) {
                         if (y & one)
@@ -344,16 +339,16 @@
             let base = this.seed.length;
             this.base = base;
             let length = size < 1 ? 0
-                : Array(size).fill(_BI(base)).reduce((a, v) => a * v);
-            this.length = _crop(length);
+                : Array(size).fill(BigInt(base)).reduce((a, v) => a * v);
+            this.length = length;
             Object.freeze(this);
         }
         nth(n) {
             n = this._check(n);
             if (n === undefined)
                 return undefined;
-            let bn = _BI(n);
-            const bb = _BI(this.base);
+            let bn = BigInt(n);
+            const bb = BigInt(this.base);
             let result = [];
             for (let i = 0; i < this.size; i++) {
                 let bd = bn % bb;
@@ -372,18 +367,18 @@
         constructor(seed) {
             super();
             this.seed = [...seed];
-            const length = _BI(1) << _BI(this.seed.length);
-            this.length = _crop(length);
+            const length = BigInt(1) << BigInt(this.seed.length);
+            this.length = length;
             Object.freeze(this);
         }
         nth(n) {
             n = this._check(n);
             if (n === undefined)
                 return undefined;
-            let bn = _BI(n);
+            let bn = BigInt(n);
             let result = [];
-            for (let bi = _BI(0); bn; bn >>= _BI(1), bi++)
-                if (bn & _BI(1))
+            for (let bi = BigInt(0); bn; bn >>= BigInt(1), bi++)
+                if (bn & BigInt(1))
                     result.push(this.seed[Number(bi)]);
             return result;
         }
@@ -397,19 +392,19 @@
             super();
             this.seed = args.map(v => [...v]);
             this.size = this.seed.length;
-            const length = this.seed.reduce((a, v) => a * _BI(v.length), _BI(1));
-            this.length = _crop(length);
+            const length = this.seed.reduce((a, v) => a * BigInt(v.length), BigInt(1));
+            this.length = length;
             Object.freeze(this);
         }
         nth(n) {
             n = this._check(n);
             if (n === undefined)
                 return undefined;
-            let bn = _BI(n);
+            let bn = BigInt(n);
             let result = [];
             for (let i = 0; i < this.size; i++) {
                 const base = this.seed[i].length;
-                const bb = _BI(base);
+                const bb = BigInt(base);
                 const bd = bn % bb;
                 result.push(this.seed[i][Number(bd)]);
                 bn -= bd;

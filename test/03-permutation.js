@@ -12,7 +12,7 @@ describe('class Permutation', () => {
     }
     let c = new Permutation(seed);
     it(`.nth(-1) === .nth(.length-1)`, () =>
-        $$(c.nth(-1)).to.deep.equal(c.nth(c.length - 1)));
+        $$(c.nth(-1)).to.deep.equal(c.nth(c.length - 1n)));
     seed = 'abcdefghijklmnopqrstuvwxyz0123456789';
     if (typeof BigInt === 'function') {
         const sbn = '371993326789901217467999448150835200000000';

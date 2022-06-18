@@ -12,7 +12,7 @@ describe('class Combination', () => {
     }
     let c = new Combination(seed, 4);
     it(`.nth(-1) === .nth(.length-1)`, () =>
-        $$(c.nth(-1)).to.deep.equal(c.nth(c.length - 1)));
+        $$(c.nth(-1)).to.deep.equal(c.nth(c.length - 1n)));
     seed = Array(100).fill(0).map((v, i) => i);
     if (typeof BigInt === 'function') {
         const sbn = '100891344545564193334812497256';

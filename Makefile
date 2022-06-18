@@ -11,13 +11,13 @@ UMD=$(UMD_DIR)/$(JS)
 all: $(PJ) $(JS) $(COMMONJS) $(UMD)
 
 $(JS): $(PJ) $(TS)
-	tsc -d --target es6 $(TS)
+	tsc -d --target es2020 $(TS)
 
 $(COMMONJS): $(PJ) $(TS)
-	tsc --module commonjs --outDir $(COMMONJS_DIR) --target es6 $(TS)
+	tsc --module commonjs --outDir $(COMMONJS_DIR) --target es2020 $(TS)
 
 $(UMD): $(PJ) $(TS)
-	tsc --module umd --outDir $(UMD_DIR) --target es6 $(TS)
+	tsc --module umd --outDir $(UMD_DIR) --target es2020 $(TS)
 
 test: all
 	mocha

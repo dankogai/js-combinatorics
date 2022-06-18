@@ -12,7 +12,7 @@ describe('class BaseN', () => {
     seed = '0123456789abcdef';
     let c = new BaseN(seed, 8);
     it(`.nth(-1) === .nth(.length-1)`, () =>
-        $$(c.nth(-1)).to.deep.equal(c.nth(c.length - 1)));
+        $$(c.nth(-1)).to.deep.equal(c.nth(c.length - 1n)));
 
     if (typeof BigInt === 'function') {
         const sbn = '18446744073709551616';
