@@ -68,7 +68,7 @@ export function factorial(n: anyint): bigint {
  */
 export function factoradic(n: anyint, l = 0): number[] {
     if (n < 0) throw new RangeError(`${n} is out of range`);
-    let [bn, bf] = [BigInt(n), BigInt(1)];
+    let [bn, bf] = [BigInt(n), 1n];
     if (!l) {
         for (l = 1; bf < bn; bf *= BigInt(++l))
             ;
@@ -287,18 +287,17 @@ export class Combination<T> extends _CBase<T, T> {
     bitwiseIterator() {
         // console.log('overriding _CBase');
         if (typeof BigInt !== 'function') throw new TypeError(`needs BigInt`);
-        const [zero, one, two] = [BigInt(0), BigInt(1), BigInt(2)];
         const inc = (x: bigint): bigint => {
             const u = x & -x;
             const v = u + x;
-            return v + (((v ^ x) / u) >> two);
+            return v + (((v ^ x) / u) >> 2n);
         }
-        let x = (one << BigInt(this.size)) - one; // 0b11...1
+        let x = (1n << BigInt(this.size)) - 1n; // 0b11...1
         return function* (it, len) {
-            for (let i = zero; i < BigInt(len); i++, x = inc(x)) {
+            for (let i = 0n; i < BigInt(len); i++, x = inc(x)) {
                 let result: T[] = [];
-                for (let y = x, j = 0; zero < y; y >>= one, j++) {
-                    if (y & one) result.push(it.seed[j]);
+                for (let y = x, j = 0; 0n < y; y >>= 1n, j++) {
+                    if (y & 1n) result.push(it.seed[j]);
                 }
                 // console.log(`x = ${x}`);
                 yield result;
@@ -353,7 +352,7 @@ export class PowerSet<T> extends _CBase<T, T> {
     constructor(seed: Iterable<T>) {
         super();
         this.seed = [...seed];
-        const length = BigInt(1) << BigInt(this.seed.length);
+        const length = 1n << BigInt(this.seed.length);
         this.length = length;
         Object.freeze(this);
     }
@@ -362,8 +361,8 @@ export class PowerSet<T> extends _CBase<T, T> {
         if (n === undefined) return undefined;
         let bn = BigInt(n);
         let result: T[] = [];
-        for (let bi = BigInt(0); bn; bn >>= BigInt(1), bi++)
-            if (bn & BigInt(1))
+        for (let bi = 0n; bn; bn >>= 1n, bi++)
+            if (bn & 1n)
                 result.push(this.seed[Number(bi)]);
         return result;
     }
@@ -376,7 +375,7 @@ export class CartesianProduct<T> extends _CBase<T[], T> {
         super();
         this.seed = args.map(v => [...v]);
         this.size = this.seed.length;
-        const length = this.seed.reduce((a, v) => a * BigInt(v.length), BigInt(1));
+        const length = this.seed.reduce((a, v) => a * BigInt(v.length), 1n);
         this.length = length;
         Object.freeze(this);
     }
