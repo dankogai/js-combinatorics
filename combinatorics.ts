@@ -171,7 +171,7 @@ class _CBase<T, U> {
      */
     [Symbol.iterator]() {
         return function* (it, len) {
-            for (let i = 0n; i < len; i++) yield it.nth(i);
+            for (let i = 0n; i < len; i++) yield it.at(i);
         }(this, this.length);
     }
     /**
@@ -211,8 +211,14 @@ class _CBase<T, U> {
     /**
      * get the `n`th element of the iterator.
      * negative `n` goes backwards
+     * like `Array.prototype.at()`
+     * @link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at
      */
-    nth(n: anyint): Optional<U[]> { return [] };
+    at(n: anyint): Optional<U[]> { return undefined; }
+    /**
+     * an alias of `at`
+     */
+    nth(n: anyint): Optional<U[]> { return this.at(n); }
     /**
      * the seed iterable
      */
@@ -229,7 +235,7 @@ class _CBase<T, U> {
      * pick random element
      */
     sample(): Optional<U[]> {
-        return this.nth(randomInteger(this.length));
+        return this.at(randomInteger(this.length));
     }
     /**
      * an infinite steam of random elements
@@ -251,7 +257,7 @@ export class Permutation<T> extends _CBase<T, T> {
         this.length = permutation(this.seed.length, this.size);
         Object.freeze(this);
     }
-    nth(n: anyint): Optional<T[]> {
+    at(n: anyint): Optional<T[]> {
         n = this._check(n);
         if (n === undefined) return undefined;
         const offset = this.seed.length - this.size;
@@ -306,7 +312,7 @@ export class Combination<T> extends _CBase<T, T> {
             }
         }(this, this.length);
     }
-    nth(n: anyint): Optional<T[]> {
+    at(n: anyint): Optional<T[]> {
         n = this._check(n);
         if (n === undefined) return undefined;
         let result: T[] = [];
@@ -331,7 +337,7 @@ export class BaseN<T> extends _CBase<T, T> {
         this.length = BigInt(size) ** BigInt(base);
         Object.freeze(this);
     }
-    nth(n: anyint): Optional<T[]> {
+    at(n: anyint): Optional<T[]> {
         n = this._check(n);
         if (n === undefined) return undefined;
         let bn = BigInt(n);
@@ -357,7 +363,7 @@ export class PowerSet<T> extends _CBase<T, T> {
         this.length = length;
         Object.freeze(this);
     }
-    nth(n: anyint): Optional<T[]> {
+    at(n: anyint): Optional<T[]> {
         n = this._check(n);
         if (n === undefined) return undefined;
         let bn = BigInt(n);
@@ -380,7 +386,7 @@ export class CartesianProduct<T> extends _CBase<T[], T> {
         this.length = length;
         Object.freeze(this);
     }
-    nth(n: anyint): Optional<T[]> {
+    at(n: anyint): Optional<T[]> {
         n = this._check(n);
         if (n === undefined) return undefined;
         let bn = BigInt(n);

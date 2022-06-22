@@ -177,7 +177,7 @@ class _CBase {
     [Symbol.iterator]() {
         return function* (it, len) {
             for (let i = 0n; i < len; i++)
-                yield it.nth(i);
+                yield it.at(i);
         }(this, this.length);
     }
     /**
@@ -219,14 +219,19 @@ class _CBase {
     /**
      * get the `n`th element of the iterator.
      * negative `n` goes backwards
+     * like `Array.prototype.at()`
+     * @link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at
      */
-    nth(n) { return []; }
-    ;
+    at(n) { return undefined; }
+    /**
+     * an alias of `at`
+     */
+    nth(n) { return this.at(n); }
     /**
      * pick random element
      */
     sample() {
-        return this.nth(randomInteger(this.length));
+        return this.at(randomInteger(this.length));
     }
     /**
      * an infinite steam of random elements
@@ -249,7 +254,7 @@ class Permutation extends _CBase {
         this.length = permutation(this.seed.length, this.size);
         Object.freeze(this);
     }
-    nth(n) {
+    at(n) {
         n = this._check(n);
         if (n === undefined)
             return undefined;
@@ -307,7 +312,7 @@ class Combination extends _CBase {
             }
         }(this, this.length);
     }
-    nth(n) {
+    at(n) {
         n = this._check(n);
         if (n === undefined)
             return undefined;
@@ -334,7 +339,7 @@ class BaseN extends _CBase {
         this.length = BigInt(size) ** BigInt(base);
         Object.freeze(this);
     }
-    nth(n) {
+    at(n) {
         n = this._check(n);
         if (n === undefined)
             return undefined;
@@ -362,7 +367,7 @@ class PowerSet extends _CBase {
         this.length = length;
         Object.freeze(this);
     }
-    nth(n) {
+    at(n) {
         n = this._check(n);
         if (n === undefined)
             return undefined;
@@ -387,7 +392,7 @@ class CartesianProduct extends _CBase {
         this.length = length;
         Object.freeze(this);
     }
-    nth(n) {
+    at(n) {
         n = this._check(n);
         if (n === undefined)
             return undefined;

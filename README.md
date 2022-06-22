@@ -227,31 +227,31 @@ The object has `.length` so you don't have to iterate to count the elements.  No
 it.length;  // 70n
 ```
 
-#### `.nth()`
+#### `.at()` (or `.nth()`)
 
-And the object has `.nth(n)` method so you can random-access each element.  This is the equivalent of subscript in `Array`.
+And the object has `.at(n)` method so you can random-access each element.  This is the equivalent of subscript in `Array`.  It was previously named `.nth()` but it was renamed to `.at()` ala `Array.prototype.at()` in ES2020. `.nth()` still available for backward compatibility.
 
 ```javascript
-it.nth(0);  //  [ 'a', 'b', 'c', 'd' ];
-it.nth(69); //  [ 'a', 'd', 'c', 'h' ];
+it.at(0);  //  [ 'a', 'b', 'c', 'd' ];
+it.at(69); //  [ 'a', 'd', 'c', 'h' ];
 ```
 
-`nth()` accepts both `Number` and `BigInt`.
+`at()` accepts both `Number` and `BigInt`.
 
 ```javascript
-it.nth(69n);  // [ 'a', 'd', 'c', 'h' ];
+it.at(69n);  // [ 'a', 'd', 'c', 'h' ];
 ```
 
-`nth()` also accepts negative indexes.   In which case `n` is `(-n)th` element from `.length`.
+`at()` also accepts negative indexes.   In which case `n` is `(-n)th` element from `.length`.
 
 ```javascript
-it.nth(-1);   // [ 'a', 'd', 'c', 'h' ]
-it.nth(-70);  // [ 'a', 'b', 'c', 'd' ]
+it.at(-1);   // [ 'a', 'd', 'c', 'h' ]
+it.at(-70);  // [ 'a', 'b', 'c', 'd' ]
 ```
 
 #### `.sample()`
 
-And `.sample()` picks random element, which is defined as `.nth(randomInteger(.length))`.
+And `.sample()` picks random element, which is defined as `.at(randomInteger(.length))`.
 
 ```javascript
 it.sample() // one of ['a', 'b', 'c', 'd'] ... ['a', 'd', 'e', 'f']
@@ -269,14 +269,14 @@ it.length;  // 403291461126605635584000000n
 You can still access elements before `Number.MAX_SAFE_INTEGER` in `Number`.
 
 ```javascript
-it.nth(0);  /* [
+it.at(0);  /* [
   'a', 'b', 'c', 'd', 'e', 'f',
   'g', 'h', 'i', 'j', 'k', 'l',
   'm', 'n', 'o', 'p', 'q', 'r',
   's', 't', 'u', 'v', 'w', 'x',
   'y', 'z'
 ] */
-it.nth(9007199254740990); /* [
+it.at(9007199254740990); /* [
   'a', 'b', 'c', 'd', 'e', 'f',
   'g', 'i', 'p', 'n', 'r', 'z',
   'm', 'h', 'y', 'x', 'u', 't',
@@ -288,14 +288,14 @@ it.nth(9007199254740990); /* [
 But how are you goint to acccess elements beyond that?  Just use `BigInt`.
 
 ```javascript
-it.nth(9007199254740991n);  /* [
+it.at(9007199254740991n);  /* [
   'a', 'b', 'c', 'd', 'e', 'f',
   'g', 'i', 'p', 'n', 'r', 'z',
   'm', 'h', 'y', 'x', 'u', 't',
   'l', 'j', 'k', 'q', 's', 'o',
   'w', 'v'
 ] */
-it.nth(it.length - 1n); /* [
+it.at(it.length - 1n); /* [
   'z', 'y', 'x', 'w', 'v', 'u',
   't', 's', 'r', 'q', 'p', 'o',
   'n', 'm', 'l', 'k', 'j', 'i',
@@ -350,7 +350,7 @@ it.length;  // 24n
 
 it = new Permutation('abcdefghijklmnopqrstuvwxyz0123456789');
 it.length;  // 371993326789901217467999448150835200000000n
-it.nth(371993326789901217467999448150835199999999n);  /* [
+it.at(371993326789901217467999448150835199999999n);  /* [
   '9', '8', '7', '6', '5', '4', '3',
   '2', '1', '0', 'z', 'y', 'x', 'w',
   'v', 'u', 't', 's', 'r', 'q', 'p',
@@ -396,7 +396,7 @@ it.length;  // 6n
 let a100 = Array(100).fill(0).map((v,i)=>i); // [0, 1, ...99]
 it = new Combination(a100, 50);
 it.length;  // 100891344545564193334812497256n
-it.nth(100891344545564193334812497255n);  /* [
+it.at(100891344545564193334812497255n);  /* [
   50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
   61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
   72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82,
@@ -433,7 +433,7 @@ it = new PowerSet(
   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 );
 it.length;  // 18446744073709551616n
-it.nth(18446744073709551615n);  /* [
+it.at(18446744073709551615n);  /* [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
   'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
   'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a',
@@ -478,7 +478,7 @@ it.length;  // 27n
 
 it = BaseN('0123456789abcdef', 16);
 it.length;  // 18446744073709551616n
-it.nth(18446744073709551615n);  /* [
+it.at(18446744073709551615n);  /* [
   'f', 'f', 'f', 'f',
   'f', 'f', 'f', 'f',
   'f', 'f', 'f', 'f',
@@ -525,7 +525,7 @@ Since the number of arguments to `CartesianProduct` is variable, it is sometimes
 let a16 =  Array(16).fill('0123456789abcdef');
 it = CartesianProduct.from(a16);
 it.length;  // 18446744073709551616n
-it.nth(18446744073709551615n);  /* [
+it.at(18446744073709551615n);  /* [
   'f', 'f', 'f', 'f',
   'f', 'f', 'f', 'f',
   'f', 'f', 'f', 'f',

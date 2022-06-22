@@ -109,6 +109,12 @@ declare class _CBase<T, U> {
     /**
      * get the `n`th element of the iterator.
      * negative `n` goes backwards
+     * like `Array.prototype.at()`
+     * @link: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at
+     */
+    at(n: anyint): Optional<U[]>;
+    /**
+     * an alias of `at`
      */
     nth(n: anyint): Optional<U[]>;
     /**
@@ -137,7 +143,7 @@ declare class _CBase<T, U> {
  */
 export declare class Permutation<T> extends _CBase<T, T> {
     constructor(seed: Iterable<T>, size?: number);
-    nth(n: anyint): Optional<T[]>;
+    at(n: anyint): Optional<T[]>;
 }
 /**
  * Combination
@@ -152,7 +158,7 @@ export declare class Combination<T> extends _CBase<T, T> {
      * @link https://en.wikipedia.org/wiki/Combinatorial_number_system#Applications
      */
     bitwiseIterator(): Generator<T[], void, unknown>;
-    nth(n: anyint): Optional<T[]>;
+    at(n: anyint): Optional<T[]>;
 }
 /**
  * Base N
@@ -160,20 +166,20 @@ export declare class Combination<T> extends _CBase<T, T> {
 export declare class BaseN<T> extends _CBase<T, T> {
     base: number;
     constructor(seed: Iterable<T>, size?: number);
-    nth(n: anyint): Optional<T[]>;
+    at(n: anyint): Optional<T[]>;
 }
 /**
  * Power Set
  */
 export declare class PowerSet<T> extends _CBase<T, T> {
     constructor(seed: Iterable<T>);
-    nth(n: anyint): Optional<T[]>;
+    at(n: anyint): Optional<T[]>;
 }
 /**
  * Cartesian Product
  */
 export declare class CartesianProduct<T> extends _CBase<T[], T> {
     constructor(...args: Iterable<T>[]);
-    nth(n: anyint): Optional<T[]>;
+    at(n: anyint): Optional<T[]>;
 }
 export {};
