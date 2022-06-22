@@ -13,8 +13,9 @@ import { type } from "os";
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-combination
  *  @link: http://www.ruby-doc.org/core-2.0/Array.html#method-i-permutation
  *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
+ *  @link: https://en.wikipedia.org/wiki/Combinatorial_number_system
  */
-export const version = '2.0.0';
+export const version = '2.0.1';
 /**
  * BigInt Workaround
  * 
