@@ -24,7 +24,7 @@
      *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
      *  @link: https://en.wikipedia.org/wiki/Combinatorial_number_system
      */
-    exports.version = '2.0.1';
+    exports.version = '2.1.0';
     /**
      * calculates `P(n, k)`.
      *
