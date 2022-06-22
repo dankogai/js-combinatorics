@@ -32,8 +32,8 @@ type Optional<T> = T | undefined;
  * @link https://en.wikipedia.org/wiki/Permutation
  */
 export function permutation(n: anyint, k: anyint): bigint {
-    if (n < 0) throw new RangeError(`negative n is not acceptable`);
-    if (k < 0) throw new RangeError(`negative k is not acceptable`);
+    if (n < 0) throw new RangeError(`${n} is out of range`);
+    if (k < 0) throw new RangeError(`${k} is out of range`);
     if (0 == k) return 1n;
     if (n < k) return 0n;
     let [bn, bk, bp] = [BigInt(n), BigInt(k), 1n];
@@ -67,7 +67,7 @@ export function factorial(n: anyint): bigint {
  * @param {number} l the number of digits
  */
 export function factoradic(n: anyint, l = 0): number[] {
-    if (n < 0) return undefined;
+    if (n < 0) throw new RangeError(`${n} is out of range`);
     let [bn, bf] = [BigInt(n), BigInt(1)];
     if (!l) {
         for (l = 1; bf < bn; bf *= BigInt(++l))
@@ -92,12 +92,12 @@ export function factoradic(n: anyint, l = 0): number[] {
  *
  * @link https://en.wikipedia.org/wiki/Combinatorial_number_system
  */
-export function combinadic(n: anyint, k: anyint) : (anyint) => number[] {
+export function combinadic(n: anyint, k: anyint): (m: anyint) => number[] {
     const count = combination(n, k);
     const [bn, bk] = [BigInt(n), BigInt(k)];
     return (m) => {
-        if (m < 0 || count <= m) return undefined;
-        let digits = [];
+        if (m < 0 || count <= m) throw new RangeError(`${m} is out of range`);
+        let digits: number[] = [];
         let [ba, bb] = [bn, bk];
         let x = BigInt(count) - 1n - BigInt(m);
         for (let i = 0; i < k; i++) {
@@ -128,7 +128,7 @@ const _randomBytes: (len: number) => Uint8Array
  * @param {anyint} min
  * @param {anyint} max
  */
-export function randomInteger(min: anyint = 0, max: anyint = Math.pow(2, 53)) : anyint {
+export function randomInteger(min: anyint = 0, max: anyint = Math.pow(2, 53)): anyint {
     let ctor = min.constructor;
     if (arguments.length === 0) {
         return Math.floor(Math.random() * ctor(max));
@@ -199,12 +199,12 @@ class _CBase<T, U> {
     /**
     * check n for nth
     */
-    _check(n: anyint): Optional<anyint> {
+    _check(n: anyint): anyint {
         if (n < 0) {
-            if (this.length < -n) return undefined;
+            if (this.length < -n) throw new RangeError(`${n} is out of range`);
             return BigInt(this.length) + BigInt(n);
         }
-        if (this.length <= n) return undefined;
+        if (this.length <= n) throw new RangeError(`${n} is out of range`);
         return n;
     }
     /**
@@ -257,7 +257,7 @@ export class Permutation<T> extends _CBase<T, T> {
         const skip = factorial(offset);
         let digits = factoradic(BigInt(n) * BigInt(skip), this.seed.length);
         let source = this.seed.slice();
-        let result = [];
+        let result: T[] = [];
         for (let i = this.seed.length - 1; offset <= i; i--) {
             result.push(source.splice(digits[i], 1)[0]);
         }
@@ -286,9 +286,7 @@ export class Combination<T> extends _CBase<T, T> {
      */
     bitwiseIterator() {
         // console.log('overriding _CBase');
-        if (typeof BigInt !== 'function') {
-            throw new RangeError(`needs BigInt`);
-        }
+        if (typeof BigInt !== 'function') throw new TypeError(`needs BigInt`);
         const [zero, one, two] = [BigInt(0), BigInt(1), BigInt(2)];
         const inc = (x: bigint): bigint => {
             const u = x & -x;
@@ -298,7 +296,7 @@ export class Combination<T> extends _CBase<T, T> {
         let x = (one << BigInt(this.size)) - one; // 0b11...1
         return function* (it, len) {
             for (let i = zero; i < BigInt(len); i++, x = inc(x)) {
-                let result = [];
+                let result: T[] = [];
                 for (let y = x, j = 0; zero < y; y >>= one, j++) {
                     if (y & one) result.push(it.seed[j]);
                 }
@@ -306,11 +304,11 @@ export class Combination<T> extends _CBase<T, T> {
                 yield result;
             }
         }(this, this.length);
-    } 
+    }
     nth(n: anyint): Optional<T[]> {
         n = this._check(n);
         if (n === undefined) return undefined;
-        let result = []
+        let result: T[] = [];
         for (let i of this.comb(n)) {
             result.push(this.seed[i]);
         }
@@ -338,7 +336,7 @@ export class BaseN<T> extends _CBase<T, T> {
         if (n === undefined) return undefined;
         let bn = BigInt(n);
         const bb = BigInt(this.base);
-        let result = [];
+        let result: T[] = [];
         for (let i = 0; i < this.size; i++) {
             let bd = bn % bb;
             result.push(this.seed[Number(bd)]);
@@ -363,7 +361,7 @@ export class PowerSet<T> extends _CBase<T, T> {
         n = this._check(n);
         if (n === undefined) return undefined;
         let bn = BigInt(n);
-        let result = [];
+        let result: T[] = [];
         for (let bi = BigInt(0); bn; bn >>= BigInt(1), bi++)
             if (bn & BigInt(1))
                 result.push(this.seed[Number(bi)]);
@@ -386,7 +384,7 @@ export class CartesianProduct<T> extends _CBase<T[], T> {
         n = this._check(n);
         if (n === undefined) return undefined;
         let bn = BigInt(n);
-        let result = [];
+        let result: T[] = [];
         for (let i = 0; i < this.size; i++) {
             const base = this.seed[i].length;
             const bb = BigInt(base);

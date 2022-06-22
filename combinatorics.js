@@ -19,9 +19,9 @@ export const version = '2.0.0';
  */
 export function permutation(n, k) {
     if (n < 0)
-        throw new RangeError(`negative n is not acceptable`);
+        throw new RangeError(`${n} is out of range`);
     if (k < 0)
-        throw new RangeError(`negative k is not acceptable`);
+        throw new RangeError(`${k} is out of range`);
     if (0 == k)
         return 1n;
     if (n < k)
@@ -61,7 +61,7 @@ export function factorial(n) {
  */
 export function factoradic(n, l = 0) {
     if (n < 0)
-        return undefined;
+        throw new RangeError(`${n} is out of range`);
     let [bn, bf] = [BigInt(n), BigInt(1)];
     if (!l) {
         for (l = 1; bf < bn; bf *= BigInt(++l))
@@ -91,7 +91,7 @@ export function combinadic(n, k) {
     const [bn, bk] = [BigInt(n), BigInt(k)];
     return (m) => {
         if (m < 0 || count <= m)
-            return undefined;
+            throw new RangeError(`${m} is out of range`);
         let digits = [];
         let [ba, bb] = [bn, bk];
         let x = BigInt(count) - 1n - BigInt(m);
@@ -199,11 +199,11 @@ class _CBase {
     _check(n) {
         if (n < 0) {
             if (this.length < -n)
-                return undefined;
+                throw new RangeError(`${n} is out of range`);
             return BigInt(this.length) + BigInt(n);
         }
         if (this.length <= n)
-            return undefined;
+            throw new RangeError(`${n} is out of range`);
         return n;
     }
     /**
@@ -275,9 +275,8 @@ export class Combination extends _CBase {
      */
     bitwiseIterator() {
         // console.log('overriding _CBase');
-        if (typeof BigInt !== 'function') {
-            throw new RangeError(`needs BigInt`);
-        }
+        if (typeof BigInt !== 'function')
+            throw new TypeError(`needs BigInt`);
         const [zero, one, two] = [BigInt(0), BigInt(1), BigInt(2)];
         const inc = (x) => {
             const u = x & -x;

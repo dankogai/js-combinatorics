@@ -55,7 +55,7 @@ export declare function factoradic(n: anyint, l?: number): number[];
  *
  * @link https://en.wikipedia.org/wiki/Combinatorial_number_system
  */
-export declare function combinadic(n: anyint, k: anyint): (anyint: any) => number[];
+export declare function combinadic(n: anyint, k: anyint): (m: anyint) => number[];
 /**
  * returns random integer `n` where `min` <= `n` < `max`:
  *
@@ -104,7 +104,7 @@ declare class _CBase<T, U> {
     /**
     * check n for nth
     */
-    _check(n: anyint): Optional<anyint>;
+    _check(n: anyint): anyint;
     /**
      * get the `n`th element of the iterator.
      * negative `n` goes backwards
@@ -150,7 +150,7 @@ export declare class Combination<T> extends _CBase<T, T> {
      *
      * @link https://en.wikipedia.org/wiki/Combinatorial_number_system#Applications
      */
-    bitwiseIterator(): Generator<any[], void, unknown>;
+    bitwiseIterator(): Generator<T[], void, unknown>;
     nth(n: anyint): Optional<T[]>;
 }
 /**
