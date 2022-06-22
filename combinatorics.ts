@@ -320,14 +320,13 @@ export class Combination<T> extends _CBase<T, T> {
 export class BaseN<T> extends _CBase<T, T> {
     base: number;
     constructor(seed: Iterable<T>, size = 1) {
+        if (size < 1) throw new RangeError(`${size} is out of range`);
         super();
         this.seed = [...seed];
         this.size = size;
         let base = this.seed.length;
         this.base = base;
-        let length = size < 1 ? 0
-            : Array(size).fill(BigInt(base)).reduce((a, v) => a * v);
-        this.length = length;
+        this.length = BigInt(size) ** BigInt(base);
         Object.freeze(this);
     }
     nth(n: anyint): Optional<T[]> {

@@ -4,7 +4,7 @@ const $$ = chai.expect.bind(chai);
 
 describe('class BaseN', () => {
     let seed = '0123';
-    for (let len = 0; len <= seed.length; len++) {
+    for (let len = 1; len <= seed.length; len++) {
         let c = new BaseN(seed, len);
         let s = new Set(c);
         it(`new BaseN('${seed}', ${len})`, () => $$([...c]).to.deep.equal([...s]));

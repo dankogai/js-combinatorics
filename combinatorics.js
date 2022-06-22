@@ -311,14 +311,14 @@ export class Combination extends _CBase {
  */
 export class BaseN extends _CBase {
     constructor(seed, size = 1) {
+        if (size < 1)
+            throw new RangeError(`${size} is out of range`);
         super();
         this.seed = [...seed];
         this.size = size;
         let base = this.seed.length;
         this.base = base;
-        let length = size < 1 ? 0
-            : Array(size).fill(BigInt(base)).reduce((a, v) => a * v);
-        this.length = length;
+        this.length = BigInt(size) ** BigInt(base);
         Object.freeze(this);
     }
     nth(n) {
