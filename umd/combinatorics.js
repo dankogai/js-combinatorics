@@ -293,10 +293,11 @@
          * @link https://en.wikipedia.org/wiki/Combinatorial_number_system#Applications
          */
         bitwiseIterator() {
+            // [Symbol.iterator]() {
             // console.log('overriding _CBase');
-            if (typeof BigInt !== 'function')
-                throw new TypeError(`needs BigInt`);
             const inc = (x) => {
+                if (x <= 0n)
+                    return 0n;
                 const u = x & -x;
                 const v = u + x;
                 return v + (((v ^ x) / u) >> 2n);
