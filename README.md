@@ -221,10 +221,13 @@ Once constructed, you can iterate via `for … of` statement or turn it into an 
 
 #### `.length`
 
-The object has `.length` so you don't have to iterate to count the elements.  Note the value is in `bigint` so you need to convert to `number`.
+The object has `.length` so you don't have to iterate to count the elements.  Note the value is in `bigint` so you may need to convert to `number`.
 
 ```javascript
-it.length;  // 70n
+it.length       // 70n
+[...it].length  // 70
+it.length ==  [...it].length // true because comparisons work between number and bigint
+it.length === [...it].length // false because types are different
 ```
 
 #### `.at()` (or `.nth()`)
@@ -316,8 +319,6 @@ You can also check if it is safe on your platform via `.isSafe`.  It is now depr
 ```javascript
 new $C.Permutation('abcdefghijklmnopqrstuvwxyz').isSafe; // always true
 ```
-
-This module still runs on platforms without `BigInt` (notably Safari 13 or below), but its operation is no longer guaranteed if `.isSafe` is false.
 
 ### class `Permutation`
 
