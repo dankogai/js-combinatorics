@@ -334,7 +334,7 @@ export class BaseN<T> extends _CBase<T, T> {
         this.size = size;
         let base = this.seed.length;
         this.base = base;
-        this.length = BigInt(size) ** BigInt(base);
+        this.length = BigInt(base) ** BigInt(size);
         Object.freeze(this);
     }
     at(n: anyint): Optional<T[]> {
