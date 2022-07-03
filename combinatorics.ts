@@ -15,7 +15,7 @@ import { type } from "os";
  *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
  *  @link: https://en.wikipedia.org/wiki/Combinatorial_number_system
  */
-export const version = '2.1.0';
+export const version = '2.1.1';
 /**
  * BigInt Workaround
  * 

@@ -12,7 +12,7 @@
  *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
  *  @link: https://en.wikipedia.org/wiki/Combinatorial_number_system
  */
-export declare const version = "2.1.0";
+export declare const version = "2.1.1";
 /**
  * BigInt Workaround
  *

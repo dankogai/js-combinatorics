@@ -15,7 +15,7 @@ exports.CartesianProduct = exports.PowerSet = exports.BaseN = exports.Combinatio
  *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
  *  @link: https://en.wikipedia.org/wiki/Combinatorial_number_system
  */
-exports.version = '2.1.0';
+exports.version = '2.1.1';
 /**
  * calculates `P(n, k)`.
  *
@@ -336,7 +336,7 @@ class BaseN extends _CBase {
         this.size = size;
         let base = this.seed.length;
         this.base = base;
-        this.length = BigInt(size) ** BigInt(base);
+        this.length = BigInt(base) ** BigInt(size);
         Object.freeze(this);
     }
     at(n) {
