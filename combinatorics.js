@@ -325,7 +325,7 @@ export class BaseN extends _CBase {
         this.size = size;
         let base = this.seed.length;
         this.base = base;
-        this.length = BigInt(size) ** BigInt(base);
+        this.length = BigInt(base) ** BigInt(size);
         Object.freeze(this);
     }
     at(n) {
