@@ -18,9 +18,9 @@
   ],
   "runkitExample": "require=require(\"esm\")(module);\nvar Combinatorics=require(\"js-combinatorics\");\n",
   "devDependencies": {
-    "typescript": "^3.9.7",
-    "@types/node": "^14.0.26",
-    "mocha": "^8.0.0",
+    "typescript": "^5.0.0",
+    "@types/node": "^18.15.11",
+    "mocha": "^10.0.0",
     "chai": "^4.2.0"
   },
   "scripts": {
