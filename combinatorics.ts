@@ -1,6 +1,3 @@
-import { doesNotThrow } from "assert";
-import { type } from "os";
-
 /**
  * combinatorics.js
  *
