@@ -18,12 +18,12 @@ export declare const version = "2.1.1";
  *
  * https://github.com/streamich/memfs/issues/275
  */
-declare type anyint = number | bigint;
+type anyint = number | bigint;
 /**
  * Optional<T> will not be official so
  * @link: https://github.com/microsoft/TypeScript/issues/19944
  */
-declare type Optional<T> = T | undefined;
+type Optional<T> = T | undefined;
 /**
  * calculates `P(n, k)`.
  *

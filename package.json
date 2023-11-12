@@ -19,7 +19,7 @@
   "runkitExample": "require=require(\"esm\")(module);\nvar Combinatorics=require(\"js-combinatorics\");\n",
   "devDependencies": {
     "typescript": "^5.0.0",
-    "@types/node": "^18.15.11",
+    "@types/node": "^20.9.0",
     "mocha": "^10.0.0",
     "chai": "^4.2.0"
   },

@@ -219,6 +219,18 @@ class _CBase {
      */
     nth(n) { return this.at(n); }
     /**
+     * the seed iterable
+     */
+    seed;
+    /**
+     * the size (# of elements) of each element.
+     */
+    size;
+    /**
+     * the number of elements
+     */
+    length;
+    /**
      * pick random element
      */
     sample() {
@@ -264,6 +276,7 @@ export class Permutation extends _CBase {
  * Combination
  */
 export class Combination extends _CBase {
+    comb;
     constructor(seed, size = 0) {
         super();
         this.seed = [...seed];
@@ -317,6 +330,7 @@ export class Combination extends _CBase {
  * Base N
  */
 export class BaseN extends _CBase {
+    base;
     constructor(seed, size = 1) {
         if (size < 1)
             throw new RangeError(`${size} is out of range`);
