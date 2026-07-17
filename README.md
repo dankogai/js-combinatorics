@@ -534,6 +534,45 @@ it.at(18446744073709551615n);  /* [
 ] */
 ````
 
+## Mission Methods?
+
+`js-combinatorics` is now natively iterable.  Meaning its custom iterators are gone -- with its methods like `.map` and `.filter`.  JS iterators are very minimalistic with only `[...]` and `for ... of`.  But don't worry.  There are several ways to make those functional methods back again. 
+
+If your JavaScript runtime is modern enough to support [Iterator.from], just feed the `Combinatorics` object to it.
+
+```javascript
+import {Permutation} from 'combinatorics.js';
+let it = new Permutation('abcd');
+let words = Iterator.from(it).map(v=>v.join(''))
+for (const word of words) console.log(word)
+/*
+abcd
+abdc
+...
+dcab
+dcba
+*/
+```
+
+[Iterator.from]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator/from
+
+
+You can also use [js-xiterable] like so:
+
+[js-xiterable]: https://github.com/dankogai/js-xiterable
+
+```javascript
+import {xiterable as $X} from 
+  'https://cdn.jsdelivr.net/npm/js-xiterable@x.y.z/xiterable.min.js';
+import {Permutation} from 'combinatorics.js';
+let it = new Permutation('abcd');
+let words = $X(it).map(v=>v.join(''))
+for (const word of words)) console.log(word)
+/*
+ditto
+*/
+```
+
 ## What's new from version 0.x?
 
 `js-combinatorics` has gone ES2015 since version 1.
@@ -567,26 +606,4 @@ class permutationCombination {
         }(this.seed);
     }
 }
-```
-
-* `js-combinatorics` is now natively iterable.  Meaning its custom iterators are gone -- with its methods like `.map` and `.filter`.  JS iterators are very minimalistic with only `[...]` and `for ... of`.  But don't worry.  There are several ways to make those functional methods back again. 
-
-For instance, You can use [js-xiterable] like so:
-
-[js-xiterable]: https://github.com/dankogai/js-xiterable
-
-```javascript
-import {xiterable as $X} from 
-  'https://cdn.jsdelivr.net/npm/js-xiterable@0.0.3/xiterable.min.js';
-import {Permutation} from 'combinatorics.js';
-let it = new Permutation('abcd');
-let words = $X(it).map(v=>v.join(''))
-for (const word of words)) console.log(word)
-/*
-abcd
-abdc
-...
-dcab
-dcba
-*/
 ```
