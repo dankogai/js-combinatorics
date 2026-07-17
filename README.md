@@ -534,7 +534,7 @@ it.at(18446744073709551615n);  /* [
 ] */
 ````
 
-## Mission Methods?
+## Missing Methods?
 
 `js-combinatorics` is now natively iterable.  Meaning its custom iterators are gone -- with its methods like `.map` and `.filter`.  JS iterators are very minimalistic with only `[...]` and `for ... of`.  But don't worry.  There are several ways to make those functional methods back again. 
 
