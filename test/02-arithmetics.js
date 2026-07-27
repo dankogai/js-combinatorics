@@ -1,8 +1,8 @@
-import {
-    permutation, combination, factorial,factoradic
-} from '../combinatorics.js';
+var {
+    permutation, combination, factorial, factoradic
+} = Combinatorics;
 
-const $$ = chai.expect.bind(chai);
+var $$ = chai.expect.bind(chai);
 
 describe('permutation', () => {
     it('permutation(3,2) === 6', ()=>$$(permutation(3, 2)).to.equal(6n));

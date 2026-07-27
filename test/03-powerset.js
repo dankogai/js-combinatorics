@@ -1,6 +1,6 @@
-import { PowerSet } from '../combinatorics.js';
+var { PowerSet } = Combinatorics;
 
-const $$ = chai.expect.bind(chai);
+var $$ = chai.expect.bind(chai);
 
 describe('class PowerSet', () => {
     let seed = [];

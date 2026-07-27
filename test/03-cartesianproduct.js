@@ -1,6 +1,6 @@
-import { CartesianProduct } from '../combinatorics.js';
+var { CartesianProduct } = Combinatorics;
 
-const $$ = chai.expect.bind(chai);
+var $$ = chai.expect.bind(chai);
 
 describe('class CartesianProduct', () => {
     let seed = [];

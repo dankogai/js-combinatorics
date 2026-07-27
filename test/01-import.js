@@ -1,4 +1,3 @@
-import * as Combinatorics from '../combinatorics.js';
 describe('import', () => {
     for (const k in Combinatorics) {
         const tn = k === 'version' ? 'string' : 'function';

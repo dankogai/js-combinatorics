@@ -1,6 +1,6 @@
-import { BaseN } from '../combinatorics.js';
+var { BaseN } = Combinatorics;
 
-const $$ = chai.expect.bind(chai);
+var $$ = chai.expect.bind(chai);
 
 describe('class BaseN', () => {
     let seed = '0123';

@@ -1,6 +1,6 @@
-import { Permutation, Combination } from '../combinatorics.js';
+var { Permutation, Combination } = Combinatorics;
 
-const $$ = chai.expect.bind(chai);
+var $$ = chai.expect.bind(chai);
 
 class PermComb {
     constructor(seed) {
