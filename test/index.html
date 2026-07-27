@@ -22,17 +22,7 @@
   <script src="https://unpkg.com/chai@4.2.0/chai.js"></script>
   <script src="https://unpkg.com/mocha@8.0.1/mocha.js"></script>
   <script>mocha.setup('bdd')</script>
-  <script>
-    /* minimal AMD shim so the UMD build registers as window.Combinatorics */
-    define = (deps, factory) => {
-      const exports = {};
-      factory(null, exports);
-      window.Combinatorics = exports;
-    };
-    define.amd = true;
-  </script>
   <script src="../umd/combinatorics.js"></script>
-  <script>delete window.define;</script>
   <script src="./01-import.js"></script>
   <script src="./02-arithmetics.js"></script>
   <script src="./03-permutation.js"></script>

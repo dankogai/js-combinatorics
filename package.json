@@ -5,26 +5,34 @@
   "main": "combinatorics.js",
   "module": "combinatorics.js",
   "type": "module",
-  "exports": {
-    "import": "./combinatorics.js",
-    "require": "./commonjs/combinatorics.js"
-  },
   "types": "combinatorics.d.ts",
+  "sideEffects": false,
   "files": [
     "combinatorics.d.ts",
     "combinatorics.js",
     "umd",
     "commonjs"
   ],
-  "runkitExample": "require=require(\"esm\")(module);\nvar Combinatorics=require(\"js-combinatorics\");\n",
-  "devDependencies": {
-    "typescript": "^5.0.0",
-    "@types/node": "^20.9.0",
-    "mocha": "^10.0.0",
-    "chai": "^4.2.0"
+  "exports": {
+    "import": "./combinatorics.js",
+    "require": "./commonjs/combinatorics.js"
   },
   "scripts": {
-    "test": "make clean && make test"
+    "build": "rollup -c && tsc -p . --declaration --emitDeclarationOnly",
+    "clean": "node -e \"['combinatorics.js','combinatorics.d.ts','umd/combinatorics.js','commonjs/combinatorics.js'].forEach(f=>require('fs').rmSync(f,{force:true}))\"",
+    "test": "npm run build && mocha",
+    "version": "npm run build && node util/sync-version.js && git add combinatorics.js combinatorics.d.ts umd/combinatorics.js commonjs/combinatorics.js README.md"
+  },
+  "runkitExample": "var Combinatorics=require(\"js-combinatorics\");\n",
+  "devDependencies": {
+    "@rollup/plugin-replace": "^6.0.3",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@types/node": "^20.9.0",
+    "chai": "^4.2.0",
+    "mocha": "^10.0.0",
+    "rollup": "^4.62.3",
+    "tslib": "^2.8.1",
+    "typescript": "^5.0.0"
   },
   "repository": {
     "type": "git",
@@ -37,6 +45,5 @@
   ],
   "author": "Dan Kogai",
   "license": "MIT",
-  "readmeFilename": "README.md",
-  "gitHead": "e3684eb54f7c6fbb24bb7a4d08d88671ce12e9eb"
+  "readmeFilename": "README.md"
 }
