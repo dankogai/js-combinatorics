@@ -9,7 +9,13 @@
 })(function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.CartesianProduct = exports.PowerSet = exports.BaseN = exports.Combination = exports.Permutation = exports.randomInteger = exports.combinadic = exports.factoradic = exports.factorial = exports.combination = exports.permutation = exports.version = void 0;
+    exports.CartesianProduct = exports.PowerSet = exports.BaseN = exports.Combination = exports.Permutation = exports.version = void 0;
+    exports.permutation = permutation;
+    exports.combination = combination;
+    exports.factorial = factorial;
+    exports.factoradic = factoradic;
+    exports.combinadic = combinadic;
+    exports.randomInteger = randomInteger;
     /**
      * combinatorics.js
      *
@@ -44,7 +50,6 @@
             bp *= bn--;
         return bp;
     }
-    exports.permutation = permutation;
     /**
      * calculates `C(n, k)`.
      *
@@ -59,7 +64,6 @@
             return 0n;
         return permutation(n, k) / permutation(k, k);
     }
-    exports.combination = combination;
     /**
      * calculates `n!` === `P(n, n)`.
      *
@@ -68,7 +72,6 @@
     function factorial(n) {
         return permutation(n, n);
     }
-    exports.factorial = factorial;
     /**
      * returns the factoradic representation of `n`, least significant order.
      *
@@ -95,7 +98,6 @@
         }
         return digits;
     }
-    exports.factoradic = factoradic;
     /**
      * `combinadic(n, k)` returns a function
      * that takes `m` as an argument and
@@ -123,7 +125,6 @@
             return digits;
         };
     }
-    exports.combinadic = combinadic;
     /**
      *
      */
@@ -159,7 +160,6 @@
         const rnd = u8s.reduce((a, v) => ((a << ctor(8)) + ctor(v)), ctor(0));
         return ((ctor(rnd) * mag) >> ctor(len * 8)) + ctor(min);
     }
-    exports.randomInteger = randomInteger;
     ;
     /**
      * Base Class of `js-combinatorics`
