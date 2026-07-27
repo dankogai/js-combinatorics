@@ -21,7 +21,7 @@
     "build": "rollup -c && tsc -p . --declaration --emitDeclarationOnly",
     "clean": "node -e \"['combinatorics.js','combinatorics.d.ts','umd/combinatorics.js','commonjs/combinatorics.js'].forEach(f=>require('fs').rmSync(f,{force:true}))\"",
     "test": "npm run build && mocha",
-    "version": "npm run build && node util/sync-version.js && git add combinatorics.js combinatorics.d.ts umd/combinatorics.js commonjs/combinatorics.js README.md"
+    "version": "npm run build && node util/sync-version.cjs && git add combinatorics.js combinatorics.d.ts umd/combinatorics.js commonjs/combinatorics.js README.md"
   },
   "runkitExample": "var Combinatorics=require(\"js-combinatorics\");\n",
   "devDependencies": {
