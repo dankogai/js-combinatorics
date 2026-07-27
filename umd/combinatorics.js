@@ -21,7 +21,7 @@
      *  @link: http://en.wikipedia.org/wiki/Factorial_number_system
      *  @link: https://en.wikipedia.org/wiki/Combinatorial_number_system
      */
-    const version = '2.1.2';
+    const version = '2.1.3';
     /**
      * calculates `P(n, k)`.
      *
