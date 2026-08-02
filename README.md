@@ -41,13 +41,13 @@ import { Combination, Permutation }  from './combinatorics.js';
 You don't even have to install if you `import` from CDNs.
 
 ```javascript
-import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@2.1.3/combinatorics.min.js';
+import * as $C from 'https://cdn.jsdelivr.net/npm/js-combinatorics@2.1.4/combinatorics.min.js';
 ```
 
 Or plain old `<script>` tags — the UMD version `umd/combinatorics.js` makes `Combinatorics` globally available.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/js-combinatorics@2.1.3/umd/combinatorics.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-combinatorics@2.1.4/umd/combinatorics.min.js"></script>
 <script>
   // now you can access Combinatorics
   let c = new Combinatorics.Combination('abcdefgh', 4);
