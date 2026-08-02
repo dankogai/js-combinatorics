@@ -8,13 +8,6 @@ js-combinatorics
 
 Simple combinatorics in JavaScript
 
-## HEADS UP: Version 2 and BigInt
-
-Now that [Internet Explorer has officially retired], It is safe to assume `BigInt` is available in every JavaScript environment.  From version 2.0 this module goes fully BigInt.  While integer arguments can still be either `number` or `bigint`, all integer values that can be `bigint` are always `bigint`, whereas previous versions may return `number` when the value <= `Number.MAX_SAFE_INTEGER`.  It is not only more combinatorically natural, but also makes debugging easier especially on TypeScript.
-
-[Internet Explorer has officially retired]: https://blogs.windows.com/windowsexperience/2022/06/15/internet-explorer-11-has-retired-and-is-officially-out-of-support-what-you-need-to-know/
-[in every JavaScript environment]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
-
 ### For Swift programmers
 
 Check [swift-combinatorics].  More naturally implemented with generics and protocol.
@@ -570,8 +563,16 @@ for (const word of words)) console.log(word)
 ditto
 */
 ```
+## Major Change3s
 
-## What's new from version 0.x?
+### Version 2 and BigInt
+
+Now that [Internet Explorer has officially retired], It is safe to assume `BigInt` is available in every JavaScript environment.  From version 2.0 this module goes fully BigInt.  While integer arguments can still be either `number` or `bigint`, all integer values that can be `bigint` are always `bigint`, whereas previous versions may return `number` when the value <= `Number.MAX_SAFE_INTEGER`.  It is not only more combinatorically natural, but also makes debugging easier especially on TypeScript.
+
+[Internet Explorer has officially retired]: https://blogs.windows.com/windowsexperience/2022/06/15/internet-explorer-11-has-retired-and-is-officially-out-of-support-what-you-need-to-know/
+[in every JavaScript environment]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+
+### What's new from version 0.x?
 
 `js-combinatorics` has gone ES2015 since version 1.
 
