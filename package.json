@@ -23,7 +23,6 @@
     "test": "npm run build && mocha",
     "version": "npm run build && node util/sync-version.cjs && git add combinatorics.js combinatorics.d.ts umd/combinatorics.js commonjs/combinatorics.js README.md"
   },
-  "runkitExample": "var Combinatorics=require(\"js-combinatorics\");\n",
   "devDependencies": {
     "@rollup/plugin-replace": "^6.0.3",
     "@rollup/plugin-typescript": "^12.3.0",
