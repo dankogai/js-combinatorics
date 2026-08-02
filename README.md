@@ -1,6 +1,6 @@
 [![ES2020](https://img.shields.io/badge/JavaScript-ES2020-blue.svg)](https://tc39.es/ecma262/2020/)
 [![MIT LiCENSE](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![CI via GitHub Actions](https://github.com/dankogai/js-combinatorics/actions/workflows/node.js.yml/badge.svg)](https://github.com/dankogai/js-combinatorics/actions/workflows/node.js.yml)
+[![CI on node.js](https://github.com/dankogai/js-combinatorics/actions/workflows/node.js.yml/badge.svg)](https://github.com/dankogai/js-combinatorics/actions/workflows/node.js.yml)
 [![CI on bun](https://github.com/dankogai/js-combinatorics/actions/workflows/bun.yml/badge.svg)](https://github.com/dankogai/js-combinatorics/actions/workflows/bun.yml)
 
 js-combinatorics
