@@ -152,6 +152,13 @@ export declare class Combination<T> extends _CBase<T, T> {
     comb: (anyint: any) => number[];
     constructor(seed: Iterable<T>, size?: number);
     /**
+     * Overrides the common iterator, which is `O(size**3)` per element
+     * because it calls `.at()` for each index.  This one yields each
+     * combination from its lexicographic successor in `O(size)`,
+     * in the same order as the common iterator.
+     */
+    [Symbol.iterator](): Generator<T[], void, unknown>;
+    /**
      * returns an iterator which is more efficient
      * than the default iterator that uses .nth
      *

@@ -276,6 +276,31 @@ class Combination extends _CBase {
         Object.freeze(this);
     }
     /**
+     * Overrides the common iterator, which is `O(size**3)` per element
+     * because it calls `.at()` for each index.  This one yields each
+     * combination from its lexicographic successor in `O(size)`,
+     * in the same order as the common iterator.
+     */
+    [Symbol.iterator]() {
+        return function* (it) {
+            if (it.length === 0n)
+                return;
+            const [n, k] = [it.seed.length, it.size];
+            const indices = Array.from({ length: k }, (_, i) => i);
+            while (true) {
+                yield indices.map(i => it.seed[i]);
+                let i = k - 1;
+                while (0 <= i && indices[i] === i + n - k)
+                    i--;
+                if (i < 0)
+                    return;
+                indices[i]++;
+                for (let j = i + 1; j < k; j++)
+                    indices[j] = indices[j - 1] + 1;
+            }
+        }(this);
+    }
+    /**
      * returns an iterator which is more efficient
      * than the default iterator that uses .nth
      *

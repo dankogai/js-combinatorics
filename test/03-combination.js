@@ -37,4 +37,14 @@ describe('class Combination', () => {
         [[1, 2], [5, 6]],
         [[3, 4], [5, 6]]
     ]));
+    // https://github.com/dankogai/js-combinatorics/issues/75
+    const abc = 'abcdefgh';
+    for (let len = 0; len <= abc.length + 1; len++) {
+        it(`[...new Combination('${abc}', ${len})] === .at(0)...at(.length-1)`, () => {
+            let c = new Combination(abc, len);
+            let byAt = [];
+            for (let i = 0n; i < c.length; i++) byAt.push(c.at(i));
+            $$([...c]).to.deep.equal(byAt);
+        });
+    }
 });
