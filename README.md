@@ -584,7 +584,7 @@ Now that [Internet Explorer has officially retired], It is safe to assume `BigIn
 
 And from version 1.2 it is written in TypeScript.  `combinatorics.js` and `combinatorics.d.ts` are compiled from `combinatorics.ts`.
 
-APIs will change accordingly.  Old versions are available in the `version0` branch.
+APIs will change accordingly.  Old versions are available under the [0.6.1](https://github.com/dankogai/js-combinatorics/tree/0.6.1) tag, the last 0.x release.
 
 ### What's gone from version 0.x?
 

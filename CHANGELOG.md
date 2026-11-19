@@ -2,7 +2,7 @@
 
 All notable changes to `js-combinatorics` are recorded here.  Versions follow [Semantic Versioning](https://semver.org/).
 
-For the changes from version 0.x to 1.x, see [Major Changes](README.md#major-changes) in the README.  Version 0.x lives on in the `version0` branch.
+For the changes from version 0.x to 1.x, see [Major Changes](README.md#major-changes) in the README.  The last 0.x release is the [0.6.1](https://github.com/dankogai/js-combinatorics/tree/0.6.1) tag.
 
 ## [2.1.4] - 2026-08-03
 
