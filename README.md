@@ -565,6 +565,8 @@ ditto
 ```
 ## Major Change3s
 
+See [CHANGELOG.md](CHANGELOG.md) for release-by-release changes.
+
 ### Version 2 and BigInt
 
 Now that [Internet Explorer has officially retired], It is safe to assume `BigInt` is available in every JavaScript environment.  From version 2.0 this module goes fully BigInt.  While integer arguments can still be either `number` or `bigint`, all integer values that can be `bigint` are always `bigint`, whereas previous versions may return `number` when the value <= `Number.MAX_SAFE_INTEGER`.  It is not only more combinatorically natural, but also makes debugging easier especially on TypeScript.
