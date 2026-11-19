@@ -563,7 +563,7 @@ for (const word of words)) console.log(word)
 ditto
 */
 ```
-## Major Change3s
+## Major Changes
 
 See [CHANGELOG.md](CHANGELOG.md) for release-by-release changes.
 
